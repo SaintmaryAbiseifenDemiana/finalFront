@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./styles.css";
-import API_BASE from "../config";
+import { API_BASE } from "../config";
+
 
 
 function Login() {
