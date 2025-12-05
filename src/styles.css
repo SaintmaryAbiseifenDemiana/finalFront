@@ -297,42 +297,61 @@ tr:nth-child(even) {
     visibility: visible;
     opacity: 1;
 }
-/* ✅ رجوع شكل صف الخادم القديم */
+/* ✅ شكل صف الخادم على الكمبيوتر */
 .servant-row {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 10px 0;
-    border-bottom: 1px dashed #eee;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 0;
+  border-bottom: 1px dashed #eee;
 }
 
-/* ✅ الاسم */
 .servant-row span {
-    width: 150px;
-    font-weight: bold;
+  width: 150px;
+  font-weight: bold;
 }
 
-/* ✅ راديو حاضر/غائب */
 .servant-row input[type="radio"] {
-    margin-left: 5px;
-    margin-right: 2px;
+  margin-left: 5px;
+  margin-right: 2px;
 }
 
-/* ✅ سبب الغياب */
 .servant-row input[type="text"] {
-    width: 250px;
-    padding: 5px;
+  width: 250px;
+  padding: 5px;
 }
 
-/* ✅ لابل حاضر/غائب/اعتذر */
 .servant-row label {
-    margin-right: 10px;
-    font-size: 14px;
+  margin-right: 10px;
+  font-size: 14px;
 }
 
-/* ✅ إلغاء تأثير Grid القديم */
-.servant-item {
-    display: block !important;
+/* ✅ شكل صف الخادم على الموبايل */
+@media (max-width: 768px) {
+  .servant-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 15px;
+    background-color: #fefefe;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .servant-row span {
+    width: 100%;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #4a69bd;
+  }
+
+  .servant-row input[type="text"] {
+    width: 100%;
+  }
+
+  .servant-row label {
+    margin-right: 0;
+  }
 }
 
 /* ====================================
