@@ -297,6 +297,43 @@ tr:nth-child(even) {
     visibility: visible;
     opacity: 1;
 }
+/* ✅ رجوع شكل صف الخادم القديم */
+.servant-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+/* ✅ الاسم */
+.servant-row span {
+    width: 150px;
+    font-weight: bold;
+}
+
+/* ✅ راديو حاضر/غائب */
+.servant-row input[type="radio"] {
+    margin-left: 5px;
+    margin-right: 2px;
+}
+
+/* ✅ سبب الغياب */
+.servant-row input[type="text"] {
+    width: 250px;
+    padding: 5px;
+}
+
+/* ✅ لابل حاضر/غائب/اعتذر */
+.servant-row label {
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+/* ✅ إلغاء تأثير Grid القديم */
+.servant-item {
+    display: block !important;
+}
 
 /* ====================================
    9. تجاوب مع الموبايل
