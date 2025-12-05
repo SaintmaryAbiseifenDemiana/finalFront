@@ -56,66 +56,64 @@ function ManageFamilies() {
     } catch (error) {
       setMessage("خطأ في الاتصال بالخادم.");
     }
-  };
+  };// ✅ حذف أسر محددة
+const deleteSelectedFamilies = async () => {
+  const selectedIds = families
+    .filter((f) => f.selected)
+    .map((f) => f.family_id);
 
-  // ✅ حذف أسر محددة
-  const deleteSelectedFamilies = async () => {
-    const selectedIds = families
-      .filter((f) => f.selected)
-      .map((f) => f.family_id);
+  if (selectedIds.length === 0) {
+    alert("❌ لازم تختاري أسرة واحدة على الأقل");
+    return;
+  }
 
-    if (selectedIds.length === 0) {
-      alert("❌ لازم تختاري أسرة واحدة على الأقل");
-      return;
+  if (!window.confirm(`هل متأكدة إنك عايزة تمسحي ${selectedIds.length} أسرة؟`)) return;
+
+  try {
+    const response = await fetch(`${API_BASE}/api/families/bulk-delete`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ family_ids: selectedIds }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      alert("✅ تم مسح الأسر المحددة");
+      loadFamilies();
+    } else {
+      alert("❌ فشل في المسح: " + data.message);
     }
+  } catch (err) {
+    console.error("خطأ في مسح الأسر:", err);
+    alert("❌ حصل خطأ أثناء المسح");
+  }
+};
 
-    if (!window.confirm(`هل متأكدة إنك عايزة تمسحي ${selectedIds.length} أسرة؟`)) return;
+// ✅ حذف أسرة واحدة فقط
+const deleteSingleFamily = async (family_id) => {
+  if (!window.confirm("هل أنتِ متأكدة من حذف هذه الأسرة؟")) return;
 
-    try {
-      const response = await fetch(`${API_BASE}/api/families/bulk-delete`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ family_ids: selectedIds }),
-      });
+  try {
+    const response = await fetch(`${API_BASE}/api/families/bulk-delete`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ family_ids: [family_id] }),
+    });
 
-      const data = await response.json();
+    const data = await response.json();
 
-      if (data.success) {
-        alert("✅ تم مسح الأسر المحددة");
-        loadFamilies();
-      } else {
-        alert("❌ فشل في المسح: " + data.message);
-      }
-    } catch (err) {
-      console.error("خطأ في مسح الأسر:", err);
-      alert("❌ حصل خطأ أثناء المسح");
+    if (data.success) {
+      alert("✅ تم حذف الأسرة");
+      loadFamilies();
+    } else {
+      alert("❌ فشل الحذف: " + data.message);
     }
-  };
-
-  // ✅ حذف أسرة واحدة فقط
-  const deleteSingleFamily = async (family_id) => {
-    if (!window.confirm("هل أنتِ متأكدة من حذف هذه الأسرة؟")) return;
-
-    try {
-      const response = await fetch(`${API_BASE}/api/families/bulk-delete`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ family_ids: [family_id] }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        alert("✅ تم حذف الأسرة");
-        loadFamilies();
-      } else {
-        alert("❌ فشل الحذف: " + data.message);
-      }
-    } catch (err) {
-      console.error("خطأ في حذف الأسرة:", err);
-      alert("❌ حصل خطأ أثناء الحذف");
-    }
-  };
+  } catch (err) {
+    console.error("خطأ في حذف الأسرة:", err);
+    alert("❌ حصل خطأ أثناء الحذف");
+  }
+};
 
   // ✅ تعديل أسرة
   const editFamily = async (family_id, currentName) => {
