@@ -29,30 +29,31 @@ function ManageServiced() {
     if (data.success) setFamilies(data.families);
   }
 
-  // ✅ تحميل الفصول
-  async function loadClasses(familyId) {
-    const res = await fetch(`${API_BASE}/api/serviced/classes/${familyId}`);
-    const data = await res.json();
-    if (data.success) setClasses(data.classes);
-  }
+// ✅ تحميل الفصول
+async function loadClasses(familyId) {
+  const res = await fetch(`${API_BASE}/api/serviced/classes/${familyId}`);
+  const data = await res.json();
+  if (data.success) setClasses(data.classes);
+}
 
-  // ✅ تحميل الخدام
-  async function loadServants(familyId, className) {
-    const res = await fetch(
-      `${API_BASE}/api/servants/by-family/${familyId}/${encodeURIComponent(className)}`
-    );
-    const data = await res.json();
-    if (data.success) setServants(data.servants);
-  }
+// ✅ تحميل الخدام
+async function loadServants(familyId, className) {
+  const res = await fetch(
+    `${API_BASE}/api/servants/by-family/${familyId}/${encodeURIComponent(className)}`
+  );
+  const data = await res.json();
+  if (data.success) setServants(data.servants);
+}
 
-  // ✅ تحميل المخدومين
-  async function loadServicedList(familyId, className) {
-    const res = await fetch(
-      `${API_BASE}/api/serviced/manage/${familyId}/${encodeURIComponent(className)}`
-    );
-    const data = await res.json();
-    if (data.success) setServicedList(data.serviced);
-  }
+// ✅ تحميل المخدومين
+async function loadServicedList(familyId, className) {
+  const res = await fetch(
+    `${API_BASE}/api/serviced/manage/${familyId}/${encodeURIComponent(className)}`
+  );
+  const data = await res.json();
+  if (data.success) setServicedList(data.serviced);
+}
+
 
   // ✅ عند اختيار الأسرة
   function handleFamilyChange(e) {
