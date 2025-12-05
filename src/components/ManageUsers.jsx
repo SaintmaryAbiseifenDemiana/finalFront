@@ -97,37 +97,37 @@ function ManageUsers() {
     }
   };
 
-  // ✅ حذف مجموعة مستخدمين
-  const deleteSelectedUsers = async () => {
-    const selectedIds = users.filter((u) => u.selected).map((u) => u.user_id);
+ // ✅ حذف مجموعة مستخدمين
+const deleteSelectedUsers = async () => {
+  const selectedIds = users.filter((u) => u.selected).map((u) => u.user_id);
 
-    if (selectedIds.length === 0) {
-      alert("❌ لازم تختاري خادم واحد على الأقل");
-      return;
+  if (selectedIds.length === 0) {
+    alert("❌ لازم تختاري خادم واحد على الأقل");
+    return;
+  }
+
+  if (!window.confirm(`هل متأكدة إنك عايزة تمسحي ${selectedIds.length} خادم؟`)) return;
+
+  try {
+    const response = await fetch(`${API_BASE}/api/users/bulk-delete`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user_ids: selectedIds }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      alert("✅ تم مسح الخدام المحددين");
+      loadUsers();
+    } else {
+      alert("❌ فشل في المسح: " + data.message);
     }
-
-    if (!window.confirm(`هل متأكدة إنك عايزة تمسحي ${selectedIds.length} خادم؟`)) return;
-
-    try {
-      const response = await fetch(`${API_BASE}/api/users/bulk-delete`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_ids: selectedIds }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        alert("✅ تم مسح الخدام المحددين");
-        loadUsers();
-      } else {
-        alert("❌ فشل في المسح: " + data.message);
-      }
-    } catch (err) {
-      console.error("خطأ في المسح:", err);
-      alert("❌ حصل خطأ أثناء المسح");
-    }
-  };
+  } catch (err) {
+    console.error("خطأ في المسح:", err);
+    alert("❌ حصل خطأ أثناء المسح");
+  }
+};
 
   // ✅ فلترة المستخدمين
   const filterUsers = (query) => {
