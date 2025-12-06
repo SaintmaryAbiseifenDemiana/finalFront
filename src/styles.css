@@ -386,28 +386,29 @@ th {
   overflow-x: auto;
   width: 100%;
   position: relative;
+  direction: rtl; /* مهم جداً */
 }
 
 /* ✅ Freeze عمود اسم الخادم */
 .freeze-col-1 {
   position: sticky;
-  left: 0;
+  right: 0; /* ✅ لأن الجدول RTL */
   background: white;
   z-index: 50;
   min-width: 150px;
   max-width: 150px;
-  border-right: 2px solid #ddd;
+  border-left: 2px solid #ddd;
 }
 
 /* ✅ Freeze عمود اسم المخدوم */
 .freeze-col-2 {
   position: sticky;
-  left: 150px; /* نفس عرض العمود الأول */
+  right: 150px; /* ✅ عرض العمود الأول */
   background: white;
   z-index: 50;
   min-width: 180px;
   max-width: 180px;
-  border-right: 2px solid #ddd;
+  border-left: 2px solid #ddd;
 }
 
 /* ✅ الرأس */
@@ -418,7 +419,6 @@ th {
   color: white;
   z-index: 100;
 }
-
 
 #monthlySummaryTitle {
   display: none;
