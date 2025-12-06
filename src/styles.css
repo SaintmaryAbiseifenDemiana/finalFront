@@ -423,7 +423,7 @@ th {
 .table th {
   position: sticky;
   top: 0;
-  background: #007bff;
+  background: #0028ff;
   color: white;
   z-index: 100;
 }
@@ -431,7 +431,7 @@ th {
 .table thead th {
   position: sticky;
   top: 0;
-  background: #0028ff; /* لون فاتح علشان يبان */
+  background: #007bff; /* لون فاتح علشان يبان */
   z-index: 100; /* أعلى من الأعمدة */
   border-bottom: 2px solid #ccc;
 }
