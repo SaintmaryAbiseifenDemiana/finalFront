@@ -435,6 +435,12 @@ th {
   z-index: 100; /* أعلى من الأعمدة */
   border-bottom: 2px solid #ccc;
 }
+/* ✅ فاصل واضح بين كل خادم وخادم */
+.servant-separator td {
+  border-top: 4px solid #000;   /* خط سميك */
+  font-weight: bold;            /* النص Bold */
+  background-color: #f0f0f0;    /* خلفية خفيفة علشان يبان */
+}
 
 #monthlySummaryTitle {
   display: none;
