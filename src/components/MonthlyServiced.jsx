@@ -4,12 +4,11 @@ import { API_BASE } from "../config";
 
 function MonthlyServiced() {
 
-  // ✅ دالة لتوحيد صيغة التاريخ
   function normalizeDate(value) {
     if (!value) return null;
     const d = new Date(value);
     if (isNaN(d.getTime())) return null;
-    return d.toISOString().split("T")[0]; // YYYY-MM-DD
+    return d.toISOString().split("T")[0];
   }
 
   useEffect(() => {
@@ -31,7 +30,6 @@ function MonthlyServiced() {
     return fridays;
   }
 
-  // ✅ تحميل الأسر
   async function loadFamilies() {
     const select = document.getElementById("familySelect");
     select.innerHTML = "<option value=''>-- جاري تحميل الأسر... --</option>";
@@ -60,7 +58,6 @@ function MonthlyServiced() {
     }
   }
 
-  // ✅ التقرير الشهري
   async function loadMonthlyReport() {
     const month = document.getElementById("monthSelect").value;
     const familyId = document.getElementById("familySelect").value;
@@ -112,13 +109,12 @@ function MonthlyServiced() {
           <tr>
             <th class="freeze-col-1">اسم الخادم</th>
             <th class="freeze-col-2">المخدوم</th>
-
             ${allDates.map((d, i) => {
               const shortDate = new Date(d).toLocaleDateString("ar-EG", {
                 day: "2-digit",
                 month: "2-digit"
               });
-              return `<th class="month-col-${i}">${shortDate}</th>`;
+              return `<th>${shortDate}</th>`;
             }).join("")}
             <th>النسبة الشهرية</th>
           </tr>
@@ -139,15 +135,13 @@ function MonthlyServiced() {
                   totalPresent += presentCount;
 
                   return `
-                    <tr class="${index === 0 ? "servant-separator" : ""}">
+                    <tr>
                       ${index === 0 ? `<td class="freeze-col-1" rowspan="${records.length}">${servantName}</td>` : ""}
                       <td class="freeze-col-2">${s.serviced_name}</td>
-
-
                       ${allDates
-                        .map((d, i) => {
+                        .map((d) => {
                           const session = s.sessions.find((x) => normalizeDate(x.date) === d);
-                          return `<td class="month-col-${i}">${session ? (session.status === "Present" ? "1" : "0") : "-"}</td>`;
+                          return `<td>${session ? (session.status === "Present" ? "1" : "0") : "-"}</td>`;
                         })
                         .join("")}
                       <td>${percentage}%</td>
@@ -160,7 +154,11 @@ function MonthlyServiced() {
         </tbody>
       `;
 
-      blocksDiv.appendChild(table);
+      const wrapper = document.createElement("div");
+      wrapper.className = "table-wrapper";
+      wrapper.appendChild(table);
+
+      blocksDiv.appendChild(wrapper);
 
       const familyPercentage =
         totalSessions > 0 ? Math.round((totalPresent / totalSessions) * 100) : 0;
@@ -178,7 +176,6 @@ function MonthlyServiced() {
     }
   }
 
-  // ✅ التقرير السنوي (بدون تغيير)
   async function loadYearlyReport() {
     const familyId = document.getElementById("familySelect").value;
     const blocksDiv = document.getElementById("servantsBlocks");
@@ -262,7 +259,6 @@ function MonthlyServiced() {
         <tr>
           <th class="freeze-col-1">اسم الخادم</th>
           <th class="freeze-col-2">المخدوم</th>
-
           ${months.map((m) => `<th>${m.label}</th>`).join("")}
           <th>النسبة السنوية</th>
         </tr>
@@ -278,13 +274,11 @@ function MonthlyServiced() {
                     : 0;
 
                 return `
-                  <tr class="${index === 0 ? "servant-separator" : ""}">
+                  <tr>
                     ${index === 0 ? `<td class="freeze-col-1" rowspan="${records.length}">${servantName}</td>` : ""}
                     <td class="freeze-col-2">${s.serviced_name}</td>
-
-
                     ${months
-                      .map((m, i) => {
+                      .map((m) => {
                         const cell = s.monthly[m.label];
                         return `<td>${cell ? cell.percentage + "%" : "0%"}</td>`;
                       })
@@ -299,7 +293,11 @@ function MonthlyServiced() {
       </tbody>
     `;
 
-    blocksDiv.appendChild(table);
+    const wrapper = document.createElement("div");
+    wrapper.className = "table-wrapper";
+    wrapper.appendChild(table);
+
+    blocksDiv.appendChild(wrapper);
   }
 
   return (
