@@ -358,6 +358,10 @@ table {
   border-collapse: collapse; 
   margin-top: 20px; 
 }
+th[class^="month-col-"] {
+  background-color: #007bff !important;
+  color: white;
+}
 
 th, td { 
   text-align: center; 
