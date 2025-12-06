@@ -385,24 +385,22 @@ th {
 }
 
 /* ✅ Freeze عمود اسم الخادم */
-.table td.servant-name,
-.table th.servant-name {
+.servant-name {
   position: sticky;
   left: 0;
   background: white;
-  z-index: 5;
+  z-index: 20;
   min-width: 140px;
   max-width: 140px;
   border-right: 2px solid #ddd;
 }
 
 /* ✅ Freeze عمود اسم المخدوم */
-.table td.serviced-name,
-.table th.serviced-name {
+.serviced-name {
   position: sticky;
-  left: 140px;
+  left: 140px; /* نفس عرض العمود الأول */
   background: white;
-  z-index: 5;
+  z-index: 20;
   min-width: 160px;
   max-width: 160px;
   border-right: 2px solid #ddd;
@@ -414,7 +412,7 @@ th {
   top: 0;
   background: #007bff;
   color: white;
-  z-index: 10;
+  z-index: 30;
 }
 
 #monthlySummaryTitle {

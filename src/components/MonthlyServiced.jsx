@@ -141,6 +141,7 @@ function MonthlyServiced() {
                     <tr class="${index === 0 ? "servant-separator" : ""}">
                       ${index === 0 ? `<td class="servant-name" rowspan="${records.length}">${servantName}</td>` : ""}
                       <td class="serviced-name">${s.serviced_name}</td>
+
                       ${allDates
                         .map((d, i) => {
                           const session = s.sessions.find((x) => normalizeDate(x.date) === d);
@@ -277,6 +278,7 @@ function MonthlyServiced() {
                   <tr class="${index === 0 ? "servant-separator" : ""}">
                     ${index === 0 ? `<td class="servant-name" rowspan="${records.length}">${servantName}</td>` : ""}
                     <td class="serviced-name">${s.serviced_name}</td>
+
                     ${months
                       .map((m, i) => {
                         const cell = s.monthly[m.label];
