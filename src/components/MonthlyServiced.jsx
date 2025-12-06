@@ -3,6 +3,15 @@ import "../styles.css";
 import { API_BASE } from "../config";
 
 function MonthlyServiced() {
+
+  // ✅ دالة لتوحيد صيغة التاريخ
+  function normalizeDate(value) {
+    if (!value) return null;
+    const d = new Date(value);
+    if (isNaN(d.getTime())) return null;
+    return d.toISOString().split("T")[0]; // YYYY-MM-DD
+  }
+
   useEffect(() => {
     loadFamilies();
 
@@ -81,7 +90,7 @@ function MonthlyServiced() {
 
       const allDates = [...new Set(
         data.serviced.flatMap((s) =>
-          Array.isArray(s.sessions) ? s.sessions.map((x) => x.date) : []
+          Array.isArray(s.sessions) ? s.sessions.map((x) => normalizeDate(x.date)) : []
         )
       )].sort();
 
@@ -103,13 +112,13 @@ function MonthlyServiced() {
           <tr>
             <th>اسم الخادم</th>
             <th>المخدوم</th>
-         <th>   ${allDates.map((d, i) => {
+            ${allDates.map((d, i) => {
               const shortDate = new Date(d).toLocaleDateString("ar-EG", {
                 day: "2-digit",
                 month: "2-digit"
               });
               return `<th class="month-col-${i}">${shortDate}</th>`;
-            }).join("")} </th>
+            }).join("")}
             <th>النسبة الشهرية</th>
           </tr>
         </thead>
@@ -134,7 +143,7 @@ function MonthlyServiced() {
                       <td>${s.serviced_name}</td>
                       ${allDates
                         .map((d, i) => {
-                          const session = s.sessions.find((x) => x.date === d);
+                          const session = s.sessions.find((x) => normalizeDate(x.date) === d);
                           return `<td class="month-col-${i}">${session ? (session.status === "Present" ? "1" : "0") : "-"}</td>`;
                         })
                         .join("")}
@@ -166,7 +175,7 @@ function MonthlyServiced() {
     }
   }
 
-  // ✅ التقرير السنوي
+  // ✅ التقرير السنوي (بدون تغيير)
   async function loadYearlyReport() {
     const familyId = document.getElementById("familySelect").value;
     const blocksDiv = document.getElementById("servantsBlocks");
