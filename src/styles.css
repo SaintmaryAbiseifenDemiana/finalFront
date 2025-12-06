@@ -417,6 +417,14 @@ th {
   color: white;
   z-index: 100;
 }
+/* ✅ Freeze صف العناوين */
+.table thead th {
+  position: sticky;
+  top: 0;
+  background: #f8f9fa; /* لون فاتح علشان يبان */
+  z-index: 100; /* أعلى من الأعمدة */
+  border-bottom: 2px solid #ccc;
+}
 
 #monthlySummaryTitle {
   display: none;
