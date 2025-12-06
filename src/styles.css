@@ -411,7 +411,7 @@ th {
 /* ✅ Freeze عمود اسم المخدوم */
 .freeze-col-2 {
   position: sticky;
-  right: 980px; /* ✅ عرض العمود الأول */
+  right: 80px; /* ✅ عرض العمود الأول */
   background: #dbe8ff;
   z-index: 50;
   min-width: 100px;
