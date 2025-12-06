@@ -403,15 +403,15 @@ th {
   right: 0; /* ✅ لأن الجدول RTL */
   background: #dbe8ff;
   z-index: 50;
-  min-width: 90px;
-  max-width: 90px;
+  min-width: 80px;
+  max-width: 80px;
   border-left: 2px solid #ddd;
 }
 
 /* ✅ Freeze عمود اسم المخدوم */
 .freeze-col-2 {
   position: sticky;
-  right: 80px; /* ✅ عرض العمود الأول */
+  right: 980px; /* ✅ عرض العمود الأول */
   background: #dbe8ff;
   z-index: 50;
   min-width: 100px;
@@ -423,7 +423,7 @@ th {
 .table th {
   position: sticky;
   top: 0;
-  background: #007bff;
+  background: #0028ff;
   color: white;
   z-index: 100;
 }
