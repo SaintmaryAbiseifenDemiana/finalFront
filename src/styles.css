@@ -377,9 +377,7 @@ th {
 .summary-table {
   display: none;
 }
-#servantsBlocks table {
-  min-width: 1200px; /* أو أكبر حسب عدد الشهور */
-}
+
 
 /* ✅ منطقة الجدول */
 #servantsBlocks {
