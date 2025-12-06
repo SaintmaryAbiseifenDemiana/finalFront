@@ -103,7 +103,7 @@ function MonthlyServiced() {
           <tr>
             <th>اسم الخادم</th>
             <th>المخدوم</th>
-            ${allDates.map((d) => `<th>${d}</th>`).join("")}
+            ${allDates.map((d, i) => `<th class="month-col-${i}">${d}</th>`).join("")}
             <th>النسبة الشهرية</th>
           </tr>
         </thead>
@@ -123,13 +123,13 @@ function MonthlyServiced() {
                   totalPresent += presentCount;
 
                   return `
-                    <tr>
+                    <tr class="${index === 0 ? "servant-separator" : ""}">
                       ${index === 0 ? `<td rowspan="${records.length}">${servantName}</td>` : ""}
                       <td>${s.serviced_name}</td>
                       ${allDates
-                        .map((d) => {
+                        .map((d, i) => {
                           const session = s.sessions.find((x) => x.date === d);
-                          return `<td>${session ? (session.status === "Present" ? "1" : "0") : "-"}</td>`;
+                          return `<td class="month-col-${i}">${session ? (session.status === "Present" ? "1" : "0") : "-"}</td>`;
                         })
                         .join("")}
                       <td>${percentage}%</td>
@@ -160,7 +160,7 @@ function MonthlyServiced() {
     }
   }
 
-  // ✅ التقرير السنوي
+  // ✅ التقرير السنوي (بدون تعديل لأنه مش محتاج ألوان)
   async function loadYearlyReport() {
     const familyId = document.getElementById("familySelect").value;
     const blocksDiv = document.getElementById("servantsBlocks");
