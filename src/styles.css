@@ -377,7 +377,11 @@ th {
 .summary-table {
   display: none;
 }
-/* ✅ خلي الجدول يتحرك يمين وشمال */
+#servantsBlocks table {
+  min-width: 1200px; /* أو أكبر حسب عدد الشهور */
+}
+
+/* ✅ منطقة الجدول */
 #servantsBlocks {
   overflow-x: auto;
   width: 100%;
@@ -385,35 +389,36 @@ th {
 }
 
 /* ✅ Freeze عمود اسم الخادم */
-.servant-name {
+.freeze-col-1 {
   position: sticky;
   left: 0;
   background: white;
-  z-index: 20;
-  min-width: 140px;
-  max-width: 140px;
+  z-index: 50;
+  min-width: 150px;
+  max-width: 150px;
   border-right: 2px solid #ddd;
 }
 
 /* ✅ Freeze عمود اسم المخدوم */
-.serviced-name {
+.freeze-col-2 {
   position: sticky;
-  left: 140px; /* نفس عرض العمود الأول */
+  left: 150px; /* نفس عرض العمود الأول */
   background: white;
-  z-index: 20;
-  min-width: 160px;
-  max-width: 160px;
+  z-index: 50;
+  min-width: 180px;
+  max-width: 180px;
   border-right: 2px solid #ddd;
 }
 
-/* ✅ الرأس يفضل ثابت */
+/* ✅ الرأس */
 .table th {
   position: sticky;
   top: 0;
   background: #007bff;
   color: white;
-  z-index: 30;
+  z-index: 100;
 }
+
 
 #monthlySummaryTitle {
   display: none;

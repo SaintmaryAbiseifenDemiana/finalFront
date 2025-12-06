@@ -110,8 +110,9 @@ function MonthlyServiced() {
       table.innerHTML = `
         <thead>
           <tr>
-            <th class="servant-name">اسم الخادم</th>
-            <th class="serviced-name">المخدوم</th>
+            <th class="freeze-col-1">اسم الخادم</th>
+            <th class="freeze-col-2">المخدوم</th>
+
             ${allDates.map((d, i) => {
               const shortDate = new Date(d).toLocaleDateString("ar-EG", {
                 day: "2-digit",
@@ -139,8 +140,9 @@ function MonthlyServiced() {
 
                   return `
                     <tr class="${index === 0 ? "servant-separator" : ""}">
-                      ${index === 0 ? `<td class="servant-name" rowspan="${records.length}">${servantName}</td>` : ""}
-                      <td class="serviced-name">${s.serviced_name}</td>
+                      ${index === 0 ? `<td class="freeze-col-1" rowspan="${records.length}">${servantName}</td>` : ""}
+                      <td class="freeze-col-2">${s.serviced_name}</td>
+
 
                       ${allDates
                         .map((d, i) => {
@@ -258,8 +260,9 @@ function MonthlyServiced() {
     table.innerHTML = `
       <thead>
         <tr>
-          <th class="servant-name">اسم الخادم</th>
-          <th class="serviced-name">المخدوم</th>
+          <th class="freeze-col-1">اسم الخادم</th>
+          <th class="freeze-col-2">المخدوم</th>
+
           ${months.map((m) => `<th>${m.label}</th>`).join("")}
           <th>النسبة السنوية</th>
         </tr>
@@ -276,8 +279,9 @@ function MonthlyServiced() {
 
                 return `
                   <tr class="${index === 0 ? "servant-separator" : ""}">
-                    ${index === 0 ? `<td class="servant-name" rowspan="${records.length}">${servantName}</td>` : ""}
-                    <td class="serviced-name">${s.serviced_name}</td>
+                    ${index === 0 ? `<td class="freeze-col-1" rowspan="${records.length}">${servantName}</td>` : ""}
+                    <td class="freeze-col-2">${s.serviced_name}</td>
+
 
                     ${months
                       .map((m, i) => {
