@@ -110,8 +110,8 @@ function MonthlyServiced() {
       table.innerHTML = `
         <thead>
           <tr>
-            <th>اسم الخادم</th>
-            <th>المخدوم</th>
+            <th class="servant-name">اسم الخادم</th>
+            <th class="serviced-name">المخدوم</th>
             ${allDates.map((d, i) => {
               const shortDate = new Date(d).toLocaleDateString("ar-EG", {
                 day: "2-digit",
@@ -139,8 +139,8 @@ function MonthlyServiced() {
 
                   return `
                     <tr class="${index === 0 ? "servant-separator" : ""}">
-                      ${index === 0 ? `<td rowspan="${records.length}">${servantName}</td>` : ""}
-                      <td>${s.serviced_name}</td>
+                      ${index === 0 ? `<td class="servant-name" rowspan="${records.length}">${servantName}</td>` : ""}
+                      <td class="serviced-name">${s.serviced_name}</td>
                       ${allDates
                         .map((d, i) => {
                           const session = s.sessions.find((x) => normalizeDate(x.date) === d);
@@ -257,8 +257,8 @@ function MonthlyServiced() {
     table.innerHTML = `
       <thead>
         <tr>
-          <th>اسم الخادم</th>
-          <th>المخدوم</th>
+          <th class="servant-name">اسم الخادم</th>
+          <th class="serviced-name">المخدوم</th>
           ${months.map((m) => `<th>${m.label}</th>`).join("")}
           <th>النسبة السنوية</th>
         </tr>
@@ -275,8 +275,8 @@ function MonthlyServiced() {
 
                 return `
                   <tr class="${index === 0 ? "servant-separator" : ""}">
-                    ${index === 0 ? `<td rowspan="${records.length}">${servantName}</td>` : ""}
-                    <td>${s.serviced_name}</td>
+                    ${index === 0 ? `<td class="servant-name" rowspan="${records.length}">${servantName}</td>` : ""}
+                    <td class="serviced-name">${s.serviced_name}</td>
                     ${months
                       .map((m, i) => {
                         const cell = s.monthly[m.label];

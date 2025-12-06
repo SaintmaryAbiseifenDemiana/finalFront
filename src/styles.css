@@ -384,9 +384,9 @@ th {
   position: relative;
 }
 
-/* ✅ Freeze عمود اسم الخادم (أول عمود فعلي) */
-.table th:nth-child(1),
-.table td:nth-child(1) {
+/* ✅ Freeze عمود اسم الخادم */
+.table td.servant-name,
+.table th.servant-name {
   position: sticky;
   left: 0;
   background: white;
@@ -396,11 +396,11 @@ th {
   border-right: 2px solid #ddd;
 }
 
-/* ✅ Freeze عمود المخدوم (ثاني عمود فعلي) */
-.table th:nth-child(2),
-.table td:nth-child(2) {
+/* ✅ Freeze عمود اسم المخدوم */
+.table td.serviced-name,
+.table th.serviced-name {
   position: sticky;
-  left: 140px; /* نفس عرض العمود الأول */
+  left: 140px;
   background: white;
   z-index: 5;
   min-width: 160px;
@@ -412,6 +412,8 @@ th {
 .table th {
   position: sticky;
   top: 0;
+  background: #007bff;
+  color: white;
   z-index: 10;
 }
 
