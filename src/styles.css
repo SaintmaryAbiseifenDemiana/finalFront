@@ -436,11 +436,6 @@ th {
   border-bottom: 2px solid #ccc;
 }
 
-.servant-separator  thead  td {
-  border-top: 4px solid #000;
-  font-weight: bold;
-  background-color: #f0f0f0;
-}
 
 #monthlySummaryTitle {
   display: none;
@@ -462,6 +457,11 @@ th {
 
 
 
+.servant-separator  thead  td {
+  border-top: 4px solid #000;
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
 
 
 /* ====================================
