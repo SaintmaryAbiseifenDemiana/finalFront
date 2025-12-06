@@ -103,13 +103,13 @@ function MonthlyServiced() {
           <tr>
             <th>اسم الخادم</th>
             <th>المخدوم</th>
-            ${allDates.map((d, i) => {
+         <th>   ${allDates.map((d, i) => {
               const shortDate = new Date(d).toLocaleDateString("ar-EG", {
                 day: "2-digit",
                 month: "2-digit"
               });
               return `<th class="month-col-${i}">${shortDate}</th>`;
-            }).join("")}
+            }).join("")} </th>
             <th>النسبة الشهرية</th>
           </tr>
         </thead>
