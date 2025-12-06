@@ -377,6 +377,17 @@ th {
 .summary-table {
   display: none;
 }
+/* ✅ خلي جدول السنوية يلفّف جوه نفسه */
+#servantsBlocks {
+  overflow-x: auto;
+  width: 100%;
+}
+
+/* ✅ خليه ما يخرجش برا الشاشة */
+#servantsBlocks table {
+  width: max-content;
+  min-width: 100%;
+}
 
 #monthlySummaryTitle {
   display: none;
