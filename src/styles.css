@@ -423,7 +423,7 @@ th {
 .table th {
   position: sticky;
   top: 0;
-  background: #0028ff;
+  background: #007bff;
   color: white;
   z-index: 100;
 }
@@ -435,10 +435,7 @@ th {
   z-index: 100; /* أعلى من الأعمدة */
   border-bottom: 2px solid #ccc;
 }
-/* خط سميك بين كل خادم */
-.servant-separator td {
-  border-top: 4px solid #000;
-}
+
 
 
 #monthlySummaryTitle {
@@ -459,7 +456,10 @@ th {
 .month-col-10 { background-color: #fffaf0; }  /* أغسطس */
 .month-col-11 { background-color: #f0ffff; }  /* سبتمبر */
 
-
+/* خط سميك بين كل خادم */
+.servant-separator td {
+  border-top: 4px solid #000;
+}
 
 
 /* ====================================
