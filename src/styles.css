@@ -436,7 +436,11 @@ th {
   border-bottom: 2px solid #ccc;
 }
 
-
+.servant-separator  thead  td {
+  border-top: 4px solid #000;
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
 
 #monthlySummaryTitle {
   display: none;
@@ -456,11 +460,7 @@ th {
 .month-col-10 { background-color: #fffaf0; }  /* أغسطس */
 .month-col-11 { background-color: #f0ffff; }  /* سبتمبر */
 
-.servant-separator td {
-  border-top: 4px solid #000;
-  font-weight: bold;
-  background-color: #f0f0f0;
-}
+
 
 
 
