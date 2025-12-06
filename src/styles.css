@@ -401,7 +401,7 @@ th {
 .freeze-col-1 {
   position: sticky;
   right: 0; /* ✅ لأن الجدول RTL */
-  background: white;
+  background: #dbe8ff;
   z-index: 50;
   min-width: 90px;
   max-width: 90px;
@@ -412,7 +412,7 @@ th {
 .freeze-col-2 {
   position: sticky;
   right: 80px; /* ✅ عرض العمود الأول */
-  background: white;
+  background: #dbe8ff;
   z-index: 50;
   min-width: 100px;
   max-width: 100px;
