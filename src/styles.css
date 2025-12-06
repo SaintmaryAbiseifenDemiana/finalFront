@@ -384,19 +384,19 @@ th {
   position: relative;
 }
 
-/* ✅ العمود الأول (اسم الخادم) */
-.table th:first-child,
-.table td:first-child {
+/* ✅ Freeze عمود اسم الخادم (أول عمود فعلي) */
+.table th:nth-child(1),
+.table td:nth-child(1) {
   position: sticky;
   left: 0;
   background: white;
   z-index: 5;
-  min-width: 140px; /* عرض ثابت */
+  min-width: 140px;
   max-width: 140px;
   border-right: 2px solid #ddd;
 }
 
-/* ✅ العمود الثاني (المخدوم) */
+/* ✅ Freeze عمود المخدوم (ثاني عمود فعلي) */
 .table th:nth-child(2),
 .table td:nth-child(2) {
   position: sticky;
@@ -412,12 +412,8 @@ th {
 .table th {
   position: sticky;
   top: 0;
-  background: #007bff;
-  color: white;
   z-index: 10;
 }
-
-
 
 #monthlySummaryTitle {
   display: none;
