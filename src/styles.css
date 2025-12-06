@@ -460,10 +460,7 @@ th {
 .month-col-10 { background-color: #fffaf0; }  /* أغسطس */
 .month-col-11 { background-color: #f0ffff; }  /* سبتمبر */
 
-/* خط سميك بين كل خادم */
-.servant-separator td {
-  border-top: 3px solid #000;
-}
+
 
 
 /* ====================================
