@@ -126,13 +126,12 @@ function MonthlyServiced() {
                     <tr class="${index === 0 ? "servant-separator" : ""}">
                       ${index === 0 ? `<td rowspan="${records.length}">${servantName}</td>` : ""}
                       <td>${s.serviced_name}</td>
-                      ${allDates.map((d, i) => {
-                         const shortDate = new Date(d).toLocaleDateString("ar-EG", {
-                            day: "2-digit",
-                             month: "2-digit"
-                          });
-                         return `<th class="month-col-${i}">${shortDate}</th>`;
-                      }).join("")}
+                       ${allDates
+                        .map((d, i) => {
+                          const session = s.sessions.find((x) => x.date === d);
+                          return `<td class="month-col-${i}">${session ? (session.status === "Present" ? "1" : "0") : "-"}</td>`;
+                        })
+                        .join("")}
 
 
                       <td>${percentage}%</td>
@@ -247,7 +246,13 @@ function MonthlyServiced() {
         <tr>
           <th>اسم الخادم</th>
           <th>المخدوم</th>
-          ${months.map((m) => `<th>${m.label}</th>`).join("")}
+          ${allDates.map((d, i) => {
+               const shortDate = new Date(d).toLocaleDateString("ar-EG", {
+                 day: "2-digit",
+                 month: "2-digit"
+           });
+            return `<th class="month-col-${i}">${shortDate}</th>`;
+          }).join("")}
           <th>النسبة السنوية</th>
         </tr>
       </thead>
