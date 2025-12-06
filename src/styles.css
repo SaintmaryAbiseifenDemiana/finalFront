@@ -353,6 +353,50 @@ tr:nth-child(even) {
     margin-right: 0;
   }
 }
+table { 
+  width: 100%; 
+  border-collapse: collapse; 
+  margin-top: 20px; 
+}
+
+th, td { 
+  text-align: center; 
+  padding: 5px; 
+  border: 1px solid #ccc; 
+}
+
+th { 
+  background-color: #007bff; 
+  color: white; 
+}
+
+.summary-table {
+  display: none;
+}
+
+#monthlySummaryTitle {
+  display: none;
+}
+
+/* ألوان فاتحة لكل شهر */
+.month-col-0 { background-color: #f9f9f9; }   /* أكتوبر */
+.month-col-1 { background-color: #fef6e4; }   /* نوفمبر */
+.month-col-2 { background-color: #eaf4fc; }   /* ديسمبر */
+.month-col-3 { background-color: #f0f9eb; }   /* يناير */
+.month-col-4 { background-color: #fff0f6; }   /* فبراير */
+.month-col-5 { background-color: #fdfde7; }   /* مارس */
+.month-col-6 { background-color: #e8f7f5; }   /* أبريل */
+.month-col-7 { background-color: #f9f0ff; }   /* مايو */
+.month-col-8 { background-color: #f0f8ff; }   /* يونيو */
+.month-col-9 { background-color: #f6fff0; }   /* يوليو */
+.month-col-10 { background-color: #fffaf0; }  /* أغسطس */
+.month-col-11 { background-color: #f0ffff; }  /* سبتمبر */
+
+/* خط سميك بين كل خادم */
+.servant-separator td {
+  border-top: 3px solid #000;
+}
+
 
 /* ====================================
    9. تجاوب مع الموبايل
