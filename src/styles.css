@@ -377,36 +377,46 @@ th {
 .summary-table {
   display: none;
 }
-/* ✅ خلي الجدول نفسه يتحرك يمين وشمال */
+/* ✅ خلي الجدول يتحرك يمين وشمال */
 #servantsBlocks {
   overflow-x: auto;
   width: 100%;
+  position: relative;
 }
 
-/* ✅ أول عمود (اسم الخادم) ثابت */
-.table td:first-child,
-.table th:first-child {
+/* ✅ العمود الأول (اسم الخادم) */
+.table th:first-child,
+.table td:first-child {
   position: sticky;
   left: 0;
   background: white;
-  z-index: 3;
+  z-index: 5;
+  min-width: 140px; /* عرض ثابت */
+  max-width: 140px;
+  border-right: 2px solid #ddd;
 }
 
-/* ✅ ثاني عمود (المخدوم) ثابت */
-.table td:nth-child(2),
-.table th:nth-child(2) {
+/* ✅ العمود الثاني (المخدوم) */
+.table th:nth-child(2),
+.table td:nth-child(2) {
   position: sticky;
-  left: 120px; /* حسب عرض العمود الأول */
+  left: 140px; /* نفس عرض العمود الأول */
   background: white;
-  z-index: 3;
+  z-index: 5;
+  min-width: 160px;
+  max-width: 160px;
+  border-right: 2px solid #ddd;
 }
 
-/* ✅ علشان الرأس يفضل فوق */
+/* ✅ الرأس يفضل ثابت */
 .table th {
   position: sticky;
   top: 0;
-  z-index: 4;
+  background: #007bff;
+  color: white;
+  z-index: 10;
 }
+
 
 
 #monthlySummaryTitle {
