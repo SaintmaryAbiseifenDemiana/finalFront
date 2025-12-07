@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import "./styles.css";
 import { API_BASE } from "../config";
 
-
-
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -63,41 +61,48 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
-      <h2>تسجيل الدخول</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="username">اسم المستخدم:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
+    <>
+      {/* ✅ فيديو الخلفية */}
+      <video autoPlay muted loop playsInline id="loginVideo">
+        <source src="/login-bg.mp4" type="video/mp4" />
+      </video>
 
-        <div className="form-group">
-          <label htmlFor="password">كلمة المرور:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
+      <div className="login-container">
+        <h2>تسجيل الدخول</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="username">اسم المستخدم:</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
 
-        <button type="submit">دخول</button>
+          <div className="form-group">
+            <label htmlFor="password">كلمة المرور:</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-        <p className={messageClass}>{message}</p>
+          <button type="submit">دخول</button>
 
-        <p className="forgot-text">
-          نسيت كلمة السر أو اسم المستخدم؟ <br />
-          <span className="contact">تواصل مع السكرتارية</span>
-        </p>
-      </form>
-    </div>
+          <p className={messageClass}>{message}</p>
+
+          <p className="forgot-text">
+            نسيت كلمة السر أو اسم المستخدم؟ <br />
+            <span className="contact">تواصل مع السكرتارية</span>
+          </p>
+        </form>
+      </div>
+    </>
   );
 }
 
