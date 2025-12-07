@@ -118,23 +118,35 @@ select {
 
 /* ✅ للموبايل */
 @media (max-width: 768px) {
-  #loginVideo {
-    opacity: 0.75;
+  .login-container {
+    width: 90%;
+    padding: 25px;
+    transform: translate(-50%, -50%);
   }
 }
 
+
 /* صفحة تسجيل الدخول */
 .login-container {
-    position: relative;
-    z-index: 10;
-    max-width: 400px;
-    margin: 80px auto;
-    padding: 40px;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(4px);
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* ✅ يحطه في نص الصفحة */
+  
+  width: 90%;
+  max-width: 400px;
+
+  background: rgba(255, 255, 255, 0.15); /* ✅ شفافية */
+  backdrop-filter: blur(10px); /* ✅ تأثير زجاجي */
+  -webkit-backdrop-filter: blur(10px);
+
+  padding: 40px;
+  border-radius: 16px;
+
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25); /* ظل ناعم */
+  z-index: 10;
 }
+
 
 
 /* ====================================
