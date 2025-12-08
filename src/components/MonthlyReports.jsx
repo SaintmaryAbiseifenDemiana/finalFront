@@ -2,19 +2,12 @@ import React, { useEffect } from "react";
 import * as XLSX from "xlsx";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-import amiriVfs from "../fonts/amiri-vfs";
 import "../styles.css";
 import { API_BASE } from "../config";
 
-// ✅ دمج الخطوط
-pdfMake.vfs = { ...pdfFonts.vfs, ...amiriVfs };
+// ✅ استخدم Roboto فقط (الخط الافتراضي)
+pdfMake.vfs = pdfFonts.vfs;
 pdfMake.fonts = {
-  Amiri: {
-    normal: "Amiri-Regular.ttf",
-    bold: "Amiri-Regular.ttf",
-    italics: "Amiri-Regular.ttf",
-    bolditalics: "Amiri-Regular.ttf",
-  },
   Roboto: {
     normal: "Roboto-Regular.ttf",
     bold: "Roboto-Medium.ttf",
@@ -99,14 +92,14 @@ function MonthlyReports() {
         },
       ],
       defaultStyle: {
-        font: "Amiri",
+        font: "Roboto",   // ✅ رجعناه للخط اللي شغال
         fontSize: 11,
         alignment: "right",
         direction: "rtl",
       },
       styles: {
         header: {
-          font: "Amiri",
+          font: "Roboto",
           fontSize: 16,
           bold: true,
           margin: [0, 0, 0, 10],
