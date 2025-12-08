@@ -25,9 +25,7 @@ function AdminDashboard() {
 
       <div className="admin-container">
         <h1>لوحة تحكم سكرتارية مارمينا وابي سيفين (Admin)</h1>
-        <p>مرحباً بك يا مشرف النظام. يمكنك من هنا إدارة البيانات الرئيسية للنظام.</p>
-
-        <h2>الميزات الرئيسية:</h2>
+       
 
         <div className="admin-apps">
           <a href="/ManageFamilies" className="app-icon">
