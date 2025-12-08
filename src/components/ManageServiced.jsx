@@ -134,6 +134,9 @@ async function loadServicedList(familyId, className) {
   return (
     <div className="container">
       <h1>إدارة المخدومين</h1>
+      
+          {/* ✅ البحث */}
+         
       <a href="/AdminDashboard" className="btn btn-secondary">العودة للوحة الإدارة</a>
 
       {/* ✅ Tabs */}
@@ -157,7 +160,16 @@ async function loadServicedList(familyId, className) {
       {activeTab === "manage" && (
         <div className="card p-4">
           <h3>إدارة المخدومين</h3>
-
+          <div className="search-box">
+            <h4>بحث عن مخدوم</h4>
+            <input
+              type="text"
+              placeholder="اكتب اسم المخدوم"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button onClick={handleSearch}>بحث</button>
+             </div>
           {/* ✅ اختيار الأسرة */}
           <label>اختار الأسرة:</label>
           <select value={selectedFamily} onChange={handleFamilyChange}>
@@ -241,16 +253,6 @@ async function loadServicedList(familyId, className) {
             </table>
           )}
 
-          {/* ✅ البحث */}
-          <div className="search-box">
-            <h4>بحث عن مخدوم</h4>
-            <input
-              type="text"
-              placeholder="اكتب اسم المخدوم"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button onClick={handleSearch}>بحث</button>
 
             {searchResults.length > 0 && (
               <table className="report-table">
@@ -275,7 +277,7 @@ async function loadServicedList(familyId, className) {
               </table>
             )}
           </div>
-        </div>
+       
       )}
 
       {/* ✅ تبويب الاستيراد */}
