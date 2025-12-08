@@ -59,11 +59,7 @@ function AdminDashboard() {
           </a>
         </div>
 
-        <ul className="dashboard-list">
-          <li>
-            <a href="/ImportServants">📥 استيراد بيانات الخدام دفعة واحدة</a>
-          </li>
-        </ul>
+        
 
         <button onClick={handleLogout}>تسجيل الخروج</button>
       </div>

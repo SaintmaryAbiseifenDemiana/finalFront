@@ -230,6 +230,11 @@ const deleteSelectedUsers = async () => {
       </form>
 
       <hr />
+<div className="import-box">
+  <a href="/ImportServants" className="import-btn">
+    📥 استيراد بيانات الخدام دفعة واحدة
+  </a>
+</div>
 
       <h3>قائمة المستخدمين الحاليين</h3>
 
