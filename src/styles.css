@@ -664,16 +664,7 @@ th {
   font-size: 0.9em;
 }
 
-/* ✅ Scroll للجدول */
-.table-wrapper {
-  width: 100%;
-  max-height: 70vh;   /* ✅ بدل height */
-  overflow-x: auto;   /* ✅ scroll أفقي */
-  overflow-y: auto;   /* ✅ scroll رأسي */
-  position: relative;
-  border: 1px solid #ccc;
-  background: white;
-}
+
 
 
 /* ====================================
