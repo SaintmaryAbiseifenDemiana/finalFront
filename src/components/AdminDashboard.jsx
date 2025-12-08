@@ -22,14 +22,50 @@ function AdminDashboard() {
       <p>مرحباً بك يا مشرف النظام. يمكنك من هنا إدارة البيانات الرئيسية للنظام.</p>
 
       <h2>الميزات الرئيسية:</h2>
-      <ul>
-        <li><a href="/ManageFamilies">إدارة الأسر (إضافة/تعديل/حذف)</a></li>
-        <li><a href="/ManageUsers">إدارة الخدام والأمناء</a></li>
-        <li><a href="/ManageServiced">إدارة المخدومين</a></li>
-        <li><a href="/ViewReports">عرض تقارير الحضور والغياب (اسبوعيا)</a></li>
-        <li><a href="/MonthlyReports">النسبة الشهرية للخدام</a></li>
-        <li><a href="/MonthlyServiced">النسبة الشهرية للمخدومين</a></li>
-      </ul>
+      <ul class="admin-icons">
+  <li>
+    <a href="/ManageFamilies">
+      <span class="icon">📁</span>
+      إدارة الأسر (إضافة/تعديل/حذف)
+    </a>
+  </li>
+
+  <li>
+    <a href="/ManageUsers">
+      <span class="icon">👤</span>
+      إدارة الخدام والأمناء
+    </a>
+  </li>
+
+  <li>
+    <a href="/ManageServiced">
+      <span class="icon">🧒</span>
+      إدارة المخدومين
+    </a>
+  </li>
+
+  <li>
+    <a href="/ViewReports">
+      <span class="icon">📊</span>
+      عرض تقارير الحضور والغياب (اسبوعيا)
+    </a>
+  </li>
+
+  <li>
+    <a href="/MonthlyReports">
+      <span class="icon">📅</span>
+      النسبة الشهرية للخدام
+    </a>
+  </li>
+
+  <li>
+    <a href="/MonthlyServiced">
+      <span class="icon">📈</span>
+      النسبة الشهرية للمخدومين
+    </a>
+  </li>
+</ul>
+
 
       <ul className="dashboard-list">
         <li><a href="/ImportServants">📥 استيراد بيانات الخدام دفعة واحدة</a></li>

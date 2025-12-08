@@ -147,6 +147,40 @@ select {
   z-index: 10;
 }
 
+.admin-icons {
+  list-style: none;
+  padding: 0;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.admin-icons li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  font-size: 1.1em;
+  color: #333;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.admin-icons li a:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.admin-icons .icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: #4a69bd;
+}
 
 
 /* ====================================
