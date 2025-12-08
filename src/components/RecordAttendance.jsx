@@ -150,19 +150,30 @@ function RecordAttendance() {
         row.className = "servant-row";
 
         row.innerHTML = `
-          <span>${s.username}</span>
+          <div class="servant-top">
+            <span class="servant-name">${s.username}</span>
 
-          <input type="radio" name="att-${s.user_id}" id="att-${s.user_id}-present" value="Present">
-          <label for="att-${s.user_id}-present">حاضر</label>
+            <div class="status-options">
+              <label>
+                حاضر
+                <input type="radio" name="att-${s.user_id}" id="att-${s.user_id}-present" value="Present">
+              </label>
 
-          <input type="radio" name="att-${s.user_id}" id="att-${s.user_id}-absent" value="Absent">
-          <label for="att-${s.user_id}-absent">غائب</label>
+              <label>
+                غائب
+                <input type="radio" name="att-${s.user_id}" id="att-${s.user_id}-absent" value="Absent">
+              </label>
 
-          <input type="text" id="reason-${s.user_id}" placeholder="سبب الغياب (اختياري)" style="flex:1">
+              <label>
+                اعتذر
+                <input type="checkbox" id="apol-${s.user_id}">
+              </label>
+            </div>
+          </div>
 
-          <input type="checkbox" id="apol-${s.user_id}">
-          <label for="apol-${s.user_id}">اعتذر؟</label>
+          <input type="text" id="reason-${s.user_id}" class="absence-reason" placeholder="سبب الغياب (اختياري)">
         `;
+
 
         list.appendChild(row);
       });

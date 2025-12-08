@@ -239,6 +239,49 @@ select {
   background: #3b55a0;
   transform: scale(1.05);
 }
+.servant-row {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  direction: rtl; /* ✅ أهم حاجة */
+}
+
+.servant-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.servant-name {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.status-options {
+  display: flex;
+  gap: 12px;
+  font-size: 0.9em;
+}
+
+.status-options label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.absence-reason {
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  direction: rtl; /* ✅ الكتابة من اليمين */
+}
 
 
 
