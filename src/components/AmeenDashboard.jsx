@@ -23,45 +23,58 @@ function AmeenDashboard() {
   const familyName = user.family_name;
 
   return (
-    <div className="container">
+  <>
+    {/* ✅ فيديو الخلفية */}
+    <video autoPlay muted loop playsInline id="loginVideo">
+      <source src="/login-bg.mp4" type="video/mp4" />
+    </video>
+
+    <div className="admin-container">
       <h1>لوحة أمين الخدمة و السكرتارية</h1>
 
       {role === "ameensekra" && (
-        <p style={{ fontWeight: "bold", fontSize: "18px", color: "#444" }}>
-          ✅ أسرتك: <span style={{ color: "darkblue" }}>{familyName}</span>
+        <p style={{ fontWeight: "bold", fontSize: "18px", color: "#fff" }}>
+          ✅ أسرتك: <span style={{ color: "#d0e1ff" }}>{familyName}</span>
         </p>
       )}
 
-      <p>مرحباً بك أيها الأمين. يمكنك من هنا تسجيل حضور وغياب الأسر التابعة لك.</p>
+      <div className="admin-apps">
 
-      <h2>الميزات الرئيسية:</h2>
-      <ul>
-        <li>
-          {role === "ameensekra" ? (
-            <a href={`/RecordAttendance?family_id=${familyId}`}>
-              تسجيل حضور وغياب الأسر (أسبوعيا)
-            </a>
-          ) : (
-            <a href="/RecordAttendance">تسجيل حضور وغياب الأسر (أسبوعيا)</a>
-          )}
-        </li>
+        {/* ✅ تسجيل حضور أسبوعي */}
+        {role === "ameensekra" ? (
+          <a href={`/RecordAttendance?family_id=${familyId}`} className="app-icon">
+            <div>📝</div>
+            <span>الحضور الأسبوعي</span>
+          </a>
+        ) : (
+          <a href="/RecordAttendance" className="app-icon">
+            <div>📝</div>
+            <span>الحضور الأسبوعي</span>
+          </a>
+        )}
 
-        <li>
-          {role === "ameensekra" ? (
-            <a href={`/MonthlyAttendance?family_id=${familyId}`}>
-              تسجيل الغياب الشهري للخدام
-            </a>
-          ) : (
-            <a href="/MonthlyAttendance">تسجيل الغياب الشهري للخدام</a>
-          )}
-        </li>
-      </ul>
+        {/* ✅ الغياب الشهري */}
+        {role === "ameensekra" ? (
+          <a href={`/MonthlyAttendance?family_id=${familyId}`} className="app-icon">
+            <div>📅</div>
+            <span>الغياب الشهري</span>
+          </a>
+        ) : (
+          <a href="/MonthlyAttendance" className="app-icon">
+            <div>📅</div>
+            <span>الغياب الشهري</span>
+          </a>
+        )}
 
-      <button id="logoutBtn" className="btn btn-danger" onClick={handleLogout}>
+      </div>
+
+      <button onClick={handleLogout} className="logout-btn">
         تسجيل الخروج
       </button>
     </div>
-  );
+  </>
+);
+
 }
 
 export default AmeenDashboard;
