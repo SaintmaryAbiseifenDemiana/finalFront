@@ -633,6 +633,26 @@ th {
   border-top: 4px solid #000;
   font-weight: bold;
 }
+/* ✅ تصغير عمود عدد المخدومين وعمود الافتقاد */
+.family-table th:nth-child(7),
+.family-table td:nth-child(7),
+.family-table th:nth-child(8),
+.family-table td:nth-child(8) {
+  width: 70px;       /* ✅ عرض صغير */
+  max-width: 70px;
+  text-align: center;
+}
+.family-table input[type="number"] {
+  width: 55px;       /* ✅ أصغر */
+  padding: 3px;
+  text-align: center;
+  font-size: 0.9em;
+}
+.family-table {
+  display: block;
+  overflow-x: auto;   /* ✅ لو الجدول كبير يلف */
+  white-space: nowrap;
+}
 
 
 /* ====================================
