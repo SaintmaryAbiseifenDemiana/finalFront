@@ -18,12 +18,20 @@ function ManageServiced() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  // ✅ NEW — IDs المختارة للحذف الجماعي
   const [selectedServicedIds, setSelectedServicedIds] = useState([]);
 
   useEffect(() => {
     loadFamilies();
   }, []);
+
+  // ✅ Live Suggestions
+  useEffect(() => {
+    if (searchQuery.trim().length >= 2) {
+      handleSearch();
+    } else {
+      setSearchResults([]);
+    }
+  }, [searchQuery]);
 
   // ✅ تحميل الأسر
   async function loadFamilies() {
@@ -64,6 +72,7 @@ function ManageServiced() {
     setSelectedClass("");
     setServants([]);
     setServicedList([]);
+    setSearchResults([]); // ✅ امسح نتائج البحث
     if (familyId) loadClasses(familyId);
   }
 
@@ -71,6 +80,7 @@ function ManageServiced() {
   function handleClassChange(e) {
     const className = e.target.value;
     setSelectedClass(className);
+    setSearchResults([]); // ✅ امسح نتائج البحث
 
     if (selectedFamily && className) {
       loadServants(selectedFamily, className);
@@ -121,14 +131,14 @@ function ManageServiced() {
     }
   }
 
-  // ✅ NEW — اختيار/إلغاء اختيار مخدوم
+  // ✅ اختيار/إلغاء اختيار مخدوم
   function toggleSelectServiced(id) {
     setSelectedServicedIds((prev) =>
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     );
   }
 
-  // ✅ NEW — حذف جماعي
+  // ✅ حذف جماعي
   async function deleteSelectedServiced() {
     if (selectedServicedIds.length === 0) {
       alert("من فضلك اختاري مخدومين للحذف");
@@ -206,9 +216,13 @@ function ManageServiced() {
               type="text"
               placeholder="اكتب اسم المخدوم"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                if (e.target.value.trim() === "") {
+                  setSearchResults([]);
+                }
+              }}
             />
-            <button onClick={handleSearch}>بحث</button>
           </div>
 
           {/* ✅ اختيار الأسرة */}
@@ -302,7 +316,6 @@ function ManageServiced() {
                 </tbody>
               </table>
 
-              {/* ✅ زرار حذف جماعي */}
               {selectedServicedIds.length > 0 && (
                 <button className="btn btn-danger" onClick={deleteSelectedServiced}>
                   حذف المحددين ({selectedServicedIds.length})
@@ -343,7 +356,6 @@ function ManageServiced() {
                 </tbody>
               </table>
 
-              {/* ✅ زرار حذف جماعي */}
               {selectedServicedIds.length > 0 && (
                 <button className="btn btn-danger" onClick={deleteSelectedServiced}>
                   حذف المحددين ({selectedServicedIds.length})
