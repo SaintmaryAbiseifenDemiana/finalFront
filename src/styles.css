@@ -216,7 +216,7 @@ select {
 
   .admin-container {
     padding: 15px;
-    margin-top: 20px;
+    margin-top: 40px;
   }
 }
 .import-box {
@@ -635,15 +635,14 @@ th {
 }
 /* ✅ السماح بلفّ النص داخل عناوين الجدول */
 .family-table th {
-  white-space: normal !important; /* ✅ يسمح باللف */
+  white-space: normal !important;
   word-wrap: break-word;
+  max-width: 90px;
   text-align: center;
-  padding: 5px;
   line-height: 1.2;
-  max-width: 90px; /* ✅ زي ما قلتي — wraptext 90 */
 }
 
-/* ✅ تصغير الأعمدة الخاصة بعدد المخدومين والافتقاد */
+
 .family-table th:nth-child(7),
 .family-table td:nth-child(7),
 .family-table th:nth-child(8),
@@ -653,12 +652,19 @@ th {
   text-align: center;
 }
 
+
 /* ✅ تصغير الـ input */
 .family-table input[type="number"] {
   width: 55px;
   padding: 3px;
   text-align: center;
   font-size: 0.9em;
+}
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;   /* ✅ أهم حاجة */
+  overflow-y: hidden;
+  margin-top: 10px;
 }
 
 
