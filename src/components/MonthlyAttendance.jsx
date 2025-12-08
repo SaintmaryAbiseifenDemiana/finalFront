@@ -254,12 +254,12 @@ function MonthlyAttendance() {
             <tr>
               <th>م</th>
               <th>اسم الخادم</th>
-              <th>حضر الخدمة</th>
-              <th>حضر الدرس</th>
-              <th>اتناول</th>
-              <th>اعترف</th>
+              <th>حضور</th>
+              <th>تحضير</th>
+              <th>قداس</th>
+              <th>اعتراف</th>
               <th>عدد المخدومين</th>
-              <th>افتقد كام مخدوم</th>
+              <th>افتقاد (بيت فقط)</th>
             </tr>
           </thead>
           <tbody id="servantsTableBody"></tbody>

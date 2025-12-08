@@ -633,26 +633,34 @@ th {
   border-top: 4px solid #000;
   font-weight: bold;
 }
-/* ✅ تصغير عمود عدد المخدومين وعمود الافتقاد */
+/* ✅ السماح بلفّ النص داخل عناوين الجدول */
+.family-table th {
+  white-space: normal !important; /* ✅ يسمح باللف */
+  word-wrap: break-word;
+  text-align: center;
+  padding: 5px;
+  line-height: 1.2;
+  max-width: 90px; /* ✅ زي ما قلتي — wraptext 90 */
+}
+
+/* ✅ تصغير الأعمدة الخاصة بعدد المخدومين والافتقاد */
 .family-table th:nth-child(7),
 .family-table td:nth-child(7),
 .family-table th:nth-child(8),
 .family-table td:nth-child(8) {
-  width: 70px;       /* ✅ عرض صغير */
+  width: 70px;
   max-width: 70px;
   text-align: center;
 }
+
+/* ✅ تصغير الـ input */
 .family-table input[type="number"] {
-  width: 55px;       /* ✅ أصغر */
+  width: 55px;
   padding: 3px;
   text-align: center;
   font-size: 0.9em;
 }
-.family-table {
-  display: block;
-  overflow-x: auto;   /* ✅ لو الجدول كبير يلف */
-  white-space: nowrap;
-}
+
 
 
 /* ====================================
