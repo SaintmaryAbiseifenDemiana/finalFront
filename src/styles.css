@@ -147,40 +147,44 @@ select {
   z-index: 10;
 }
 
-.admin-icons {
-  list-style: none;
-  padding: 0;
-  margin: 30px auto;
+.admin-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 20px;
+  padding: 30px;
+  justify-items: center;
 }
 
-.admin-icons li a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
+.admin-card {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(6px);
-  padding: 25px;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  font-size: 1.1em;
+  padding: 25px 15px;
+  text-align: center;
+  text-decoration: none;
   color: #333;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: transform 0.2s, box-shadow 0.2s;
+  width: 100%;
+  max-width: 180px;
 }
 
-.admin-icons li a:hover {
+.admin-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-.admin-icons .icon {
-  font-size: 40px;
+.admin-icon {
+  font-size: 36px;
   margin-bottom: 10px;
   color: #4a69bd;
 }
+
+.admin-label {
+  font-size: 1em;
+  font-weight: bold;
+}
+
 
 
 /* ====================================

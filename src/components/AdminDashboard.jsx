@@ -22,49 +22,38 @@ function AdminDashboard() {
       <p>مرحباً بك يا مشرف النظام. يمكنك من هنا إدارة البيانات الرئيسية للنظام.</p>
 
       <h2>الميزات الرئيسية:</h2>
-      <ul class="admin-icons">
-  <li>
-    <a href="/ManageFamilies">
-      <span class="icon">📁</span>
-      إدارة الأسر (إضافة/تعديل/حذف)
-    </a>
-  </li>
+     <div class="admin-grid">
+  <a href="/ManageFamilies" class="admin-card">
+    <div class="admin-icon">📁</div>
+    <div class="admin-label">إدارة الأسر</div>
+  </a>
 
-  <li>
-    <a href="/ManageUsers">
-      <span class="icon">👤</span>
-      إدارة الخدام والأمناء
-    </a>
-  </li>
+  <a href="/ManageUsers" class="admin-card">
+    <div class="admin-icon">👤</div>
+    <div class="admin-label">الخدام والأمناء</div>
+  </a>
 
-  <li>
-    <a href="/ManageServiced">
-      <span class="icon">🧒</span>
-      إدارة المخدومين
-    </a>
-  </li>
+  <a href="/ManageServiced" class="admin-card">
+    <div class="admin-icon">🧒</div>
+    <div class="admin-label">المخدومين</div>
+  </a>
 
-  <li>
-    <a href="/ViewReports">
-      <span class="icon">📊</span>
-      عرض تقارير الحضور والغياب (اسبوعيا)
-    </a>
-  </li>
+  <a href="/ViewReports" class="admin-card">
+    <div class="admin-icon">📊</div>
+    <div class="admin-label">تقارير الحضور</div>
+  </a>
 
-  <li>
-    <a href="/MonthlyReports">
-      <span class="icon">📅</span>
-      النسبة الشهرية للخدام
-    </a>
-  </li>
+  <a href="/MonthlyReports" class="admin-card">
+    <div class="admin-icon">📅</div>
+    <div class="admin-label">نسبة الخدام</div>
+  </a>
 
-  <li>
-    <a href="/MonthlyServiced">
-      <span class="icon">📈</span>
-      النسبة الشهرية للمخدومين
-    </a>
-  </li>
-</ul>
+  <a href="/MonthlyServiced" class="admin-card">
+    <div class="admin-icon">📈</div>
+    <div class="admin-label">نسبة المخدومين</div>
+  </a>
+</div>
+
 
 
       <ul className="dashboard-list">
