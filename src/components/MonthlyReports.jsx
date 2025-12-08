@@ -185,53 +185,75 @@ function MonthlyReports() {
   }
 
   // ✅ حساب التقرير الربع سنوي
-  async function calculateQuarterReports() {
-    const familyId = document.getElementById("family_select").value;
-    const quarter = document.getElementById("quarter_select").value;
-    const tableBody = document.getElementById("reportTableBody");
-    const resultMessage = document.getElementById("resultMessage");
+ async function calculateQuarterReports() {
+  const familyId = document.getElementById('family_select').value;
+  const quarter = document.getElementById('quarter_select').value;
+  const tableBody = document.getElementById('reportTableBody');
+  const resultMessage = document.getElementById('resultMessage');
 
-    tableBody.innerHTML = "";
-    resultMessage.textContent = "جاري حساب النسبة السنوية...";
-    resultMessage.style.color = "blue";
+  tableBody.innerHTML = '';
+  resultMessage.textContent = 'جاري حساب النسبة السنوية...';
+  resultMessage.style.color = 'blue';
 
-    if (!quarter) {
-      resultMessage.textContent = "❌ يرجى اختيار ربع سنوي أولاً";
-      resultMessage.style.color = "red";
-      return;
-    }
+  if (!quarter) {
+    resultMessage.textContent = '❌ يرجى اختيار ربع سنوي أولاً';
+    resultMessage.style.color = 'red';
+    return;
+  }
 
-    let apiUrl = `${API_BASE}/api/monthly-reports/quarter?quarter=${quarter}`;
+  try {
+    // ✅ 1) هات كل الخدام
+    const servantsRes = await fetch(`/api/attendance/servants/${familyId}`);
+    const servantsData = await servantsRes.json();
+    const allServants = servantsData.servants || [];
+
+    // ✅ 2) هات تقرير الربع
+    let apiUrl = `/api/monthly-reports/quarter?quarter=${quarter}`;
     if (familyId) apiUrl += `&family_id=${familyId}`;
 
-    try {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
+    const response = await fetch(apiUrl);
+    const data = await response.json();
 
-      if (data.success && data.report.length > 0) {
-        data.report.forEach((record, index) => {
-          const row = tableBody.insertRow();
-          row.insertCell().textContent = index + 1;
-          row.insertCell().textContent = record.username;
-          row.insertCell().textContent = record.meeting_pct;
-          row.insertCell().textContent = record.lesson_pct;
-          row.insertCell().textContent = record.communion_pct;
-          row.insertCell().textContent = record.confession_pct;
-          row.insertCell().textContent = record.visits_pct;
-        });
+    const quarterReport = data.report || [];
 
-        resultMessage.textContent = "✅ تم حساب التقرير السنوي";
-        resultMessage.style.color = "green";
-      } else {
-        resultMessage.textContent = "❌ لا توجد بيانات لهذا الربع";
-        resultMessage.style.color = "red";
-      }
-    } catch (err) {
-      console.error("خطأ:", err);
-      resultMessage.textContent = "❌ خطأ في الاتصال بالخادم";
-      resultMessage.style.color = "red";
-    }
+    // ✅ 3) Merge — رجّع كل الخدام حتى اللي مالهمش بيانات
+    const finalReport = allServants.map(s => {
+      const found = quarterReport.find(r => r.user_id === s.user_id);
+
+      return found || {
+        user_id: s.user_id,
+        username: s.username,
+        meeting_pct: 0,
+        lesson_pct: 0,
+        communion_pct: 0,
+        confession_pct: 0,
+        visits_pct: 0
+      };
+    });
+
+    // ✅ 4) اعرض النتيجة
+    tableBody.innerHTML = '';
+    finalReport.forEach((record, index) => {
+      const row = tableBody.insertRow();
+      row.insertCell().textContent = index + 1;
+      row.insertCell().textContent = record.username;
+      row.insertCell().textContent = record.meeting_pct;
+      row.insertCell().textContent = record.lesson_pct;
+      row.insertCell().textContent = record.communion_pct;
+      row.insertCell().textContent = record.confession_pct;
+      row.insertCell().textContent = record.visits_pct;
+    });
+
+    resultMessage.textContent = '✅ تم حساب التقرير السنوي';
+    resultMessage.style.color = 'green';
+
+  } catch (err) {
+    console.error('خطأ في الحساب:', err);
+    resultMessage.textContent = '❌ خطأ في الاتصال بالخادم';
+    resultMessage.style.color = 'red';
   }
+}
+
 
   return (
     <div className="container">
