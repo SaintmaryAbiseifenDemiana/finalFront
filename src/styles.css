@@ -1,5 +1,5 @@
 /* ====================================
-   1. التنسيق الأساسي وإعادة الضبط (Reset)
+   ✅ 1. RESET + BODY + RTL BASE
    ==================================== */
 
 * {
@@ -29,8 +29,9 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+
 /* ====================================
-   2. التنسيق للعناصر الرئيسية
+   ✅ 2. HEADINGS + LINKS + BUTTONS
    ==================================== */
 
 h1 {
@@ -81,8 +82,9 @@ button:hover {
     background-color: #c0392b;
 }
 
+
 /* ====================================
-   3. نماذج الإدخال
+   ✅ 3. FORMS + INPUTS
    ==================================== */
 
 .form-group {
@@ -104,7 +106,12 @@ select {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-/* ✅ فيديو الخلفية لصفحة اللوجين فقط */
+
+
+/* ====================================
+   ✅ 4. LOGIN PAGE + BACKGROUND VIDEO
+   ==================================== */
+
 #loginVideo {
   position: fixed;
   top: 0;
@@ -116,7 +123,22 @@ select {
   opacity: 0.85;
 }
 
-/* ✅ للموبايل */
+.login-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+}
+
 @media (max-width: 768px) {
   .login-container {
     width: 90%;
@@ -126,25 +148,23 @@ select {
 }
 
 
-/* صفحة تسجيل الدخول */
-.login-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* ✅ يحطه في نص الصفحة */
-  
-  width: 90%;
-  max-width: 400px;
+/* ====================================
+   ✅ 5. ADMIN DASHBOARD (Glass UI)
+   ==================================== */
 
-  background: rgba(255, 255, 255, 0.15); /* ✅ شفافية */
-  backdrop-filter: blur(10px); /* ✅ تأثير زجاجي */
+.admin-container {
+  position: relative;
+  margin: 20px auto;
+  width: 95%;
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-
-  padding: 40px;
-  border-radius: 16px;
-
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25); /* ظل ناعم */
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   z-index: 10;
+  text-align: center;
 }
 
 .admin-apps {
@@ -189,29 +209,11 @@ select {
   font-size: 0.85em;
 }
 
-/* ✅ صندوق الأدمن بنفس ستايل اللوجين */
-.admin-container {
-  position: relative; /* ✅ مش ثابت */
-  margin: 20px auto;  /* ✅ ينزل لتحت */
-  width: 95%;
-  max-width: 900px;
-
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  padding: 25px;
-  border-radius: 20px;
-
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-  z-index: 10;
-  text-align: center;
-}
 @media (max-width: 768px) {
   h1 {
     font-size: 1.3em;
     line-height: 1.4;
-    margin-top: 10px; /* ✅ ينزله لتحت */
+    margin-top: 10px;
   }
 
   .admin-container {
@@ -219,6 +221,12 @@ select {
     margin-top: 40px;
   }
 }
+
+
+/* ====================================
+   ✅ 6. AMEEN DASHBOARD (same style)
+   ==================================== */
+
 .import-box {
   text-align: center;
   margin: 20px 0;
@@ -239,56 +247,8 @@ select {
   background: #3b55a0;
   transform: scale(1.05);
 }
-.servant-row {
-  background: rgba(255, 255, 255, 0.7);
-  padding: 12px;
-  margin-bottom: 12px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  direction: rtl; /* ✅ أهم حاجة */
-}
-
-.servant-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.servant-name {
-  font-weight: bold;
-  font-size: 1.1em;
-  color: #333;
-}
-
-.status-options {
-  display: flex;
-  gap: 12px;
-  font-size: 0.9em;
-}
-
-.status-options label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-}
-
-.absence-reason {
-  width: 100%;
-  padding: 6px 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  direction: rtl; /* ✅ الكتابة من اليمين */
-}
-
-
-
-
-
 /* ====================================
-   4. الجداول
+   ✅ 7. TABLES — التنسيق العام للجداول
    ==================================== */
 
 .table-responsive {
@@ -321,8 +281,9 @@ tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
+
 /* ====================================
-   5. رسائل النظام
+   ✅ 8. SYSTEM MESSAGES — رسائل النجاح والخطأ
    ==================================== */
 
 .message, .success, .error, .info {
@@ -351,8 +312,9 @@ tr:nth-child(even) {
     border: 1px solid #d6d8db;
 }
 
+
 /* ====================================
-   6. لوحة المشرف والأمين
+   ✅ 9. DASHBOARD LIST — قائمة لوحة المشرف/الأمين
    ==================================== */
 
 .dashboard-list {
@@ -379,11 +341,13 @@ tr:nth-child(even) {
     text-decoration: none;
 }
 
+
 /* ====================================
-   7. تسجيل الحضور
+   ✅ 10. WEEKLY ATTENDANCE — تسجيل الحضور الأسبوعي
    ==================================== */
 
-.report-controls, .attendance-form .form-group {
+.report-controls,
+.attendance-form .form-group {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
@@ -394,17 +358,19 @@ tr:nth-child(even) {
     margin-bottom: 20px;
 }
 
-.report-controls label, .attendance-form label {
+.report-controls label,
+.attendance-form label {
     font-weight: normal;
     white-space: nowrap;
 }
 
-.report-controls input, .report-controls select {
+.report-controls input,
+.report-controls select {
     flex-grow: 1;
     max-width: 250px;
 }
 
-/* سجل الحضور الفردي */
+/* ✅ صف الخادم في الحضور الأسبوعي */
 .servant-item {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -431,15 +397,32 @@ tr:nth-child(even) {
     padding: 5px;
 }
 
+
 /* ====================================
-   8. تقرير الحضور
+   ✅ 11. ATTENDANCE REPORT — تقرير الحضور
    ==================================== */
 
-.present { background-color: #e6ffed; color: green; font-weight: bold; }
-.absent { background-color: #ffe6e6; color: red; }
-.apologized { background-color: #fffacd; }
-.no-data { background-color: #f7f7f7; color: #888; }
+.present {
+    background-color: #e6ffed;
+    color: green;
+    font-weight: bold;
+}
 
+.absent {
+    background-color: #ffe6e6;
+    color: red;
+}
+
+.apologized {
+    background-color: #fffacd;
+}
+
+.no-data {
+    background-color: #f7f7f7;
+    color: #888;
+}
+
+/* ✅ Tooltip لعرض التفاصيل */
 .tooltip {
     position: relative;
     display: inline-block;
@@ -469,6 +452,12 @@ tr:nth-child(even) {
     visibility: visible;
     opacity: 1;
 }
+
+
+/* ====================================
+   ✅ 12. SERVANT ROW (DESKTOP + MOBILE)
+   ==================================== */
+
 /* ✅ شكل صف الخادم على الكمبيوتر */
 .servant-row {
   display: flex;
@@ -525,11 +514,16 @@ tr:nth-child(even) {
     margin-right: 0;
   }
 }
+/* ====================================
+   ✅ 13. MONTHLY ATTENDANCE — جدول الغياب الشهري
+   ==================================== */
+
 table { 
   width: 100%; 
   border-collapse: collapse; 
   margin-top: 20px; 
 }
+
 th[class^="month-col-"] {
   background-color: #007bff !important;
   color: white;
@@ -553,7 +547,7 @@ th {
 /* ✅ إطار مستقل للجدول */
 .table-wrapper {
   width: 100%;
-  height: 70vh; /* ارتفاع مناسب للموبايل */
+  height: 70vh;
   overflow-x: auto;
   overflow-y: auto;
   position: relative;
@@ -566,13 +560,18 @@ th {
   overflow-x: auto;
   width: 100%;
   position: relative;
-  direction: rtl; /* مهم جداً */
+  direction: rtl;
 }
+
+
+/* ====================================
+   ✅ 14. FREEZE COLUMNS — تثبيت الأعمدة
+   ==================================== */
 
 /* ✅ Freeze عمود اسم الخادم */
 .freeze-col-1 {
   position: sticky;
-  right: 0; /* ✅ لأن الجدول RTL */
+  right: 0;
   background: #dbe8ff;
   z-index: 50;
   min-width: 80px;
@@ -583,7 +582,7 @@ th {
 /* ✅ Freeze عمود اسم المخدوم */
 .freeze-col-2 {
   position: sticky;
-  right: 80px; /* ✅ عرض العمود الأول */
+  right: 80px;
   background: #dbe8ff;
   z-index: 50;
   min-width: 100px;
@@ -591,7 +590,16 @@ th {
   border-left: 2px solid #ddd;
 }
 
-/* ✅ الرأس */
+/* ✅ Freeze صف العناوين */
+.table thead th {
+  position: sticky;
+  top: 0;
+  background: #007bff;
+  z-index: 100;
+  border-bottom: 2px solid #ccc;
+}
+
+/* ✅ رأس الجدول */
 .table th {
   position: sticky;
   top: 0;
@@ -599,21 +607,12 @@ th {
   color: white;
   z-index: 100;
 }
-/* ✅ Freeze صف العناوين */
-.table thead th {
-  position: sticky;
-  top: 0;
-  background: #007bff; /* لون فاتح علشان يبان */
-  z-index: 100; /* أعلى من الأعمدة */
-  border-bottom: 2px solid #ccc;
-}
 
 
-#monthlySummaryTitle {
-  display: none;
-}
+/* ====================================
+   ✅ 15. MONTH COLORS — ألوان الشهور
+   ==================================== */
 
-/* ألوان فاتحة لكل شهر */
 .month-col-0 { background-color: #f9f9f9; }   /* أكتوبر */
 .month-col-1 { background-color: #fef6e4; }   /* نوفمبر */
 .month-col-2 { background-color: #eaf4fc; }   /* ديسمبر */
@@ -627,12 +626,16 @@ th {
 .month-col-10 { background-color: #fffaf0; }  /* أغسطس */
 .month-col-11 { background-color: #f0ffff; }  /* سبتمبر */
 
-
-
-.servant-separator  thead  td {
+.servant-separator thead td {
   border-top: 4px solid #000;
   font-weight: bold;
 }
+
+
+/* ====================================
+   ✅ 16. FAMILY TABLE — تحسين عرض الأعمدة
+   ==================================== */
+
 /* ✅ السماح بلفّ النص داخل عناوين الجدول */
 .family-table th {
   white-space: normal !important;
@@ -642,7 +645,7 @@ th {
   line-height: 1.2;
 }
 
-
+/* ✅ تصغير عمود عدد المخدومين + الافتقاد */
 .family-table th:nth-child(7),
 .family-table td:nth-child(7),
 .family-table th:nth-child(8),
@@ -652,7 +655,6 @@ th {
   text-align: center;
 }
 
-
 /* ✅ تصغير الـ input */
 .family-table input[type="number"] {
   width: 55px;
@@ -660,17 +662,18 @@ th {
   text-align: center;
   font-size: 0.9em;
 }
+
+/* ✅ Scroll للجدول */
 .table-wrapper {
   width: 100%;
-  overflow-x: auto;   /* ✅ أهم حاجة */
+  overflow-x: auto;
   overflow-y: hidden;
   margin-top: 10px;
 }
 
 
-
 /* ====================================
-   9. تجاوب مع الموبايل
+   ✅ 17. RESPONSIVE — تحسينات الموبايل
    ==================================== */
 
 @media (max-width: 768px) {
