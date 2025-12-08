@@ -147,43 +147,48 @@ select {
   z-index: 10;
 }
 
-.admin-grid {
+.admin-apps {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 15px;
   padding: 30px;
   justify-items: center;
 }
 
-.admin-card {
+.app-icon {
+  width: 80px;
+  height: 80px;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(6px);
-  border-radius: 16px;
-  padding: 25px 15px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   text-align: center;
   text-decoration: none;
   color: #333;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   transition: transform 0.2s, box-shadow 0.2s;
-  width: 100%;
-  max-width: 180px;
 }
 
-.admin-card:hover {
-  transform: translateY(-5px);
+.app-icon:hover {
+  transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-.admin-icon {
-  font-size: 36px;
-  margin-bottom: 10px;
+.app-icon div {
+  font-size: 24px;
+  margin-bottom: 5px;
   color: #4a69bd;
 }
 
-.admin-label {
-  font-size: 1em;
+.app-icon span {
   font-weight: bold;
+  font-size: 0.85em;
 }
+
 
 
 

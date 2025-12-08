@@ -22,35 +22,30 @@ function AdminDashboard() {
       <p>مرحباً بك يا مشرف النظام. يمكنك من هنا إدارة البيانات الرئيسية للنظام.</p>
 
       <h2>الميزات الرئيسية:</h2>
-     <div class="admin-grid">
-  <a href="/ManageFamilies" class="admin-card">
-    <div class="admin-icon">📁</div>
-    <div class="admin-label">إدارة الأسر</div>
+     <div class="admin-apps">
+  <a href="/ManageFamilies" class="app-icon">
+    <div>📁</div>
+    <span>الأسر</span>
   </a>
-
-  <a href="/ManageUsers" class="admin-card">
-    <div class="admin-icon">👤</div>
-    <div class="admin-label">الخدام والأمناء</div>
+  <a href="/ManageUsers" class="app-icon">
+    <div>👤</div>
+    <span>الخدام</span>
   </a>
-
-  <a href="/ManageServiced" class="admin-card">
-    <div class="admin-icon">🧒</div>
-    <div class="admin-label">المخدومين</div>
+  <a href="/ManageServiced" class="app-icon">
+    <div>🧒</div>
+    <span>المخدومين</span>
   </a>
-
-  <a href="/ViewReports" class="admin-card">
-    <div class="admin-icon">📊</div>
-    <div class="admin-label">تقارير الحضور</div>
+  <a href="/ViewReports" class="app-icon">
+    <div>📊</div>
+    <span>تقارير</span>
   </a>
-
-  <a href="/MonthlyReports" class="admin-card">
-    <div class="admin-icon">📅</div>
-    <div class="admin-label">نسبة الخدام</div>
+  <a href="/MonthlyReports" class="app-icon">
+    <div>📅</div>
+    <span>نسبة الخدام</span>
   </a>
-
-  <a href="/MonthlyServiced" class="admin-card">
-    <div class="admin-icon">📈</div>
-    <div class="admin-label">نسبة المخدومين</div>
+  <a href="/MonthlyServiced" class="app-icon">
+    <div>📈</div>
+    <span>نسبة المخدومين</span>
   </a>
 </div>
 
