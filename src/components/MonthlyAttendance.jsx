@@ -249,7 +249,9 @@ function MonthlyAttendance() {
       </div>
 
       <form id="monthlyAttendanceForm">
-        <table className="family-table">
+        <div className="table-wrapper">
+          <table className="family-table">
+
           <thead>
             <tr>
               <th>م</th>
@@ -263,7 +265,9 @@ function MonthlyAttendance() {
             </tr>
           </thead>
           <tbody id="servantsTableBody"></tbody>
-        </table>
+          </table>
+</div>
+
 
         <button type="submit" style={{ marginTop: "15px" }}>
           حفظ السجل الشهري
