@@ -18,6 +18,9 @@ function ManageServiced() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
+  // ✅ NEW — IDs المختارة للحذف الجماعي
+  const [selectedServicedIds, setSelectedServicedIds] = useState([]);
+
   useEffect(() => {
     loadFamilies();
   }, []);
@@ -29,31 +32,30 @@ function ManageServiced() {
     if (data.success) setFamilies(data.families);
   }
 
-// ✅ تحميل الفصول
-async function loadClasses(familyId) {
-  const res = await fetch(`${API_BASE}/api/serviced/classes/${familyId}`);
-  const data = await res.json();
-  if (data.success) setClasses(data.classes);
-}
+  // ✅ تحميل الفصول
+  async function loadClasses(familyId) {
+    const res = await fetch(`${API_BASE}/api/serviced/classes/${familyId}`);
+    const data = await res.json();
+    if (data.success) setClasses(data.classes);
+  }
 
-// ✅ تحميل الخدام
-async function loadServants(familyId, className) {
-  const res = await fetch(
-    `${API_BASE}/api/servants/by-family/${familyId}/${encodeURIComponent(className)}`
-  );
-  const data = await res.json();
-  if (data.success) setServants(data.servants);
-}
+  // ✅ تحميل الخدام
+  async function loadServants(familyId, className) {
+    const res = await fetch(
+      `${API_BASE}/api/servants/by-family/${familyId}/${encodeURIComponent(className)}`
+    );
+    const data = await res.json();
+    if (data.success) setServants(data.servants);
+  }
 
-// ✅ تحميل المخدومين
-async function loadServicedList(familyId, className) {
-  const res = await fetch(
-    `${API_BASE}/api/serviced/manage/${familyId}/${encodeURIComponent(className)}`
-  );
-  const data = await res.json();
-  if (data.success) setServicedList(data.serviced);
-}
-
+  // ✅ تحميل المخدومين
+  async function loadServicedList(familyId, className) {
+    const res = await fetch(
+      `${API_BASE}/api/serviced/manage/${familyId}/${encodeURIComponent(className)}`
+    );
+    const data = await res.json();
+    if (data.success) setServicedList(data.serviced);
+  }
 
   // ✅ عند اختيار الأسرة
   function handleFamilyChange(e) {
@@ -103,7 +105,7 @@ async function loadServicedList(familyId, className) {
     }
   }
 
-  // ✅ حذف مخدوم
+  // ✅ حذف مخدوم فردي
   async function deleteServiced(id) {
     if (!window.confirm("هل أنت متأكد من حذف هذا المخدوم؟")) return;
 
@@ -116,6 +118,44 @@ async function loadServicedList(familyId, className) {
 
     if (data.success) {
       loadServicedList(selectedFamily, selectedClass);
+    }
+  }
+
+  // ✅ NEW — اختيار/إلغاء اختيار مخدوم
+  function toggleSelectServiced(id) {
+    setSelectedServicedIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
+  }
+
+  // ✅ NEW — حذف جماعي
+  async function deleteSelectedServiced() {
+    if (selectedServicedIds.length === 0) {
+      alert("من فضلك اختاري مخدومين للحذف");
+      return;
+    }
+
+    if (!window.confirm("هل أنت متأكدة من حذف المخدومين المحددين؟")) return;
+
+    const res = await fetch(`${API_BASE}/api/serviced/bulk-delete`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ids: selectedServicedIds }),
+    });
+
+    const data = await res.json();
+    alert(data.message);
+
+    if (data.success) {
+      setSelectedServicedIds([]);
+
+      if (selectedFamily && selectedClass) {
+        loadServicedList(selectedFamily, selectedClass);
+      }
+
+      if (searchResults.length > 0) {
+        handleSearch();
+      }
     }
   }
 
@@ -134,9 +174,7 @@ async function loadServicedList(familyId, className) {
   return (
     <div className="container">
       <h1>إدارة المخدومين</h1>
-      
-          {/* ✅ البحث */}
-         
+
       <a href="/AdminDashboard" className="btn btn-secondary">العودة للوحة الإدارة</a>
 
       {/* ✅ Tabs */}
@@ -160,6 +198,8 @@ async function loadServicedList(familyId, className) {
       {activeTab === "manage" && (
         <div className="card p-4">
           <h3>إدارة المخدومين</h3>
+
+          {/* ✅ البحث */}
           <div className="search-box">
             <h4>بحث عن مخدوم</h4>
             <input
@@ -169,7 +209,8 @@ async function loadServicedList(familyId, className) {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
             <button onClick={handleSearch}>بحث</button>
-             </div>
+          </div>
+
           {/* ✅ اختيار الأسرة */}
           <label>اختار الأسرة:</label>
           <select value={selectedFamily} onChange={handleFamilyChange}>
@@ -226,38 +267,57 @@ async function loadServicedList(familyId, className) {
 
           {/* ✅ جدول المخدومين */}
           {servicedList.length > 0 && (
-            <table className="report-table">
-              <thead>
-                <tr>
-                  <th>اسم المخدوم</th>
-                  <th>الخادم المسؤول</th>
-                  <th>حذف</th>
-                </tr>
-              </thead>
-              <tbody>
-                {servicedList.map((s) => (
-                  <tr key={s.serviced_id}>
-                    <td>{s.serviced_name}</td>
-                    <td>{s.servant_name || "—"}</td>
-                    <td>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => deleteServiced(s.serviced_id)}
-                      >
-                        حذف
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-
-
-            {searchResults.length > 0 && (
+            <>
               <table className="report-table">
                 <thead>
                   <tr>
+                    <th>اختيار</th>
+                    <th>اسم المخدوم</th>
+                    <th>الخادم المسؤول</th>
+                    <th>حذف</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {servicedList.map((s) => (
+                    <tr key={s.serviced_id}>
+                      <td>
+                        <input
+                          type="checkbox"
+                          checked={selectedServicedIds.includes(s.serviced_id)}
+                          onChange={() => toggleSelectServiced(s.serviced_id)}
+                        />
+                      </td>
+                      <td>{s.serviced_name}</td>
+                      <td>{s.servant_name || "—"}</td>
+                      <td>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => deleteServiced(s.serviced_id)}
+                        >
+                          حذف
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              {/* ✅ زرار حذف جماعي */}
+              {selectedServicedIds.length > 0 && (
+                <button className="btn btn-danger" onClick={deleteSelectedServiced}>
+                  حذف المحددين ({selectedServicedIds.length})
+                </button>
+              )}
+            </>
+          )}
+
+          {/* ✅ جدول نتائج البحث */}
+          {searchResults.length > 0 && (
+            <>
+              <table className="report-table">
+                <thead>
+                  <tr>
+                    <th>اختيار</th>
                     <th>الاسم</th>
                     <th>الأسرة</th>
                     <th>الفصل</th>
@@ -267,6 +327,13 @@ async function loadServicedList(familyId, className) {
                 <tbody>
                   {searchResults.map((r) => (
                     <tr key={r.serviced_id}>
+                      <td>
+                        <input
+                          type="checkbox"
+                          checked={selectedServicedIds.includes(r.serviced_id)}
+                          onChange={() => toggleSelectServiced(r.serviced_id)}
+                        />
+                      </td>
                       <td>{r.serviced_name}</td>
                       <td>{r.family_name}</td>
                       <td>{r.class_name}</td>
@@ -275,9 +342,16 @@ async function loadServicedList(familyId, className) {
                   ))}
                 </tbody>
               </table>
-            )}
-          </div>
-       
+
+              {/* ✅ زرار حذف جماعي */}
+              {selectedServicedIds.length > 0 && (
+                <button className="btn btn-danger" onClick={deleteSelectedServiced}>
+                  حذف المحددين ({selectedServicedIds.length})
+                </button>
+              )}
+            </>
+          )}
+        </div>
       )}
 
       {/* ✅ تبويب الاستيراد */}
