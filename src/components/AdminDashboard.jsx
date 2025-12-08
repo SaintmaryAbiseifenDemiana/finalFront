@@ -45,7 +45,7 @@ function AdminDashboard() {
 
           <a href="/ViewReports" className="app-icon">
             <div>📊</div>
-            <span>تقارير</span>
+            <span>الغياب الأسبوعي</span>
           </a>
 
           <a href="/MonthlyReports" className="app-icon">
