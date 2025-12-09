@@ -275,7 +275,8 @@ function ManageServiced() {
           </div>
 
           {/* ✅ جدول نتائج البحث (فوق) */}
-          {searchQuery.trim() !== "" && searchResults.length > 0 && (
+          {searchResults.length === 0 && (
+
 
             <>
               <table className="report-table">
