@@ -702,8 +702,8 @@ th {
 .freeze-report th.freeze-col-1 {
   position: sticky;
   right: 0;
-  background: inherit !important; /* نفس لون الهيدر */
-  color: inherit !important;  z-index: 50;
+  background: #007bff !important; /* لون الهيدر الأساسي */
+  color: white !important;  z-index: 100;
   min-width: 140px;
   max-width: 140px;
   border-left: 2px solid #ccc;
@@ -714,8 +714,8 @@ th {
 .freeze-report th.freeze-col-2 {
   position: sticky;
   right: 140px; /* = عرض العمود الأول */
-  background: inherit !important; /* نفس لون الهيدر */
-  color: inherit !important;  z-index: 50;
+  background: #007bff !important; /* لون الهيدر الأساسي */
+  color: white !important;  z-index: 100;
   min-width: 140px;
   max-width: 140px;
   border-left: 2px solid #ccc;
