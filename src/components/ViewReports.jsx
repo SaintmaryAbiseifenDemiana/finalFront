@@ -263,7 +263,7 @@ function ViewReports() {
       <p id="error-message" style={{ textAlign: "center", color: "red", display: "none" }}></p>
 
       <div className="table-responsive">
-        <table className="report-table">
+       <table className="report-table freeze-columns">
           <thead id="reportTableHead"></thead>
           <tbody id="reportTableBody"></tbody>
         </table>
