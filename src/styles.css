@@ -693,7 +693,7 @@ th {
   top: 0;
   background: #007bff !important; /* لون الهيدر الأساسي */
   color: white !important; 
-  z-index: 100;
+  z-index: 50;
   text-align: center;
   border: 1px solid #ccc;
 }
