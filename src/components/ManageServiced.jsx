@@ -281,7 +281,8 @@ function ManageServiced() {
           {searchQuery.trim() !== "" && searchResults.length > 0 && (
             <>
               <div className="table-wrapper">
-                <table className="report-table">
+                <table className="search-table">
+
                   <thead>
                     <tr>
                       <th>اختيار</th>
