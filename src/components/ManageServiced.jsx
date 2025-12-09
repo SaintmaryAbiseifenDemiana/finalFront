@@ -266,6 +266,9 @@ function ManageServiced() {
                 setSearchQuery(e.target.value);
                 if (e.target.value.trim() === "") {
                   setSearchResults([]);
+                  if (selectedFamily && selectedClass) {
+                    loadServicedList(selectedFamily, selectedClass);
+  }
                 }
               }}
             />
