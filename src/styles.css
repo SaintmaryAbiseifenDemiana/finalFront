@@ -681,26 +681,10 @@ th {
 }
 /* ✅ لازم الجدول يكون داخل container فيه scroll */
 /* ✅ نطبّق التجميد فقط على جدول التقرير */
-.freeze-report td.freeze-col-1,
-.freeze-report th.freeze-col-1 {
-  position: sticky;
-  right: 0;
-  background: #dbe8ff;
-  z-index: 50;
-  min-width: 120px;
-  max-width: 120px;
-  border-left: 2px solid #ddd;
-}
-
-.freeze-report td.freeze-col-2,
-.freeze-report th.freeze-col-2 {
-  position: sticky;
-  right: 120px; /* = عرض العمود الأول */
-  background: #dbe8ff;
-  z-index: 50;
-  min-width: 120px;
-  max-width: 120px;
-  border-left: 2px solid #ddd;
+/* ✅ نطبّق التجميد فقط على جدول التقرير */
+.freeze-report {
+  border-collapse: collapse;
+  width: 100%;
 }
 
 /* ✅ تثبيت الهيدر */
@@ -710,7 +694,53 @@ th {
   background: #007bff !important;
   color: white !important;
   z-index: 100;
+  text-align: center;
+  border: 1px solid #ccc;
 }
+
+/* ✅ Freeze عمود الخادم (العمود الثاني) */
+.freeze-report td.freeze-col-1,
+.freeze-report th.freeze-col-1 {
+  position: sticky;
+  right: 0;
+  background: #dbe8ff;
+  z-index: 50;
+  min-width: 140px;
+  max-width: 140px;
+  border-left: 2px solid #ccc;
+}
+
+/* ✅ Freeze عمود الأسرة (العمود الثالث) */
+.freeze-report td.freeze-col-2,
+.freeze-report th.freeze-col-2 {
+  position: sticky;
+  right: 140px; /* = عرض العمود الأول */
+  background: #dbe8ff;
+  z-index: 50;
+  min-width: 140px;
+  max-width: 140px;
+  border-left: 2px solid #ccc;
+}
+
+/* ✅ تحسين شكل باقي الأعمدة */
+.freeze-report td,
+.freeze-report th {
+  padding: 6px;
+  border: 1px solid #ccc;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* ✅ Scroll للجدول */
+.table-responsive {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 70vh;
+  border: 1px solid #ccc;
+  background: white;
+  position: relative;
+}
+
 
 
 
