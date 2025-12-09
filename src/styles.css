@@ -653,6 +653,29 @@ th {
   font-size: 0.9em;
 }
 
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 15px;
+  border-radius: 8px;
+}
+
+.report-table {
+  width: 100%;
+  min-width: 800px; /* علشان الأعمدة تبقى مرتاحة */
+  border-collapse: collapse;
+}
+
+.report-table th,
+.report-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  white-space: nowrap; /* يمنع تكسير الكلام */
+}
+
+.report-table th {
+  background: #f5f5f5;
+}
 
 
 

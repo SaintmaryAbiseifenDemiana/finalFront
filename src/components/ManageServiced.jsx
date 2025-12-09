@@ -277,7 +277,7 @@ function ManageServiced() {
           {/* ✅ جدول نتائج البحث (فوق) */}
           {searchResults.length === 0 && (
 
-
+            <div className="table-wrapper">
             <>
               <table className="report-table">
                 <thead>
@@ -316,7 +316,7 @@ function ManageServiced() {
                   ))}
                 </tbody>
               </table>
-
+            </div>
               {selectedServicedIds.length > 0 && (
                 <button className="btn btn-danger" onClick={deleteSelectedServiced}>
                   حذف المحددين ({selectedServicedIds.length})
@@ -385,6 +385,7 @@ function ManageServiced() {
               {/* ✅ جدول مخدومين الفصل */}
               {servicedList.length > 0 && (
                 <>
+                 <div className="table-wrapper">
                   <table className="report-table">
                     <thead>
                       <tr>
@@ -427,7 +428,7 @@ function ManageServiced() {
                       ))}
                     </tbody>
                   </table>
-
+                </div>
                   {selectedServicedIds.length > 0 && (
                     <button className="btn btn-danger" onClick={deleteSelectedServiced}>
                       حذف المحددين ({selectedServicedIds.length})
