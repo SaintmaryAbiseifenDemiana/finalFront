@@ -662,7 +662,7 @@ th {
 
 .report-table {
   width: 100%;
-  min-width: 800px; /* علشان الأعمدة تبقى مرتاحة */
+  min-width: 800px;
   border-collapse: collapse;
 }
 
@@ -670,7 +670,7 @@ th {
 .report-table td {
   padding: 10px;
   border: 1px solid #ddd;
-  white-space: nowrap; /* يمنع تكسير الكلام */
+  white-space: nowrap;
 }
 
 .report-table th {
