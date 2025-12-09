@@ -215,7 +215,7 @@ function ManageServiced() {
     }
   }
 
-  // ✅ البحث
+    // ✅ البحث
   async function handleSearch() {
     if (!searchQuery.trim()) return;
 
@@ -250,200 +250,200 @@ function ManageServiced() {
         </button>
       </div>
 
+      {/* ✅ تبويب إدارة المخدومين */}
       {activeTab === "manage" && (
-  <div className="card p-4">
-    <h3>إدارة المخدومين</h3>
+        <div className="card p-4">
+          <h3>إدارة المخدومين</h3>
 
-    {/* ✅ البحث */}
-    <div className="search-box">
-      <h4>بحث عن مخدوم</h4>
-      <input
-        type="text"
-        placeholder="اكتب اسم المخدوم"
-        value={searchQuery}
-        onChange={(e) => {
-          const value = e.target.value;
-          setSearchQuery(value);
-
-          // ✅ لو البحث اتشال → امسحي النتائج وارجعي جدول الفصل
-          if (value.trim() === "") {
-            setSearchResults([]);
-
-            if (selectedFamily && selectedClass) {
-              loadServicedList(selectedFamily, selectedClass);
-            }
-          }
-        }}
-      />
-    </div>
-
-    {/* ✅ جدول نتائج البحث */}
-    {searchQuery.trim() !== "" && searchResults.length > 0 && (
-      <>
-        <div className="table-wrapper">
-          <table className="report-table">
-            <thead>
-              <tr>
-                <th>اختيار</th>
-                <th>الاسم</th>
-                <th>الأسرة</th>
-                <th>الفصل</th>
-                <th>الخادم المسؤول</th>
-                <th>نقل</th>
-              </tr>
-            </thead>
-            <tbody>
-              {searchResults.map((r) => (
-                <tr key={r.serviced_id}>
-                  <td>
-                    <input
-                      type="checkbox"
-                      checked={selectedServicedIds.includes(r.serviced_id)}
-                      onChange={() => toggleSelectServiced(r.serviced_id)}
-                    />
-                  </td>
-                  <td>{r.serviced_name}</td>
-                  <td>{r.family_name}</td>
-                  <td>{r.class_name}</td>
-                  <td>{r.servant_name || "—"}</td>
-                  <td>
-                    <button
-                      className="btn btn-warning"
-                      onClick={() => startTransfer(r.serviced_id)}
-                    >
-                      نقل
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {selectedServicedIds.length > 0 && (
-          <button className="btn btn-danger" onClick={deleteSelectedServiced}>
-            حذف المحددين ({selectedServicedIds.length})
-          </button>
-        )}
-      </>
-    )}
-
-    {/* ✅ صفحة الفصل (تظهر فقط لو مفيش بحث) */}
-    {searchQuery.trim() === "" && searchResults.length === 0 && (
-      <>
-        {/* ✅ اختيار الأسرة */}
-        <label>اختار الأسرة:</label>
-        <select value={selectedFamily} onChange={handleFamilyChange}>
-          <option value="">-- اختار الأسرة --</option>
-          {families.map((f) => (
-            <option key={f.family_id} value={f.family_id}>
-              {f.family_name}
-            </option>
-          ))}
-        </select>
-
-        {/* ✅ اختيار الفصل */}
-        {classes.length > 0 && (
-          <>
-            <label>اختار الفصل:</label>
-            <select value={selectedClass} onChange={handleClassChange}>
-              <option value="">-- اختار الفصل --</option>
-              {classes.map((c, i) => (
-                <option key={i} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
-          </>
-        )}
-
-        {/* ✅ إضافة مخدوم */}
-        {selectedClass && (
-          <div className="add-serviced">
-            <h4>إضافة مخدوم جديد</h4>
-
+          {/* ✅ البحث */}
+          <div className="search-box">
+            <h4>بحث عن مخدوم</h4>
             <input
               type="text"
-              placeholder="اسم المخدوم"
-              value={newServicedName}
-              onChange={(e) => setNewServicedName(e.target.value)}
+              placeholder="اكتب اسم المخدوم"
+              value={searchQuery}
+              onChange={(e) => {
+                const value = e.target.value;
+                setSearchQuery(value);
+
+                if (value.trim() === "") {
+                  setSearchResults([]);
+
+                  if (selectedFamily && selectedClass) {
+                    loadServicedList(selectedFamily, selectedClass);
+                  }
+                }
+              }}
             />
-
-            <select
-              value={selectedServant}
-              onChange={(e) => setSelectedServant(e.target.value)}
-            >
-              <option value="">-- اختار الخادم المسؤول --</option>
-              {servants.map((s) => (
-                <option key={s.user_id} value={s.user_id}>
-                  {s.username}
-                </option>
-              ))}
-            </select>
-
-            <button onClick={addServiced}>➕ إضافة</button>
           </div>
-        )}
 
-        {/* ✅ جدول مخدومين الفصل */}
-        {servicedList.length > 0 && (
-          <>
-            <div className="table-wrapper">
-              <table className="report-table">
-                <thead>
-                  <tr>
-                    <th>اختيار</th>
-                    <th>اسم المخدوم</th>
-                    <th>الخادم المسؤول</th>
-                    <th>حذف</th>
-                    <th>نقل</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {servicedList.map((s) => (
-                    <tr key={s.serviced_id}>
-                      <td>
-                        <input
-                          type="checkbox"
-                          checked={selectedServicedIds.includes(s.serviced_id)}
-                          onChange={() => toggleSelectServiced(s.serviced_id)}
-                        />
-                      </td>
-                      <td>{s.serviced_name}</td>
-                      <td>{s.servant_name || "—"}</td>
-                      <td>
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => deleteServiced(s.serviced_id)}
-                        >
-                          حذف
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          className="btn btn-warning"
-                          onClick={() => startTransfer(s.serviced_id)}
-                        >
-                          نقل
-                        </button>
-                      </td>
+          {/* ✅ جدول نتائج البحث */}
+          {searchQuery.trim() !== "" && searchResults.length > 0 && (
+            <>
+              <div className="table-wrapper">
+                <table className="report-table">
+                  <thead>
+                    <tr>
+                      <th>اختيار</th>
+                      <th>الاسم</th>
+                      <th>الأسرة</th>
+                      <th>الفصل</th>
+                      <th>الخادم المسؤول</th>
+                      <th>نقل</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {searchResults.map((r) => (
+                      <tr key={r.serviced_id}>
+                        <td>
+                          <input
+                            type="checkbox"
+                            checked={selectedServicedIds.includes(r.serviced_id)}
+                            onChange={() => toggleSelectServiced(r.serviced_id)}
+                          />
+                        </td>
+                        <td>{r.serviced_name}</td>
+                        <td>{r.family_name}</td>
+                        <td>{r.class_name}</td>
+                        <td>{r.servant_name || "—"}</td>
+                        <td>
+                          <button
+                            className="btn btn-warning"
+                            onClick={() => startTransfer(r.serviced_id)}
+                          >
+                            نقل
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
-            {selectedServicedIds.length > 0 && (
-              <button className="btn btn-danger" onClick={deleteSelectedServiced}>
-                حذف المحددين ({selectedServicedIds.length})
-              </button>
-            )}
-          </>
-        )}
-      </>
-    )}
-  </div>
-)}
+              {selectedServicedIds.length > 0 && (
+                <button className="btn btn-danger" onClick={deleteSelectedServiced}>
+                  حذف المحددين ({selectedServicedIds.length})
+                </button>
+              )}
+            </>
+          )}
+
+          {/* ✅ صفحة الفصل (تظهر فقط لو مفيش بحث) */}
+          {searchQuery.trim() === "" && searchResults.length === 0 && (
+            <>
+              {/* ✅ اختيار الأسرة */}
+              <label>اختار الأسرة:</label>
+              <select value={selectedFamily} onChange={handleFamilyChange}>
+                <option value="">-- اختار الأسرة --</option>
+                {families.map((f) => (
+                  <option key={f.family_id} value={f.family_id}>
+                    {f.family_name}
+                  </option>
+                ))}
+              </select>
+
+              {/* ✅ اختيار الفصل */}
+              {classes.length > 0 && (
+                <>
+                  <label>اختار الفصل:</label>
+                  <select value={selectedClass} onChange={handleClassChange}>
+                    <option value="">-- اختار الفصل --</option>
+                    {classes.map((c, i) => (
+                      <option key={i} value={c}>
+                        {c}
+                      </option>
+                    ))}
+                  </select>
+                </>
+              )}
+
+              {/* ✅ إضافة مخدوم */}
+              {selectedClass && (
+                <div className="add-serviced">
+                  <h4>إضافة مخدوم جديد</h4>
+
+                  <input
+                    type="text"
+                    placeholder="اسم المخدوم"
+                    value={newServicedName}
+                    onChange={(e) => setNewServicedName(e.target.value)}
+                  />
+
+                  <select
+                    value={selectedServant}
+                    onChange={(e) => setSelectedServant(e.target.value)}
+                  >
+                    <option value="">-- اختار الخادم المسؤول --</option>
+                    {servants.map((s) => (
+                      <option key={s.user_id} value={s.user_id}>
+                        {s.username}
+                      </option>
+                    ))}
+                  </select>
+
+                  <button onClick={addServiced}>➕ إضافة</button>
+                </div>
+              )}
+
+              {/* ✅ جدول مخدومين الفصل */}
+              {servicedList.length > 0 && (
+                <>
+                  <div className="table-wrapper">
+                    <table className="report-table">
+                      <thead>
+                        <tr>
+                          <th>اختيار</th>
+                          <th>اسم المخدوم</th>
+                          <th>الخادم المسؤول</th>
+                          <th>حذف</th>
+                          <th>نقل</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {servicedList.map((s) => (
+                          <tr key={s.serviced_id}>
+                            <td>
+                              <input
+                                type="checkbox"
+                                checked={selectedServicedIds.includes(s.serviced_id)}
+                                onChange={() => toggleSelectServiced(s.serviced_id)}
+                              />
+                            </td>
+                            <td>{s.serviced_name}</td>
+                            <td>{s.servant_name || "—"}</td>
+                            <td>
+                              <button
+                                className="btn btn-danger"
+                                onClick={() => deleteServiced(s.serviced_id)}
+                              >
+                                حذف
+                              </button>
+                            </td>
+                            <td>
+                              <button
+                                className="btn btn-warning"
+                                onClick={() => startTransfer(s.serviced_id)}
+                              >
+                                نقل
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {selectedServicedIds.length > 0 && (
+                    <button className="btn btn-danger" onClick={deleteSelectedServiced}>
+                      حذف المحددين ({selectedServicedIds.length})
+                    </button>
+                  )}
+                </>
+              )}
+            </>
+          )}
+        </div>
+      )}
 
       {/* ✅ تبويب الاستيراد */}
       {activeTab === "import" && (
