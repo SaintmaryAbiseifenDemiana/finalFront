@@ -692,7 +692,8 @@ th {
   position: sticky;
   top: 0;
   background: #007bff !important; /* لون الهيدر الأساسي */
-  color: white !important;  z-index: 100;
+  color: white !important; 
+  z-index: 100;
   text-align: center;
   border: 1px solid #ccc;
 }
@@ -703,7 +704,8 @@ th {
   position: sticky;
   right: 0;
   background: #007bff !important; /* لون الهيدر الأساسي */
-  color: white !important;  z-index: 100;
+  color: white !important;
+  z-index: 100;
   min-width: 140px;
   max-width: 140px;
   border-left: 2px solid #ccc;
@@ -715,7 +717,8 @@ th {
   position: sticky;
   right: 140px; /* = عرض العمود الأول */
   background: #007bff !important; /* لون الهيدر الأساسي */
-  color: white !important;  z-index: 100;
+  color: white !important;
+  z-index: 100;
   min-width: 140px;
   max-width: 140px;
   border-left: 2px solid #ccc;
