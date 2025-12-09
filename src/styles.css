@@ -706,23 +706,12 @@ th {
   background: #007bff !important; /* لون الهيدر الأساسي */
   color: white !important;
   z-index: 50;
-  min-width: 140px;
-  max-width: 140px;
+  min-width: 80px;
+  max-width: 80px;
   border-left: 2px solid #ccc;
 }
 
-/* ✅ Freeze عمود الأسرة (العمود الثالث) */
-.freeze-report td.freeze-col-2,
-.freeze-report th.freeze-col-2 {
-  position: sticky;
-  right: 140px; /* = عرض العمود الأول */
-  background: #007bff !important; /* لون الهيدر الأساسي */
-  color: white !important;
-  z-index: 50;
-  min-width: 140px;
-  max-width: 140px;
-  border-left: 2px solid #ccc;
-}
+
 
 /* ✅ تحسين شكل باقي الأعمدة */
 .freeze-report td,
