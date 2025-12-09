@@ -109,8 +109,8 @@ function ViewReports() {
     const tr1 = document.createElement("tr");
     tr1.innerHTML = `
       <th rowspan="2">م</th>
-      <th rowspan="2">الخادم</th>
-      <th rowspan="2">الأسرة</th>
+      <th rowspan="2" class="freeze-col-1">الخادم</th>
+      <th rowspan="2" class="freeze-col-2">الأسرة</th>
     `;
 
     fridays.forEach((date) => {
@@ -160,8 +160,13 @@ function ViewReports() {
     users.forEach((u, idx) => {
       const tr = tbody.insertRow();
       tr.insertCell().textContent = idx + 1;
-      tr.insertCell().textContent = u.username;
-      tr.insertCell().textContent = u.family_name;
+      const servantCell = tr.insertCell();
+      servantCell.textContent = u.username;
+      servantCell.className = "freeze-col-1";
+
+      const familyCell = tr.insertCell();
+      familyCell.textContent = u.family_name;
+      familyCell.className = "freeze-col-2";
 
       fridays.forEach((date) => {
         const rec = u.dates[date];

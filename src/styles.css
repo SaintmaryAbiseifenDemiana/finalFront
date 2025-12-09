@@ -680,44 +680,37 @@ th {
   font-weight: bold;
 }
 /* ✅ لازم الجدول يكون داخل container فيه scroll */
-.table-responsive {
-  overflow-x: auto;
-  position: relative;
-}
-
-/* ✅ Freeze للعمود الأول */
-.freeze-columns td:nth-child(1),
-.freeze-columns th:nth-child(1) {
+/* ✅ نطبّق التجميد فقط على جدول التقرير */
+.freeze-report td.freeze-col-1,
+.freeze-report th.freeze-col-1 {
   position: sticky;
   right: 0;
-  background: white;
-  z-index: 3;
+  background: #dbe8ff;
+  z-index: 50;
+  min-width: 120px;
+  max-width: 120px;
+  border-left: 2px solid #ddd;
 }
 
-/* ✅ Freeze للعمود الثاني (الخادم) */
-.freeze-columns td:nth-child(2),
-.freeze-columns th:nth-child(2) {
+.freeze-report td.freeze-col-2,
+.freeze-report th.freeze-col-2 {
   position: sticky;
-  right: 80px; /* حسب عرض العمود الأول */
-  background: white;
-  z-index: 3;
+  right: 120px; /* = عرض العمود الأول */
+  background: #dbe8ff;
+  z-index: 50;
+  min-width: 120px;
+  max-width: 120px;
+  border-left: 2px solid #ddd;
 }
 
-/* ✅ Freeze للعمود الثالث (الأسرة) */
-.freeze-columns td:nth-child(3),
-.freeze-columns th:nth-child(3) {
+/* ✅ تثبيت الهيدر */
+.freeze-report thead th {
   position: sticky;
-  right: 180px; /* حسب عرض العمودين الأول والثاني */
-  background: white;
-  z-index: 3;
+  top: 0;
+  background: #007bff !important;
+  color: white !important;
+  z-index: 100;
 }
-
-/* ✅ تحسين شكل الهيدر */
-.freeze-columns th {
-  background: #f0f0f0 !important;
-  font-weight: bold;
-}
-
 
 
 
