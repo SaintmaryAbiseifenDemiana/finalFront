@@ -691,9 +691,8 @@ th {
 .freeze-report thead th {
   position: sticky;
   top: 0;
-  background: #007bff !important;
-  color: white !important;
-  z-index: 100;
+  background: #007bff !important; /* لون الهيدر الأساسي */
+  color: white !important;  z-index: 100;
   text-align: center;
   border: 1px solid #ccc;
 }
@@ -703,8 +702,8 @@ th {
 .freeze-report th.freeze-col-1 {
   position: sticky;
   right: 0;
-  background: #dbe8ff;
-  z-index: 50;
+  background: inherit !important; /* نفس لون الهيدر */
+  color: inherit !important;  z-index: 50;
   min-width: 140px;
   max-width: 140px;
   border-left: 2px solid #ccc;
@@ -715,8 +714,8 @@ th {
 .freeze-report th.freeze-col-2 {
   position: sticky;
   right: 140px; /* = عرض العمود الأول */
-  background: #dbe8ff;
-  z-index: 50;
+  background: inherit !important; /* نفس لون الهيدر */
+  color: inherit !important;  z-index: 50;
   min-width: 140px;
   max-width: 140px;
   border-left: 2px solid #ccc;
