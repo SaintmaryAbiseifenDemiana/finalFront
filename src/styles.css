@@ -674,8 +674,14 @@ th {
 }
 
 .report-table th {
-  background: #f5f5f5;
+  background: linear-gradient(to bottom, #4a69bd, #3b55a0) !important;
+  color: white !important;
+  font-weight: bold;
+  text-align: center;
+  padding: 12px;
+  letter-spacing: 0.5px;
 }
+
 
 
 
