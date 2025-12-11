@@ -272,27 +272,28 @@ function selectAllServiced() {
 >
   تحديد الكل
 </button>
-          {/* ✅ البحث */}
-          <div className="search-box">
-            <h4>بحث عن مخدوم</h4>
-            <input
-              type="text"
-              placeholder="اكتب اسم المخدوم"
-              value={searchQuery}
-              onChange={(e) => {
-                const value = e.target.value;
-                setSearchQuery(value);
 
-                if (value.trim() === "") {
-                  setSearchResults([]);
+{/* ✅ البحث */}
+<div className="search-box">
+  <h4>بحث عن مخدوم</h4>
+  <input
+    type="text"
+    placeholder="اكتب اسم المخدوم"
+    value={searchQuery}
+    onChange={(e) => {
+      const value = e.target.value;
+      setSearchQuery(value);
 
-                  if (selectedFamily && selectedClass) {
-                    loadServicedList(selectedFamily, selectedClass);
-                  }
-                }
-              }}
-            />
-          </div>
+      if (value.trim() === "") {
+        setSearchResults([]);
+
+        if (selectedFamily && selectedClass) {
+          loadServicedList(selectedFamily, selectedClass);
+        }
+      }
+    }}
+  />
+</div>
 
           {/* ✅ جدول نتائج البحث */}
           {searchQuery.trim() !== "" && searchResults.length > 0 && (
@@ -302,25 +303,26 @@ function selectAllServiced() {
                 <table className="search-table">
 
                   <thead>
-                    <tr>
-                      <th>
-                        <input 
-                          type="checkbox"
-                          checked={
-                             selectedServicedIds.length > 0 &&
-                             selectedServicedIds.length === searchResults.length
-                           }
-                          onChange={selectAllServiced}
-                        />
-                      </th>
-                      <th>اختيار</th>
-                      <th>الاسم</th>
-                      <th>الأسرة</th>
-                      <th>الفصل</th>
-                      <th>الخادم المسؤول</th>
-                      <th>نقل</th>
-                    </tr>
-                  </thead>
+  <tr>
+    <th>
+      <input 
+        type="checkbox"
+        checked={
+          selectedServicedIds.length > 0 &&
+          selectedServicedIds.length === searchResults.length
+        }
+        onChange={selectAllServiced}
+      />
+    </th>
+    <th>اختيار</th>
+    <th>الاسم</th>
+    <th>الأسرة</th>
+    <th>الفصل</th>
+    <th>الخادم المسؤول</th>
+    <th>نقل</th>
+  </tr>
+</thead>
+
                   <tbody>
                     {searchResults.map((r) => (
                       <tr key={r.serviced_id}>
@@ -418,7 +420,7 @@ function selectAllServiced() {
               {/* ✅ جدول مخدومين الفصل */}
               {servicedList.length > 0 && (
                 <>
-                 <button
+               <button
       className="btn btn-outline-primary btn-sm"
       onClick={selectAllServiced}
       style={{ marginBottom: "10px" }}
@@ -429,15 +431,15 @@ function selectAllServiced() {
                       <thead>
                         <tr>
                <th>
-        <input 
-          type="checkbox"
-          checked={
-            selectedServicedIds.length > 0 &&
-            selectedServicedIds.length === servicedList.length
-          }
-          onChange={selectAllServiced}
-        />
-      </th>
+      <input 
+        type="checkbox"
+        checked={
+          selectedServicedIds.length > 0 &&
+          selectedServicedIds.length === servicedList.length
+        }
+        onChange={selectAllServiced}
+      />
+    </th>
                           <th>اختيار</th>
                           <th>اسم المخدوم</th>
                           <th>الخادم المسؤول</th>
