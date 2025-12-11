@@ -142,17 +142,7 @@ function ManageServiced() {
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     );
   }
-function selectAllServiced() {
-  const currentList = searchQuery.trim() !== "" ? searchResults : servicedList;
 
-  // لو كلهم متحددين → شيّلي التحديد
-  if (selectedServicedIds.length === currentList.length) {
-    setSelectedServicedIds([]);
-  } else {
-    // حددي كل IDs
-    setSelectedServicedIds(currentList.map(s => s.serviced_id));
-  }
-}
 
 
   // ✅ حذف جماعي
@@ -292,12 +282,6 @@ function selectAllServiced() {
           {/* ✅ جدول نتائج البحث */}
           {searchQuery.trim() !== "" && searchResults.length > 0 && (
             <>
-               <button 
-                   className="btn btn-outline-primary btn-sm"
-                   onClick={selectAllServiced}
-               >
-                   تحديد الكل
-              </button>
               <div className="table-wrapper">
                 <table className="search-table">
 
