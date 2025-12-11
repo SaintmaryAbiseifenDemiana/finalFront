@@ -143,14 +143,17 @@ function ManageServiced() {
     );
   }
 function selectAllServiced() {
+  const currentList = searchQuery.trim() !== "" ? searchResults : servicedList;
+
   // لو كلهم متحددين → شيّلي التحديد
-  if (selectedServicedIds.length === servicedList.length) {
+  if (selectedServicedIds.length === currentList.length) {
     setSelectedServicedIds([]);
   } else {
     // حددي كل IDs
-    setSelectedServicedIds(servicedList.map(s => s.serviced_id));
+    setSelectedServicedIds(currentList.map(s => s.serviced_id));
   }
 }
+
 
   // ✅ حذف جماعي
   async function deleteSelectedServiced() {
@@ -289,6 +292,12 @@ function selectAllServiced() {
           {/* ✅ جدول نتائج البحث */}
           {searchQuery.trim() !== "" && searchResults.length > 0 && (
             <>
+               <button 
+                   className="btn btn-outline-primary btn-sm"
+                   onClick={selectAllServiced}
+               >
+                   تحديد الكل
+              </button>
               <div className="table-wrapper">
                 <table className="search-table">
 
@@ -366,12 +375,7 @@ function selectAllServiced() {
                   </select>
                 </>
               )}
-              <button 
-  className="btn btn-outline-primary btn-sm"
-  onClick={selectAllServiced}
->
-  تحديد الكل
-</button>
+
 
               {/* ✅ إضافة مخدوم */}
               {selectedClass && (
