@@ -142,6 +142,15 @@ function ManageServiced() {
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     );
   }
+function selectAllServiced() {
+  // لو كلهم متحددين → شيّلي التحديد
+  if (selectedServicedIds.length === servicedList.length) {
+    setSelectedServicedIds([]);
+  } else {
+    // حددي كل IDs
+    setSelectedServicedIds(servicedList.map(s => s.serviced_id));
+  }
+}
 
   // ✅ حذف جماعي
   async function deleteSelectedServiced() {
@@ -357,6 +366,12 @@ function ManageServiced() {
                   </select>
                 </>
               )}
+              <button 
+  className="btn btn-outline-primary btn-sm"
+  onClick={selectAllServiced}
+>
+  تحديد الكل
+</button>
 
               {/* ✅ إضافة مخدوم */}
               {selectedClass && (
