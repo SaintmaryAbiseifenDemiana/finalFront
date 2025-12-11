@@ -143,6 +143,15 @@ function ManageServiced() {
     );
   }
 
+function selectAllServiced() {
+  const currentList = searchQuery.trim() !== "" ? searchResults : servicedList;
+
+  if (selectedServicedIds.length === currentList.length) {
+    setSelectedServicedIds([]);
+  } else {
+    setSelectedServicedIds(currentList.map(s => s.serviced_id));
+  }
+}
 
 
   // ✅ حذف جماعي
@@ -282,11 +291,28 @@ function ManageServiced() {
           {/* ✅ جدول نتائج البحث */}
           {searchQuery.trim() !== "" && searchResults.length > 0 && (
             <>
+             <button
+              className="btn btn-outline-primary btn-sm"
+              onClick={selectAllServiced}
+              style={{ marginBottom: "10px" }}
+             >
+              تحديد الكل       
+             </button>
               <div className="table-wrapper">
                 <table className="search-table">
 
                   <thead>
                     <tr>
+                      <th>
+                        <input 
+                            type="checkbox"
+                            checked={
+                              selectedServicedIds.length > 0 &&
+                              selectedServicedIds.length === searchResults.length
+                          }
+                             onChange={selectAllServiced}
+                              />
+                      </th>
                       <th>اختيار</th>
                       <th>الاسم</th>
                       <th>الأسرة</th>
@@ -392,10 +418,26 @@ function ManageServiced() {
               {/* ✅ جدول مخدومين الفصل */}
               {servicedList.length > 0 && (
                 <>
-                  
+                  <button 
+                    className="btn btn-outline-primary btn-sm"
+                    onClick={selectAllServiced}
+                    style={{ marginBottom: "10px" }}
+                  >
+                    تحديد الكل
+                  </button>
                     <table className="report-table">
                       <thead>
                         <tr>
+                          <th>
+      <input 
+        type="checkbox"
+        checked={
+          selectedServicedIds.length > 0 &&
+          selectedServicedIds.length === servicedList.length
+        }
+        onChange={selectAllServiced}
+      />
+    </th>
                           <th>اختيار</th>
                           <th>اسم المخدوم</th>
                           <th>الخادم المسؤول</th>
