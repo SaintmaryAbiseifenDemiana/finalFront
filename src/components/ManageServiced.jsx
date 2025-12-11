@@ -265,7 +265,13 @@ function selectAllServiced() {
       {activeTab === "manage" && (
         <div className="card p-4">
           <h3>إدارة المخدومين</h3>
-
+<button
+  className="btn btn-outline-primary btn-sm"
+  onClick={selectAllServiced}
+  style={{ marginBottom: "10px" }}
+>
+  تحديد الكل
+</button>
           {/* ✅ البحث */}
           <div className="search-box">
             <h4>بحث عن مخدوم</h4>
@@ -291,13 +297,7 @@ function selectAllServiced() {
           {/* ✅ جدول نتائج البحث */}
           {searchQuery.trim() !== "" && searchResults.length > 0 && (
             <>
-             <button
-              className="btn btn-outline-primary btn-sm"
-              onClick={selectAllServiced}
-              style={{ marginBottom: "10px" }}
-             >
-              تحديد الكل       
-             </button>
+             
               <div className="table-wrapper">
                 <table className="search-table">
 
@@ -305,13 +305,13 @@ function selectAllServiced() {
                     <tr>
                       <th>
                         <input 
-                            type="checkbox"
-                            checked={
-                              selectedServicedIds.length > 0 &&
-                              selectedServicedIds.length === searchResults.length
-                          }
-                             onChange={selectAllServiced}
-                              />
+                          type="checkbox"
+                          checked={
+                             selectedServicedIds.length > 0 &&
+                             selectedServicedIds.length === searchResults.length
+                           }
+                          onChange={selectAllServiced}
+                        />
                       </th>
                       <th>اختيار</th>
                       <th>الاسم</th>
@@ -418,26 +418,26 @@ function selectAllServiced() {
               {/* ✅ جدول مخدومين الفصل */}
               {servicedList.length > 0 && (
                 <>
-                  <button 
-                    className="btn btn-outline-primary btn-sm"
-                    onClick={selectAllServiced}
-                    style={{ marginBottom: "10px" }}
-                  >
-                    تحديد الكل
-                  </button>
+                 <button
+      className="btn btn-outline-primary btn-sm"
+      onClick={selectAllServiced}
+      style={{ marginBottom: "10px" }}
+    >
+      تحديد الكل
+    </button>
                     <table className="report-table">
                       <thead>
                         <tr>
-                          <th>
-      <input 
-        type="checkbox"
-        checked={
-          selectedServicedIds.length > 0 &&
-          selectedServicedIds.length === servicedList.length
-        }
-        onChange={selectAllServiced}
-      />
-    </th>
+               <th>
+        <input 
+          type="checkbox"
+          checked={
+            selectedServicedIds.length > 0 &&
+            selectedServicedIds.length === servicedList.length
+          }
+          onChange={selectAllServiced}
+        />
+      </th>
                           <th>اختيار</th>
                           <th>اسم المخدوم</th>
                           <th>الخادم المسؤول</th>
