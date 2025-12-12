@@ -115,7 +115,7 @@ function Dashboard() {
     document.getElementById("submitAttendanceBtn").disabled = true;
 
     try {
-      const url = `${API_BASE}/api/serviced/list/${familyId}/${encodeURIComponent(className)}?date=${date}`;
+      const url = `${API_BASE}/api/serviced/by-class/${familyId}/${className}?date=${date}`;
       const response = await fetch(url);
       const data = await response.json();
 
