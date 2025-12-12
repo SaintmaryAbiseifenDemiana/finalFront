@@ -110,7 +110,6 @@ function Dashboard() {
     }
 
     document.getElementById("servicedTableBody").innerHTML = "";
-    document.getElementById("message").textContent = "";
     document.getElementById("servicedListCard").style.display = "none";
     document.getElementById("submitAttendanceBtn").disabled = true;
 
