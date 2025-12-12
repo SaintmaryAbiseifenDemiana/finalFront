@@ -87,6 +87,8 @@ function ManageServiced() {
 
     if (selectedFamily && classId) {
       loadServicedList(selectedFamily, classId);
+      loadServants(selectedFamily, classId);
+
     }
   }
 
