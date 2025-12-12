@@ -86,7 +86,6 @@ function ManageServiced() {
     setSearchResults([]);
 
     if (selectedFamily && classId) {
-      loadServants(selectedFamily, classId);
       loadServicedList(selectedFamily, classId);
     }
   }
