@@ -55,8 +55,8 @@ function ManageServiced() {
 
   // ✅ تحميل الخدام حسب الفصل
   async function loadServants(familyId, classId) {
-    const res = await fetch(`${API_BASE}/api/serviced/by-class/${familyId}/${classId}`);
-     const data = await res.json();
+    const res = await fetch(`${API_BASE}/api/servants/by-class/${familyId}/${classId}`);
+    const data = await res.json();
     if (data.success) setServants(data.servants);
   }
 
