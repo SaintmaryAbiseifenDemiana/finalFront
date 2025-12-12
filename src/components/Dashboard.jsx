@@ -46,9 +46,10 @@ function Dashboard() {
       const data = await response.json();
 
       if (data.success && data.classes.length > 0) {
-        data.classes.forEach((className) => {
-          classSelect.add(new Option(className, className));
-        });
+        data.classes.forEach((c) => {
+         classSelect.add(new Option(c.class_name, c.class_name));
+});
+
 
         classSelect.disabled = false;
         document.getElementById("monthSelect").disabled = false;
