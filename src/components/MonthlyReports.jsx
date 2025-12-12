@@ -172,7 +172,9 @@ function MonthlyReports() {
           row.insertCell().textContent = record.confession_pct;
           row.insertCell().textContent = record.visits_pct;
         });
-       
+       const header = document.getElementById("visitsHeader");
+       if (header) header.onclick = sortByVisits;
+
         resultMessage.textContent = "✅ تم تحميل التقرير الشهري";
         resultMessage.style.color = "green";
       } else {
