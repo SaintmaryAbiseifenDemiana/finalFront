@@ -243,7 +243,7 @@ function MonthlyReports() {
   function sortByVisits() {
     const tableBody = document.getElementById("reportTableBody");
     const rows = Array.from(tableBody.querySelectorAll("tr"));
-
+    const arrow = document.getElementById("visitsArrow");
     const sorted = rows.sort((a, b) => {
       const av = parseFloat(a.cells[6].textContent) || 0;
       const bv = parseFloat(b.cells[6].textContent) || 0;
