@@ -221,7 +221,9 @@ function MonthlyReports() {
           row.insertCell().textContent = record.confession_pct;
           row.insertCell().textContent = record.visits_pct;
         });
-
+        // ✅ هنا نربط السورت بعد ما الجدول اتبنى
+        const header = document.getElementById("visitsHeader");
+        if (header) header.onclick = sortByVisits;
         resultMessage.textContent = "✅ تم حساب التقرير السنوي";
         resultMessage.style.color = "green";
       } else {
@@ -234,6 +236,19 @@ function MonthlyReports() {
       resultMessage.style.color = "red";
     }
   }
+function sortByVisits() {
+  const tableBody = document.getElementById("reportTableBody");
+  const rows = Array.from(tableBody.querySelectorAll("tr"));
+
+  const sorted = rows.sort((a, b) => {
+    const av = parseFloat(a.cells[6].textContent) || 0;
+    const bv = parseFloat(b.cells[6].textContent) || 0;
+    return bv - av; // ترتيب تنازلي
+  });
+
+  tableBody.innerHTML = "";
+  sorted.forEach(row => tableBody.appendChild(row));
+}
 
   return (
     <div className="container">
@@ -293,7 +308,8 @@ function MonthlyReports() {
               <th>حضر الدرس</th>
               <th>اتناول</th>
               <th>اعترف</th>
-              <th>افتقاد</th>
+              <th id="visitsHeader">افتقاد</th>
+
 
 
             </tr>
