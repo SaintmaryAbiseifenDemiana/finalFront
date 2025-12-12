@@ -5,6 +5,7 @@ import { API_BASE } from "../config";
 
 function ManageServiced() {
   const [activeTab, setActiveTab] = useState("manage");
+
   const [families, setFamilies] = useState([]);
   const [classes, setClasses] = useState([]);
   const [servants, setServants] = useState([]);
@@ -12,9 +13,10 @@ function ManageServiced() {
 
   const [selectedFamily, setSelectedFamily] = useState("");
   const [selectedClass, setSelectedClass] = useState("");
-  const [selectedServant, setSelectedServant] = useState("");
 
+  const [selectedServant, setSelectedServant] = useState("");
   const [newServicedName, setNewServicedName] = useState("");
+
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
@@ -29,7 +31,6 @@ function ManageServiced() {
     loadFamilies();
   }, []);
 
-  // ✅ Live Suggestions
   useEffect(() => {
     if (searchQuery.trim().length >= 2) {
       handleSearch();
@@ -45,27 +46,23 @@ function ManageServiced() {
     if (data.success) setFamilies(data.families);
   }
 
-  // ✅ تحميل الفصول
+  // ✅ تحميل الفصول (class_id + class_name)
   async function loadClasses(familyId) {
-    const res = await fetch(`${API_BASE}/api/serviced/classes/${familyId}`);
+    const res = await fetch(`${API_BASE}/api/classes/${familyId}`);
     const data = await res.json();
     if (data.success) setClasses(data.classes);
   }
 
-  // ✅ تحميل الخدام
-  async function loadServants(familyId, className) {
-    const res = await fetch(
-      `${API_BASE}/api/servants/by-family/${familyId}/${encodeURIComponent(className)}`
-    );
+  // ✅ تحميل الخدام حسب الفصل
+  async function loadServants(familyId, classId) {
+    const res = await fetch(`${API_BASE}/api/servants/by-class/${familyId}/${classId}`);
     const data = await res.json();
     if (data.success) setServants(data.servants);
   }
 
-  // ✅ تحميل المخدومين
-  async function loadServicedList(familyId, className) {
-    const res = await fetch(
-      `${API_BASE}/api/serviced/manage/${familyId}/${encodeURIComponent(className)}`
-    );
+  // ✅ تحميل المخدومين حسب الفصل
+  async function loadServicedList(familyId, classId) {
+    const res = await fetch(`${API_BASE}/api/serviced/by-class/${familyId}/${classId}`);
     const data = await res.json();
     if (data.success) setServicedList(data.serviced);
   }
@@ -78,18 +75,19 @@ function ManageServiced() {
     setServants([]);
     setServicedList([]);
     setSearchResults([]);
+
     if (familyId) loadClasses(familyId);
   }
 
   // ✅ عند اختيار الفصل
   function handleClassChange(e) {
-    const className = e.target.value;
-    setSelectedClass(className);
+    const classId = e.target.value;
+    setSelectedClass(classId);
     setSearchResults([]);
 
-    if (selectedFamily && className) {
-      loadServants(selectedFamily, className);
-      loadServicedList(selectedFamily, className);
+    if (selectedFamily && classId) {
+      loadServants(selectedFamily, classId);
+      loadServicedList(selectedFamily, classId);
     }
   }
 
@@ -106,7 +104,7 @@ function ManageServiced() {
       body: JSON.stringify({
         serviced_name: newServicedName,
         family_id: selectedFamily,
-        class_name: selectedClass,
+        class_id: selectedClass,
         servant_user_id: selectedServant,
       }),
     });
@@ -143,16 +141,15 @@ function ManageServiced() {
     );
   }
 
-function selectAllServiced() {
-  const currentList = searchQuery.trim() !== "" ? searchResults : servicedList;
+  function selectAllServiced() {
+    const currentList = searchQuery.trim() !== "" ? searchResults : servicedList;
 
-  if (selectedServicedIds.length === currentList.length) {
-    setSelectedServicedIds([]);
-  } else {
-    setSelectedServicedIds(currentList.map(s => s.serviced_id));
+    if (selectedServicedIds.length === currentList.length) {
+      setSelectedServicedIds([]);
+    } else {
+      setSelectedServicedIds(currentList.map((s) => s.serviced_id));
+    }
   }
-}
-
 
   // ✅ حذف جماعي
   async function deleteSelectedServiced() {
@@ -226,7 +223,7 @@ function selectAllServiced() {
     }
   }
 
-    // ✅ البحث
+  // ✅ البحث
   async function handleSearch() {
     if (!searchQuery.trim()) return;
 
@@ -265,63 +262,62 @@ function selectAllServiced() {
       {activeTab === "manage" && (
         <div className="card p-4">
           <h3>إدارة المخدومين</h3>
-<button
-  className="btn btn-outline-primary btn-sm"
-  onClick={selectAllServiced}
-  style={{ marginBottom: "10px" }}
->
-  تحديد الكل
-</button>
 
-{/* ✅ البحث */}
-<div className="search-box">
-  <h4>بحث عن مخدوم</h4>
-  <input
-    type="text"
-    placeholder="اكتب اسم المخدوم"
-    value={searchQuery}
-    onChange={(e) => {
-      const value = e.target.value;
-      setSearchQuery(value);
+          <button
+            className="btn btn-outline-primary btn-sm"
+            onClick={selectAllServiced}
+            style={{ marginBottom: "10px" }}
+          >
+            تحديد الكل
+          </button>
 
-      if (value.trim() === "") {
-        setSearchResults([]);
+          {/* ✅ البحث */}
+          <div className="search-box">
+            <h4>بحث عن مخدوم</h4>
+            <input
+              type="text"
+              placeholder="اكتب اسم المخدوم"
+              value={searchQuery}
+              onChange={(e) => {
+                const value = e.target.value;
+                setSearchQuery(value);
 
-        if (selectedFamily && selectedClass) {
-          loadServicedList(selectedFamily, selectedClass);
-        }
-      }
-    }}
-  />
-</div>
+                if (value.trim() === "") {
+                  setSearchResults([]);
+
+                  if (selectedFamily && selectedClass) {
+                    loadServicedList(selectedFamily, selectedClass);
+                  }
+                }
+              }}
+            />
+          </div>
 
           {/* ✅ جدول نتائج البحث */}
           {searchQuery.trim() !== "" && searchResults.length > 0 && (
             <>
-             
               <div className="table-wrapper">
                 <table className="search-table">
-
                   <thead>
-  <tr>
-    <th>
-      <input 
-        type="checkbox"
-        checked={
-          selectedServicedIds.length > 0 &&
-          selectedServicedIds.length === searchResults.length
-        }
-        onChange={selectAllServiced}
-      />
-    </th>
-    <th>اختيار</th>
-    <th>الاسم</th>
-    <th>الأسرة</th>
-    <th>الفصل</th>
-    <th>الخادم المسؤول</th>
-    <th>نقل</th>
-  </tr>
-</thead>
+                    <tr>
+                      <th>
+                        <input
+                          type="checkbox"
+                          checked={
+                            selectedServicedIds.length > 0 &&
+                            selectedServicedIds.length === searchResults.length
+                          }
+                          onChange={selectAllServiced}
+                        />
+                      </th>
+                      <th>اختيار</th>
+                      <th>الاسم</th>
+                      <th>الأسرة</th>
+                      <th>الفصل</th>
+                      <th>الخادم المسؤول</th>
+                      <th>نقل</th>
+                    </tr>
+                  </thead>
 
                   <tbody>
                     {searchResults.map((r) => (
@@ -379,15 +375,14 @@ function selectAllServiced() {
                   <label>اختار الفصل:</label>
                   <select value={selectedClass} onChange={handleClassChange}>
                     <option value="">-- اختار الفصل --</option>
-                    {classes.map((c, i) => (
-                      <option key={i} value={c}>
-                        {c}
+                    {classes.map((c) => (
+                      <option key={c.class_id} value={c.class_id}>
+                        {c.class_name}
                       </option>
                     ))}
                   </select>
                 </>
               )}
-
 
               {/* ✅ إضافة مخدوم */}
               {selectedClass && (
@@ -420,66 +415,67 @@ function selectAllServiced() {
               {/* ✅ جدول مخدومين الفصل */}
               {servicedList.length > 0 && (
                 <>
-               <button
-      className="btn btn-outline-primary btn-sm"
-      onClick={selectAllServiced}
-      style={{ marginBottom: "10px" }}
-    >
-      تحديد الكل
-    </button>
-                    <table className="report-table">
-                      <thead>
-                        <tr>
-               <th>
-      <input 
-        type="checkbox"
-        checked={
-          selectedServicedIds.length > 0 &&
-          selectedServicedIds.length === servicedList.length
-        }
-        onChange={selectAllServiced}
-      />
-    </th>
-                          <th>اختيار</th>
-                          <th>اسم المخدوم</th>
-                          <th>الخادم المسؤول</th>
-                          <th>حذف</th>
-                          <th>نقل</th>
+                  <button
+                    className="btn btn-outline-primary btn-sm"
+                    onClick={selectAllServiced}
+                    style={{ marginBottom: "10px" }}
+                  >
+                    تحديد الكل
+                  </button>
+
+                  <table className="report-table">
+                    <thead>
+                      <tr>
+                        <th>
+                          <input
+                            type="checkbox"
+                            checked={
+                              selectedServicedIds.length > 0 &&
+                              selectedServicedIds.length === servicedList.length
+                            }
+                            onChange={selectAllServiced}
+                          />
+                        </th>
+                        <th>اختيار</th>
+                        <th>اسم المخدوم</th>
+                        <th>الخادم المسؤول</th>
+                        <th>حذف</th>
+                        <th>نقل</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {servicedList.map((s) => (
+                        <tr key={s.serviced_id}>
+                          <td>
+                            <input
+                              type="checkbox"
+                              checked={selectedServicedIds.includes(s.serviced_id)}
+                              onChange={() => toggleSelectServiced(s.serviced_id)}
+                            />
+                          </td>
+                          <td>{s.serviced_name}</td>
+                          <td>{s.servant_name || "—"}</td>
+                          <td>
+                            <button
+                              className="btn btn-danger"
+                              onClick={() => deleteServiced(s.serviced_id)}
+                            >
+                              حذف
+                            </button>
+                          </td>
+                          <td>
+                            <button
+                              className="btn btn-warning"
+                              onClick={() => startTransfer(s.serviced_id)}
+                            >
+                              نقل
+                            </button>
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        {servicedList.map((s) => (
-                          <tr key={s.serviced_id}>
-                            <td>
-                              <input
-                                type="checkbox"
-                                checked={selectedServicedIds.includes(s.serviced_id)}
-                                onChange={() => toggleSelectServiced(s.serviced_id)}
-                              />
-                            </td>
-                            <td>{s.serviced_name}</td>
-                            <td>{s.servant_name || "—"}</td>
-                            <td>
-                              <button
-                                className="btn btn-danger"
-                                onClick={() => deleteServiced(s.serviced_id)}
-                              >
-                                حذف
-                              </button>
-                            </td>
-                            <td>
-                              <button
-                                className="btn btn-warning"
-                                onClick={() => startTransfer(s.serviced_id)}
-                              >
-                                نقل
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                 
+                      ))}
+                    </tbody>
+                  </table>
 
                   {selectedServicedIds.length > 0 && (
                     <button className="btn btn-danger" onClick={deleteSelectedServiced}>
