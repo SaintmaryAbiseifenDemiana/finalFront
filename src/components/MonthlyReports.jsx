@@ -318,7 +318,7 @@ function MonthlyReports() {
               <th>حضر الدرس</th>
               <th>اتناول</th>
               <th>اعترف</th>
-              <<th id="visitsHeader">افتقاد <span id="visitsArrow"></span></th>
+              <th id="visitsHeader">افتقاد <span id="visitsArrow"></span></th>
 
             </tr>
           </thead>
