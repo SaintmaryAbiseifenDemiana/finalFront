@@ -47,7 +47,8 @@ function Dashboard() {
 
       if (data.success && data.classes.length > 0) {
         data.classes.forEach((c) => {
-         classSelect.add(new Option(c.class_name, c.class_name));
+         classSelect.add(new Option(c.class_name, c.class_id));
+
 });
 
 
