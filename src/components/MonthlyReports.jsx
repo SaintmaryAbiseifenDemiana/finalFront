@@ -54,19 +54,7 @@ function MonthlyReports() {
       row.style.display = name.includes(input) ? "" : "none";
     });
   }
-function sortByVisits() {
-  const tableBody = document.getElementById("reportTableBody");
-  const rows = Array.from(tableBody.querySelectorAll("tr"));
 
-  const sorted = rows.sort((a, b) => {
-    const av = parseFloat(a.cells[6].textContent) || 0;
-    const bv = parseFloat(b.cells[6].textContent) || 0;
-    return bv - av; // ترتيب تنازلي
-  });
-
-  tableBody.innerHTML = "";
-  sorted.forEach(row => tableBody.appendChild(row));
-}
 
   function exportTableToPdf(title, fileName) {
     const headers = [...document.querySelectorAll(".report-table thead th")]
@@ -184,8 +172,7 @@ function sortByVisits() {
           row.insertCell().textContent = record.confession_pct;
           row.insertCell().textContent = record.visits_pct;
         });
-        const header = document.getElementById("visitsHeader");
-         if (header) header.addEventListener("click", sortByVisits);
+       
         resultMessage.textContent = "✅ تم تحميل التقرير الشهري";
         resultMessage.style.color = "green";
       } else {
@@ -306,7 +293,7 @@ function sortByVisits() {
               <th>حضر الدرس</th>
               <th>اتناول</th>
               <th>اعترف</th>
-              <th id="visitsHeader">نسبة الافتقاد <span style="font-size:12px; opacity:0.6;">⇅</span></th>
+              <th>افتقاد</th>
 
 
             </tr>
