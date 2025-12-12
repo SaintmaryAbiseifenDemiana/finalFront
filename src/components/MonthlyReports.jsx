@@ -28,6 +28,9 @@ function MonthlyReports() {
       const wb = XLSX.utils.table_to_book(table, { sheet: "Monthly Report" });
       XLSX.writeFile(wb, "monthly_report.xlsx");
     });
+    document.getElementById("visitsHeader")?.addEventListener("click", () => {
+  sortByVisits();
+});
 
     document.getElementById("exportMonthlyPDF")?.addEventListener("click", () => {
       exportTableToPdf("تقرير النسبة الشهرية للخدام", "monthly_report.pdf");
@@ -53,6 +56,19 @@ function MonthlyReports() {
       row.style.display = name.includes(input) ? "" : "none";
     });
   }
+function sortByVisits() {
+  const tableBody = document.getElementById("reportTableBody");
+  const rows = Array.from(tableBody.querySelectorAll("tr"));
+
+  const sorted = rows.sort((a, b) => {
+    const av = parseFloat(a.cells[6].textContent) || 0;
+    const bv = parseFloat(b.cells[6].textContent) || 0;
+    return bv - av; // ترتيب تنازلي
+  });
+
+  tableBody.innerHTML = "";
+  sorted.forEach(row => tableBody.appendChild(row));
+}
 
   function exportTableToPdf(title, fileName) {
     const headers = [...document.querySelectorAll(".report-table thead th")]
@@ -291,7 +307,8 @@ function MonthlyReports() {
               <th>حضر الدرس</th>
               <th>اتناول</th>
               <th>اعترف</th>
-              <th>نسبة الافتقاد</th>
+              <th id="visitsHeader" class="sortable">نسبة الافتقاد</th>
+
             </tr>
           </thead>
           <tbody id="reportTableBody"></tbody>
