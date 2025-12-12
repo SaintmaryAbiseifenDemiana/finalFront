@@ -252,7 +252,10 @@ function MonthlyReports() {
     });
 
     isAsc = !isAsc;
-
+    // ✅ تحديث السهم
+    if (arrow) {
+      arrow.textContent = isAsc ? "⬆️" : "⬇️";
+  }
     tableBody.innerHTML = "";
     sorted.forEach(row => tableBody.appendChild(row));
   }
@@ -315,7 +318,8 @@ function MonthlyReports() {
               <th>حضر الدرس</th>
               <th>اتناول</th>
               <th>اعترف</th>
-              <th id="visitsHeader">افتقاد</th>
+              <<th id="visitsHeader">افتقاد <span id="visitsArrow"></span></th>
+
             </tr>
           </thead>
           <tbody id="reportTableBody"></tbody>
