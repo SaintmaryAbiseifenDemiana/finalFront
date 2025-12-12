@@ -307,7 +307,8 @@ function sortByVisits() {
               <th>حضر الدرس</th>
               <th>اتناول</th>
               <th>اعترف</th>
-              <th id="visitsHeader" class="sortable">نسبة الافتقاد</th>
+              <th id="visitsHeader">نسبة الافتقاد <span style="font-size:12px; opacity:0.6;">⇅</span></th>
+
 
             </tr>
           </thead>
