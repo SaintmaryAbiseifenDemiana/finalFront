@@ -19,8 +19,7 @@ pdfMake.fonts = {
 function MonthlyReports() {
   useEffect(() => {
     loadFamilies();
-     const header = document.getElementById("visitsHeader");
-      if (header) header.addEventListener("click", sortByVisits);
+     
     document.getElementById("loadReportBtn")?.addEventListener("click", loadMonthlyReport);
     document.getElementById("calcQuarterBtn")?.addEventListener("click", calculateQuarterReports);
 
@@ -185,7 +184,8 @@ function sortByVisits() {
           row.insertCell().textContent = record.confession_pct;
           row.insertCell().textContent = record.visits_pct;
         });
-
+        const header = document.getElementById("visitsHeader");
+         if (header) header.addEventListener("click", sortByVisits);
         resultMessage.textContent = "✅ تم تحميل التقرير الشهري";
         resultMessage.style.color = "green";
       } else {
