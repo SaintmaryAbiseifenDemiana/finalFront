@@ -48,7 +48,7 @@ function ManageServiced() {
 
   // ✅ تحميل الفصول (class_id + class_name)
   async function loadClasses(familyId) {
-    const res = await fetch(`${API_BASE}/api/classes/${familyId}`);
+    const res = await fetch(`${API_BASE}/api/serviced/classes/${familyId}`);
     const data = await res.json();
     if (data.success) setClasses(data.classes);
   }
