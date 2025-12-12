@@ -19,7 +19,8 @@ pdfMake.fonts = {
 function MonthlyReports() {
   useEffect(() => {
     loadFamilies();
-
+     const header = document.getElementById("visitsHeader");
+      if (header) header.addEventListener("click", sortByVisits);
     document.getElementById("loadReportBtn")?.addEventListener("click", loadMonthlyReport);
     document.getElementById("calcQuarterBtn")?.addEventListener("click", calculateQuarterReports);
 
@@ -28,9 +29,7 @@ function MonthlyReports() {
       const wb = XLSX.utils.table_to_book(table, { sheet: "Monthly Report" });
       XLSX.writeFile(wb, "monthly_report.xlsx");
     });
-    document.getElementById("visitsHeader")?.addEventListener("click", () => {
-  sortByVisits();
-});
+  
 
     document.getElementById("exportMonthlyPDF")?.addEventListener("click", () => {
       exportTableToPdf("تقرير النسبة الشهرية للخدام", "monthly_report.pdf");
