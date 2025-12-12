@@ -5,7 +5,6 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 import "../styles.css";
 import { API_BASE } from "../config";
 
-// ✅ استخدم Roboto فقط (الخط الافتراضي)
 pdfMake.vfs = pdfFonts.vfs;
 pdfMake.fonts = {
   Roboto: {
@@ -17,9 +16,13 @@ pdfMake.fonts = {
 };
 
 function MonthlyReports() {
+
+  // ✅ المتغير اللي بيقلب الاتجاه
+  let isAsc = false;
+
   useEffect(() => {
     loadFamilies();
-     
+
     document.getElementById("loadReportBtn")?.addEventListener("click", loadMonthlyReport);
     document.getElementById("calcQuarterBtn")?.addEventListener("click", calculateQuarterReports);
 
@@ -28,7 +31,6 @@ function MonthlyReports() {
       const wb = XLSX.utils.table_to_book(table, { sheet: "Monthly Report" });
       XLSX.writeFile(wb, "monthly_report.xlsx");
     });
-  
 
     document.getElementById("exportMonthlyPDF")?.addEventListener("click", () => {
       exportTableToPdf("تقرير النسبة الشهرية للخدام", "monthly_report.pdf");
@@ -38,7 +40,6 @@ function MonthlyReports() {
     if (searchInput) searchInput.addEventListener("input", filterUsers);
   }, []);
 
-  // ✅ إصلاح العربية في PDF
   function fixArabic(text) {
     return text.split(" ").reverse().join(" ").replace(/ +/g, " ");
   }
@@ -54,7 +55,6 @@ function MonthlyReports() {
       row.style.display = name.includes(input) ? "" : "none";
     });
   }
-
 
   function exportTableToPdf(title, fileName) {
     const headers = [...document.querySelectorAll(".report-table thead th")]
@@ -94,7 +94,7 @@ function MonthlyReports() {
         },
       ],
       defaultStyle: {
-        font: "Roboto",   // ✅ رجعناه للخط اللي شغال
+        font: "Roboto",
         fontSize: 11,
         alignment: "right",
         direction: "rtl",
@@ -113,7 +113,6 @@ function MonthlyReports() {
     pdfMake.createPdf(docDefinition).download(fileName);
   }
 
-  // ✅ تحميل الأسر
   async function loadFamilies() {
     try {
       const response = await fetch(`${API_BASE}/api/families`);
@@ -134,7 +133,6 @@ function MonthlyReports() {
     }
   }
 
-  // ✅ تحميل التقرير الشهري
   async function loadMonthlyReport() {
     const month = document.getElementById("month_select").value;
     const familyId = document.getElementById("family_select").value;
@@ -172,8 +170,10 @@ function MonthlyReports() {
           row.insertCell().textContent = record.confession_pct;
           row.insertCell().textContent = record.visits_pct;
         });
-       const header = document.getElementById("visitsHeader");
-       if (header) header.onclick = sortByVisits;
+
+        // ✅ ربط السورت بعد بناء الجدول
+        const header = document.getElementById("visitsHeader");
+        if (header) header.onclick = sortByVisits;
 
         resultMessage.textContent = "✅ تم تحميل التقرير الشهري";
         resultMessage.style.color = "green";
@@ -188,7 +188,6 @@ function MonthlyReports() {
     }
   }
 
-  // ✅ حساب التقرير الربع سنوي
   async function calculateQuarterReports() {
     const familyId = document.getElementById("family_select").value;
     const quarter = document.getElementById("quarter_select").value;
@@ -205,7 +204,7 @@ function MonthlyReports() {
       return;
     }
 
-      let apiUrl = `${API_BASE}/api/monthly-reports-quarter?quarter=${quarter}`;
+    let apiUrl = `${API_BASE}/api/monthly-reports-quarter?quarter=${quarter}`;
     if (familyId) apiUrl += `&family_id=${familyId}`;
 
     try {
@@ -223,9 +222,10 @@ function MonthlyReports() {
           row.insertCell().textContent = record.confession_pct;
           row.insertCell().textContent = record.visits_pct;
         });
-        // ✅ هنا نربط السورت بعد ما الجدول اتبنى
+
         const header = document.getElementById("visitsHeader");
         if (header) header.onclick = sortByVisits;
+
         resultMessage.textContent = "✅ تم حساب التقرير السنوي";
         resultMessage.style.color = "green";
       } else {
@@ -238,19 +238,24 @@ function MonthlyReports() {
       resultMessage.style.color = "red";
     }
   }
-function sortByVisits() {
-  const tableBody = document.getElementById("reportTableBody");
-  const rows = Array.from(tableBody.querySelectorAll("tr"));
 
-  const sorted = rows.sort((a, b) => {
-    const av = parseFloat(a.cells[6].textContent) || 0;
-    const bv = parseFloat(b.cells[6].textContent) || 0;
-    return bv - av; // ترتيب تنازلي
-  });
+  // ✅ دالة السورت مع toggle
+  function sortByVisits() {
+    const tableBody = document.getElementById("reportTableBody");
+    const rows = Array.from(tableBody.querySelectorAll("tr"));
 
-  tableBody.innerHTML = "";
-  sorted.forEach(row => tableBody.appendChild(row));
-}
+    const sorted = rows.sort((a, b) => {
+      const av = parseFloat(a.cells[6].textContent) || 0;
+      const bv = parseFloat(b.cells[6].textContent) || 0;
+
+      return isAsc ? av - bv : bv - av;
+    });
+
+    isAsc = !isAsc;
+
+    tableBody.innerHTML = "";
+    sorted.forEach(row => tableBody.appendChild(row));
+  }
 
   return (
     <div className="container">
@@ -311,9 +316,6 @@ function sortByVisits() {
               <th>اتناول</th>
               <th>اعترف</th>
               <th id="visitsHeader">افتقاد</th>
-
-
-
             </tr>
           </thead>
           <tbody id="reportTableBody"></tbody>
