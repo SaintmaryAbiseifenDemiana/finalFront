@@ -454,7 +454,7 @@ function ManageServiced() {
                             onChange={selectAllServiced}
                           />
                         </th>
-                        <th>اختيار</th>
+                        
                         <th>اسم المخدوم</th>
                         <th>الخادم المسؤول</th>
                         <th>حذف</th>
