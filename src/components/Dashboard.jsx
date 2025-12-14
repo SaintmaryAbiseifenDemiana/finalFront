@@ -250,7 +250,6 @@ function Dashboard() {
       </div>
 
       <div id="servicedListCard" style={{ display: "none", marginTop: "20px" }}>
-        <h3>قائمة المخدومين للفصل: <span id="selectedClassDisplay"></span></h3>
         <table className="report-table">
           <thead>
             <tr>
