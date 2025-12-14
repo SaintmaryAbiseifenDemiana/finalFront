@@ -234,8 +234,16 @@ function ManageServiced() {
     );
 
     const data = await res.json();
-    if (data.success) setSearchResults(data.results);
-  }
+ if (data.success) {
+    // ✅ فلترة النتائج بحيث يبدأ الاسم بما كتبه المستخدم
+    const filtered = data.results.filter(r =>
+      normalizeArabicUsername(r.serviced_name).startsWith(
+        normalizeArabicUsername(searchQuery)
+      )
+    );
+
+    setSearchResults(filtered); // ✅ بدل data.results
+  }  }
 
   return (
     <div className="container">
