@@ -2,6 +2,15 @@ import React, { useEffect, useState } from "react";
 import "../styles.css";
 import AdminImport from "./AdminImport";
 import { API_BASE } from "../config";
+function normalizeArabicUsername(str) {
+  if (!str) return "";
+  return str
+    .replace(/أ|إ|آ/g, "ا")
+    .replace(/ة/g, "ه")
+    .replace(/ى/g, "ي")
+    .replace(/\s+/g, "")
+    .trim();
+}
 
 function ManageServiced() {
   const [activeTab, setActiveTab] = useState("manage");
