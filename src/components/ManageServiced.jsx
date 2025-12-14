@@ -243,16 +243,15 @@ function ManageServiced() {
     );
 
     const data = await res.json();
- if (data.success) {
-    // ✅ فلترة النتائج بحيث يبدأ الاسم بما كتبه المستخدم
-    const filtered = data.results.filter(r =>
-      normalizeArabicUsername(r.serviced_name).startsWith(
-        normalizeArabicUsername(searchQuery)
-      )
-    );
+       if (data.success) {
+          const cleanedQuery = normalizeArabicUsername(searchQuery).trim();
 
-    setSearchResults(filtered); // ✅ بدل data.results
-  }  }
+          const filtered = data.results.filter(r =>
+            normalizeArabicUsername(r.serviced_name).startsWith(cleanedQuery)
+          );
+
+          setSearchResults(filtered);
+        }  }
 
   return (
     <div className="container">
