@@ -464,6 +464,7 @@ function filterServiced(query) {
                             }
                             onChange={selectAllServiced}
                           />
+                          تحديد
                         </th>
                         
                         <th>اسم المخدوم</th>
