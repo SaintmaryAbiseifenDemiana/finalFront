@@ -41,7 +41,9 @@ function ManageServiced() {
     loadFamilies();
     loadAllServiced();  // ✅ تحميل كل المخدومين مرة واحدة
   }, []);
-
+  useEffect(() => {
+  setSearchResults(allServiced);
+}, [allServiced]);
 
 
   // ✅ تحميل الأسر
@@ -182,26 +184,21 @@ async function loadAllServiced() {
 
 
   function filterServiced(query) {
-  setSearchQuery(query);
+      setSearchQuery(query);
 
-  if (!query) {
-    setServicedList(allServiced);
-    return;
-  }
+      if (!query) {
+        setSearchResults(allServiced); // ✅ اعرض كل المخدومين لو مفيش بحث
+        return;
+      }
 
-  const q = query.toLowerCase();
+      const q = query.toLowerCase();
 
-  const filtered = allServiced.filter((s) =>
-    s.serviced_name.toLowerCase().includes(q)
-  );
+      const filtered = allServiced.filter((s) =>
+        s.serviced_name.toLowerCase().includes(q)
+      );
 
-  setServicedList(filtered);
-}
-
-
-
-
-
+      setSearchResults(filtered); // ✅ المهم: نحط النتيجة هنا
+    }
 
 
   // ✅ حذف جماعي
