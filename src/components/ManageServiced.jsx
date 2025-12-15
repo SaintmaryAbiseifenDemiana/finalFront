@@ -93,6 +93,7 @@ async function loadAllServiced() {
     if (data.success) {
       setServicedList(data.serviced);   // ✅ اللي بيظهر في الجدول
       setAllServiced(data.serviced);    // ✅ نسخة كاملة للبحث
+      setSearchResults(data.serviced);   // ✅ ضيفي السطر ده
     }
   }
 
@@ -103,7 +104,6 @@ async function loadAllServiced() {
     setSelectedClass("");
     setServants([]);
     setServicedList([]);
-    setSearchResults([]);
 
     if (familyId) loadClasses(familyId);
   }
@@ -112,7 +112,6 @@ async function loadAllServiced() {
   function handleClassChange(e) {
     const classId = e.target.value;
     setSelectedClass(classId);
-    setSearchResults([]);
 
     if (selectedFamily && classId) {
       loadServicedList(selectedFamily, classId);
@@ -187,7 +186,7 @@ async function loadAllServiced() {
       setSearchQuery(query);
 
       if (!query) {
-        setSearchResults(allServiced); // ✅ اعرض كل المخدومين لو مفيش بحث
+        setSearchResults(allServiced);
         return;
       }
 
@@ -197,8 +196,9 @@ async function loadAllServiced() {
         s.serviced_name.toLowerCase().includes(q)
       );
 
-      setSearchResults(filtered); // ✅ المهم: نحط النتيجة هنا
+      setSearchResults(filtered);
     }
+
 
 
   // ✅ حذف جماعي
