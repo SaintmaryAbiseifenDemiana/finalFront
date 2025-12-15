@@ -190,15 +190,24 @@ async function loadAllServiced() {
         return;
       }
 
-      const q = query.toLowerCase();
+      const queryParts = query.trim().toLowerCase().split(" ");
 
-      // ✅ فلترة بسيطة وواضحة زي الخدام
-      const filtered = allServiced.filter((s) =>
-        s.serviced_name.toLowerCase().includes(q)
-      );
+      const filtered = allServiced.filter((s) => {
+        const nameParts = s.serviced_name.trim().toLowerCase().split(" ");
 
-      setSearchResults(filtered);
-    }
+        // ✅ لازم كل جزء من البحث يطابق الجزء المقابل في الاسم
+        for (let i = 0; i < queryParts.length; i++) {
+          if (!nameParts[i] || !nameParts[i].startsWith(queryParts[i])) {
+            return false;
+          }
+        }
+
+        return true;
+      });
+
+    setSearchResults(filtered);
+  }
+
 
 
 
