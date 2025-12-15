@@ -14,6 +14,7 @@ function normalizeArabicUsername(str) {
 
 function ManageServiced() {
   const [activeTab, setActiveTab] = useState("manage");
+  const [allServiced, setAllServiced] = useState([]);
 
   const [families, setFamilies] = useState([]);
   const [classes, setClasses] = useState([]);
@@ -40,13 +41,7 @@ function ManageServiced() {
     loadFamilies();
   }, []);
 
-  useEffect(() => {
-    if (searchQuery.trim().length >= 2) {
-      handleSearch();
-    } else {
-      setSearchResults([]);
-    }
-  }, [searchQuery]);
+
 
   // ✅ تحميل الأسر
   async function loadFamilies() {
@@ -73,7 +68,10 @@ function ManageServiced() {
   async function loadServicedList(familyId, classId) {
     const res = await fetch(`${API_BASE}/api/serviced/by-class/${familyId}/${classId}`);
     const data = await res.json();
-    if (data.success) setServicedList(data.serviced);
+    if (data.success) {
+      setServicedList(data.serviced);   // ✅ اللي بيظهر في الجدول
+      setAllServiced(data.serviced);    // ✅ نسخة كاملة للبحث
+    }
   }
 
   // ✅ عند اختيار الأسرة
@@ -161,7 +159,23 @@ function ManageServiced() {
       setSelectedServicedIds(currentList.map((s) => s.serviced_id));
     }
   }
+function filterServiced(query) {
+  setSearchQuery(query);
 
+  if (!query.trim()) {
+    setSearchResults([]);
+    setServicedList(allServiced); // ✅ رجّعي كل المخدومين
+    return;
+  }
+
+  const cleaned = normalizeArabicUsername(query.trim());
+
+  const filtered = allServiced.filter((s) =>
+    normalizeArabicUsername(s.serviced_name).includes(cleaned)
+  );
+
+  setSearchResults(filtered);
+}
   // ✅ حذف جماعي
   async function deleteSelectedServiced() {
     if (selectedServicedIds.length === 0) {
@@ -188,10 +202,12 @@ function ManageServiced() {
       }
 
       if (searchResults.length > 0) {
-        handleSearch();
-      }
+        filterServiced(searchQuery);
+}
+
     }
   }
+
 
   // ✅ فتح نافذة النقل
   async function startTransfer(servicedId) {
@@ -229,29 +245,13 @@ function ManageServiced() {
         loadServicedList(selectedFamily, selectedClass);
       }
       if (searchResults.length > 0) {
-        handleSearch();
-      }
+         filterServiced(searchQuery);
+}
+
     }
   }
 
-  // ✅ البحث
-  async function handleSearch() {
-    if (!searchQuery.trim()) return;
-
-    const res = await fetch(
-      `${API_BASE}/api/serviced/search?name=${encodeURIComponent(searchQuery)}`
-    );
-
-    const data = await res.json();
-       if (data.success) {
-          const cleanedQuery = normalizeArabicUsername(searchQuery).trim();
-
-          const filtered = data.results.filter(r =>
-            normalizeArabicUsername(r.serviced_name).startsWith(cleanedQuery)
-          );
-
-          setSearchResults(filtered);
-        }  }
+ 
 
   return (
     <div className="container">
@@ -296,18 +296,9 @@ function ManageServiced() {
               type="text"
               placeholder="اكتب اسم المخدوم"
               value={searchQuery}
-              onChange={(e) => {
-                const value = e.target.value;
-                setSearchQuery(value);
+              onChange={(e) => filterServiced(e.target.value)}
 
-                if (value.trim() === "") {
-                  setSearchResults([]);
 
-                  if (selectedFamily && selectedClass) {
-                    loadServicedList(selectedFamily, selectedClass);
-                  }
-                }
-              }}
             />
           </div>
 
