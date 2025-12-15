@@ -99,27 +99,29 @@ async function loadAllServiced() {
 
   // ✅ عند اختيار الأسرة
   function handleFamilyChange(e) {
-    const familyId = e.target.value;
-    setSelectedFamily(familyId);
-    setSelectedClass("");
-    setServants([]);
-    setServicedList([]);
+      const familyId = e.target.value;
+      setSelectedFamily(familyId);
+      setSelectedClass("");
+      setServants([]);
+      setServicedList([]);
+      setSearchResults([]);   // ✅ مهم جدًا
 
-    if (familyId) loadClasses(familyId);
-  }
+      if (familyId) loadClasses(familyId);
+    }
+
 
   // ✅ عند اختيار الفصل
   function handleClassChange(e) {
-    const classId = e.target.value;
-    setSelectedClass(classId);
+      const classId = e.target.value;
+      setSelectedClass(classId);
+      setSearchResults([]);   // ✅ مهم جدًا
 
-    if (selectedFamily && classId) {
-      loadServicedList(selectedFamily, classId);
-      loadServants(selectedFamily, classId);
-
-
+      if (selectedFamily && classId) {
+        loadServicedList(selectedFamily, classId);
+        loadServants(selectedFamily, classId);
+      }
     }
-  }
+
 
   // ✅ إضافة مخدوم
   async function addServiced() {
