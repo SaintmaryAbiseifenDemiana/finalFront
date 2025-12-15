@@ -340,7 +340,7 @@ function filterServiced(query) {
                         />
                         تحديد
                       </th>
-                      <th>اختيار</th>
+                  
                       <th>الاسم</th>
                       <th>الأسرة</th>
                       <th>الفصل</th>
