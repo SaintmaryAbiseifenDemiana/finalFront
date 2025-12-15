@@ -179,23 +179,46 @@ async function loadAllServiced() {
       setSelectedServicedIds(currentList.map((s) => s.serviced_id));
     }
   }
-    function filterServiced(query) {
+
+  
+  function filterServiced(query) {
   setSearchQuery(query);
 
   if (!query.trim()) {
     setSearchResults([]);
-    setServicedList(allServiced); 
+    setServicedList(allServiced);
     return;
   }
 
   const q = query.toLowerCase();
 
-  const filtered = allServiced.filter((s) =>
+  // ✅ فلترة أولية
+  let filtered = allServiced.filter((s) =>
     s.serviced_name.toLowerCase().includes(q)
   );
 
+  // ✅ ترتيب ذكي حسب قوة التطابق
+  filtered.sort((a, b) => {
+    const nameA = a.serviced_name.toLowerCase();
+    const nameB = b.serviced_name.toLowerCase();
+
+    const startsA = nameA.startsWith(q);
+    const startsB = nameB.startsWith(q);
+
+    // ✅ اللي يبدأ بالبحث ييجي فوق
+    if (startsA && !startsB) return -1;
+    if (!startsA && startsB) return 1;
+
+    // ✅ اللي فيه البحث في النص ييجي بعده
+    const indexA = nameA.indexOf(q);
+    const indexB = nameB.indexOf(q);
+
+    return indexA - indexB;
+  });
+
   setSearchResults(filtered);
 }
+
 
 
   // ✅ حذف جماعي
