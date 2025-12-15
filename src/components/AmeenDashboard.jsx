@@ -65,6 +65,18 @@ function AmeenDashboard() {
             <span>الغياب الشهري</span>
           </a>
         )}
+        {/* ✅ متابعة غياب الفصول */}
+{role === "ameensekra" ? (
+  <a href={`/FollowClassesAbsence?family_id=${familyId}`} className="app-icon">
+    <div>✅</div>
+    <span>متابعة غياب الفصول</span>
+  </a>
+) : (
+  <a href="/FollowClassesAbsence" className="app-icon">
+    <div>✅</div>
+    <span>متابعة غياب الفصول</span>
+  </a>
+)}
 
       </div>
 
