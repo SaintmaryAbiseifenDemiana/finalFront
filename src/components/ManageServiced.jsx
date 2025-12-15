@@ -39,6 +39,7 @@ function ManageServiced() {
 
   useEffect(() => {
     loadFamilies();
+    loadAllServiced();  // ✅ تحميل كل المخدومين مرة واحدة
   }, []);
 
 
@@ -49,6 +50,25 @@ function ManageServiced() {
     const data = await res.json();
     if (data.success) setFamilies(data.families);
   }
+// ✅ تحميل كل المخدومين على مستوى الكنيسة كلها
+async function loadAllServiced() {
+  try {
+    const res = await fetch(`${API_BASE}/api/serviced/all`);
+    const data = await res.json();
+
+    if (data.success) {
+      setAllServiced(data.serviced);   // للبحث
+      setServicedList(data.serviced);  // للعرض في الجدول لما مفيش أسرة/فصل مختارين
+    } else {
+      setAllServiced([]);
+      setServicedList([]);
+    }
+  } catch (err) {
+    console.error("خطأ في تحميل كل المخدومين:", err);
+    setAllServiced([]);
+    setServicedList([]);
+  }
+}
 
   // ✅ تحميل الفصول (class_id + class_name)
   async function loadClasses(familyId) {
