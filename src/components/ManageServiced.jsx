@@ -338,6 +338,7 @@ function filterServiced(query) {
                           }
                           onChange={selectAllServiced}
                         />
+                        تحديد
                       </th>
                       <th>اختيار</th>
                       <th>الاسم</th>
