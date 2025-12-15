@@ -182,31 +182,22 @@ async function loadAllServiced() {
 
 
   function filterServiced(query) {
-      setSearchQuery(query);
+  setSearchQuery(query);
 
-      if (!query.trim()) {
-        setSearchResults([]);
-        setServicedList(allServiced);
-        return;
-      }
-
-      const queryParts = query.trim().toLowerCase().split(" ");
-
-      const filtered = allServiced.filter((s) => {
-        const nameParts = s.serviced_name.trim().toLowerCase().split(" ");
-
-        // ✅ لازم كل جزء من البحث يطابق الجزء المقابل في الاسم
-        for (let i = 0; i < queryParts.length; i++) {
-          if (!nameParts[i] || !nameParts[i].startsWith(queryParts[i])) {
-            return false;
-          }
-        }
-
-        return true;
-      });
-
-    setSearchResults(filtered);
+  if (!query) {
+    setServicedList(allServiced);
+    return;
   }
+
+  const q = query.toLowerCase();
+
+  const filtered = allServiced.filter((s) =>
+    s.serviced_name.toLowerCase().includes(q)
+  );
+
+  setServicedList(filtered);
+}
+
 
 
 
