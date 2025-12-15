@@ -180,38 +180,23 @@ async function loadAllServiced() {
     }
   }
     function filterServiced(query) {
-      setSearchQuery(query);
+  setSearchQuery(query);
 
-      if (!query.trim()) {
-        setSearchResults([]);
-        setServicedList(allServiced);
-        return;
-      }
+  if (!query.trim()) {
+    setSearchResults([]);
+    setServicedList(allServiced); 
+    return;
+  }
 
-      const cleaned = normalizeArabicUsername(query.trim());
+  const q = query.toLowerCase();
 
-      // ✅ فلترة أولية
-      let filtered = allServiced.filter((s) =>
-        normalizeArabicUsername(s.serviced_name).includes(cleaned)
-      );
+  const filtered = allServiced.filter((s) =>
+    s.serviced_name.toLowerCase().includes(q)
+  );
 
-      // ✅ ترتيب حسب قوة التطابق
-      filtered.sort((a, b) => {
-        const nameA = normalizeArabicUsername(a.serviced_name);
-        const nameB = normalizeArabicUsername(b.serviced_name);
+  setSearchResults(filtered);
+}
 
-        const startsA = nameA.startsWith(cleaned);
-        const startsB = nameB.startsWith(cleaned);
-
-        if (startsA && !startsB) return -1; // A أقوى
-        if (!startsA && startsB) return 1;  // B أقوى
-
-        // لو الاتنين بيحتووا بس مش بيبدأوا
-        return nameA.localeCompare(nameB, "ar");
-      });
-
-      setSearchResults(filtered);
-    }
 
   // ✅ حذف جماعي
   async function deleteSelectedServiced() {
