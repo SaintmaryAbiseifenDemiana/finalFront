@@ -15,6 +15,7 @@ import MonthlyReports from "./components/MonthlyReports";
 import ManageServiced from "./components/ManageServiced";
 import MonthlyServiced from "./components/MonthlyServiced";
 import NavigationControl from "./components/NavigationControl";
+import FollowClassesAbsence from "./components/FollowClassesAbsence";
 import "./styles.css";
 
 function App() {
@@ -57,6 +58,8 @@ function App() {
         <Route path="/NavigationControl" element={<NavigationControl />} />
         {/* ادارة المخدومين*/}
         <Route path="/ManageServiced" element={<ManageServiced />} />
+        {/* متابعة الفصول*/}
+        <Route path="/FollowClassesAbsence" element={<FollowClassesAbsence />} />
       </Routes>
     </Router>
   );
