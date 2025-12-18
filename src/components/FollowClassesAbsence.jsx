@@ -47,6 +47,24 @@ function FollowClassesAbsence() {
     <div className="container">
       <h1>✅ متابعة غياب الفصول</h1>
 
+      {/* ✅ زر الرجوع */}
+      <button
+        onClick={() => (window.location.href = "/AmeenDashboard")}
+        style={{
+          marginBottom: "20px",
+          padding: "10px 20px",
+          backgroundColor: "#4a90e2",
+          color: "white",
+          border: "none",
+          borderRadius: "6px",
+          cursor: "pointer",
+          fontSize: "16px",
+          fontWeight: "bold"
+        }}
+      >
+        ← العودة للوحة الأمين
+      </button>
+
       <div className="report-controls">
         <label>اختر الشهر:</label>
         <select value={month} onChange={(e) => handleMonthChange(e.target.value)}>
