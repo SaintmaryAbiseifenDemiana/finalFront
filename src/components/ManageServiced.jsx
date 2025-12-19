@@ -44,9 +44,7 @@ function ManageServiced() {
     loadAllServiced(); // ✅ تحميل كل المخدومين للبحث
   }, []);
 
-  useEffect(() => {
-    setSearchResults(allServiced);
-  }, [allServiced]);
+  
 
   // ✅ تحميل الأسر
   async function loadFamilies() {
