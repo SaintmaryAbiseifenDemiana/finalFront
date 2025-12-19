@@ -117,6 +117,7 @@ function ManageServiced() {
 
   // ✅ إضافة مخدوم
   async function addServiced() {
+     console.log("📌 SENDING:", { serviced_name: newServicedName, family_id: selectedFamily, class_id: selectedClass, servant_user_id: selectedServant });
     if (!newServicedName || !selectedFamily || !selectedClass || !selectedServant) {
       alert("من فضلك املئي كل البيانات");
       return;
