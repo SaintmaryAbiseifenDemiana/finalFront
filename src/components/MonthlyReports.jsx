@@ -7,9 +7,10 @@ import "../styles.css";
 import { API_BASE } from "../config";
 
 pdfMake.vfs = {
-  ...pdfFonts.vfs,
+  ...pdfFonts.pdfMake.vfs,
   ...cairoVfs,
 };
+
 
 pdfMake.fonts = {
   Cairo: {
