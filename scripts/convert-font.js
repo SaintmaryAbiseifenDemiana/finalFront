@@ -1,6 +1,18 @@
 const fs = require("fs");
+const path = require("path");
 
-// المسار الكامل للخط
-const font = fs.readFileSync("C:/Users/DELL/myApp-clean/myApp-client/src/fonts/Cairo-Regular.ttf").toString("base64");
+const fontPath = path.join(__dirname, "../src/fonts/Cairo-Regular.ttf");
+const outputPath = path.join(__dirname, "../src/font/cairo-vfs.js");
 
-console.log(font);
+const font = fs.readFileSync(fontPath);
+const base64 = font.toString("base64");
+
+const content = `
+export const cairoVfs = {
+  "Cairo-Regular.ttf": "${base64}"
+};
+`;
+
+fs.writeFileSync(outputPath, content);
+
+console.log("✅ Cairo font converted successfully");

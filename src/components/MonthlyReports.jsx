@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import * as XLSX from "xlsx";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-import cairoFonts from "../font/cairo-fonts";
+import { cairoVfs } from "../font/cairo-vfs";
 import "../styles.css";
 import { API_BASE } from "../config";
 
 pdfMake.vfs = {
   ...pdfFonts.vfs,
-  ...cairoFonts,
+  ...cairoVfs,
 };
 
 pdfMake.fonts = {
@@ -122,6 +122,8 @@ function MonthlyReports() {
 
       pageMargins: [30, 30, 30, 30],
     };
+    console.log("🔎 Cairo in vfs:", pdfMake.vfs["Cairo-Regular.ttf"]);
+    console.log("🔎 All vfs keys:", Object.keys(pdfMake.vfs).filter(k => k.includes("Cairo")));
 
     pdfMake.createPdf(docDefinition).download(fileName);
   }
