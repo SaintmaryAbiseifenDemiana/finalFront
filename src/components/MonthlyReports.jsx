@@ -10,7 +10,7 @@ import { API_BASE } from "../config";
 pdfMake.vfs = pdfFonts.vfs || {};
 
 // ضيفي خط Cairo
-Object.assign(pdfMake.vfs, cair-fonts);
+Object.assign(pdfMake.vfs, cairoVfs);
 
 
 
