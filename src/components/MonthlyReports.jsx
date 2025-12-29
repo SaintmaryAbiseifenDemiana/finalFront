@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import * as XLSX from "xlsx";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-import cairoFonts from "./cairo-fonts";
+import cairoFonts from "../font/cairo-fonts";
+
 import "../styles.css";
 import { API_BASE } from "../config";
 
