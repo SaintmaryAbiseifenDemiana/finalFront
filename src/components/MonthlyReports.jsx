@@ -3,7 +3,6 @@ import * as XLSX from "xlsx";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import cairoFonts from "../font/cairo-fonts";
-
 import "../styles.css";
 import { API_BASE } from "../config";
 
@@ -19,6 +18,11 @@ pdfMake.fonts = {
     italics: "Cairo-Regular.ttf",
     bolditalics: "Cairo-Regular.ttf",
   },
+  Roboto: { 
+    normal: "Roboto-Regular.ttf", 
+    bold: "Roboto-Medium.ttf", 
+    italics: "Roboto-Italic.ttf", 
+    bolditalics: "Roboto-Italic.ttf", },
 };
 
 
@@ -101,18 +105,18 @@ function MonthlyReports() {
         },
       ],
       defaultStyle: {
-  font: "Cairo",
-  fontSize: 11,
-  alignment: "right",
-  direction: "rtl",
-},
+        font: "Cairo",
+        fontSize: 11,
+        alignment: "right",
+        direction: "rtl",
+}, 
 
       styles: {
-  header: {
-    font: "Cairo",
-    fontSize: 16,
-    bold: true,
-    margin: [0, 0, 0, 10],
+        header: {
+        font: "Cairo",
+        fontSize: 16,
+        bold: true,
+        margin: [0, 0, 0, 10],
   },
 },
 
