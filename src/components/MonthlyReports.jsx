@@ -6,10 +6,12 @@ import { cairoVfs } from "../font/cairo-vfs";
 import "../styles.css";
 import { API_BASE } from "../config";
 
-pdfMake.vfs = {
-  ...pdfFonts.pdfMake.vfs,
-  ...cairoVfs,
-};
+// اربطي vfs الافتراضي
+pdfMake.vfs = pdfFonts.vfs || {};
+
+// ضيفي خط Cairo
+Object.assign(pdfMake.vfs, cairoFonts);
+
 
 
 pdfMake.fonts = {
