@@ -2,18 +2,24 @@ import React, { useEffect } from "react";
 import * as XLSX from "xlsx";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import cairoFonts from "./cairo-fonts";
 import "../styles.css";
 import { API_BASE } from "../config";
 
-pdfMake.vfs = pdfFonts.vfs;
+pdfMake.vfs = {
+  ...pdfFonts.vfs,
+  ...cairoFonts,
+};
+
 pdfMake.fonts = {
-  Roboto: {
-    normal: "Roboto-Regular.ttf",
-    bold: "Roboto-Medium.ttf",
-    italics: "Roboto-Italic.ttf",
-    bolditalics: "Roboto-Italic.ttf",
+  Cairo: {
+    normal: "Cairo-Regular.ttf",
+    bold: "Cairo-Regular.ttf",
+    italics: "Cairo-Regular.ttf",
+    bolditalics: "Cairo-Regular.ttf",
   },
 };
+
 
 function MonthlyReports() {
 
@@ -94,19 +100,21 @@ function MonthlyReports() {
         },
       ],
       defaultStyle: {
-        font: "Roboto",
-        fontSize: 11,
-        alignment: "right",
-        direction: "rtl",
-      },
+  font: "Cairo",
+  fontSize: 11,
+  alignment: "right",
+  direction: "rtl",
+},
+
       styles: {
-        header: {
-          font: "Roboto",
-          fontSize: 16,
-          bold: true,
-          margin: [0, 0, 0, 10],
-        },
-      },
+  header: {
+    font: "Cairo",
+    fontSize: 16,
+    bold: true,
+    margin: [0, 0, 0, 10],
+  },
+},
+
       pageMargins: [30, 30, 30, 30],
     };
 
