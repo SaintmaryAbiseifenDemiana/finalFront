@@ -6,12 +6,7 @@ import { cairoVfs } from "../fonts/cairo-vfs";
 import "../styles.css";
 import { API_BASE } from "../config";
 
-// ✅ دمج Roboto + Cairo في vfs
-pdfMake.vfs = {
-  ...pdfFonts.vfs,
-  ...cairoVfs,
-};
-
+pdfMake.vfs = { ...pdfFonts.vfs, ...cairoVfs, };
 pdfMake.fonts = {
   Cairo: {
     normal: "Cairo-Regular.ttf",
