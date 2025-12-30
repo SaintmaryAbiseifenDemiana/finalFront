@@ -122,8 +122,8 @@ function MonthlyReports() {
 
       pageMargins: [30, 30, 30, 30],
     };
-    console.log("🔎 Cairo in vfs:", pdfMake.vfs["Cairo-Regular.ttf"]);
-    console.log("🔎 All vfs keys:", Object.keys(pdfMake.vfs).filter(k => k.includes("Cairo")));
+    console.log(Object.keys(pdfMake.vfs));
+
 
     pdfMake.createPdf(docDefinition).download(fileName);
   }
