@@ -178,21 +178,23 @@ function ManageServiced() {
 
   // ✅ البحث
   function filterServiced(query) {
-    setSearchQuery(query);
+  setSearchQuery(query);
 
-    if (!query) {
-      setSearchResults(allServiced);
-      return;
-    }
-
-    const q = query.toLowerCase();
-
-    const filtered = allServiced.filter((s) =>
-      s.serviced_name.toLowerCase().includes(q)
-    );
-
-    setSearchResults(filtered);
+  if (!query.trim()) {
+    setSearchResults(allServiced);
+    return;
   }
+
+  const normalizedQuery = normalizeArabicUsername(query);
+
+  const filtered = allServiced.filter((s) => {
+    const normalizedName = normalizeArabicUsername(s.serviced_name);
+    return normalizedName.startsWith(normalizedQuery);
+  });
+
+  setSearchResults(filtered);
+}
+
 
   // ✅ حذف جماعي
   async function deleteSelectedServiced() {
