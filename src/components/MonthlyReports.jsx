@@ -6,13 +6,11 @@ import { cairoVfs } from "../fonts/cairo-vfs";
 import "../styles.css";
 import { API_BASE } from "../config";
 
-// اربطي vfs الافتراضي
-pdfMake.vfs = pdfFonts.vfs || {};
-
-// ضيفي خط Cairo
-Object.assign(pdfMake.vfs, cairoVfs);
-
-
+// ✅ دمج Roboto + Cairo في vfs
+pdfMake.vfs = {
+  ...pdfFonts.vfs,
+  ...cairoVfs,
+};
 
 pdfMake.fonts = {
   Cairo: {
@@ -21,13 +19,13 @@ pdfMake.fonts = {
     italics: "Cairo-Regular.ttf",
     bolditalics: "Cairo-Regular.ttf",
   },
-  Roboto: { 
-    normal: "Roboto-Regular.ttf", 
-    bold: "Roboto-Medium.ttf", 
-    italics: "Roboto-Italic.ttf", 
-    bolditalics: "Roboto-Italic.ttf", },
+  Roboto: {
+    normal: "Roboto-Regular.ttf",
+    bold: "Roboto-Medium.ttf",
+    italics: "Roboto-Italic.ttf",
+    bolditalics: "Roboto-Italic.ttf",
+  },
 };
-
 
 function MonthlyReports() {
 
