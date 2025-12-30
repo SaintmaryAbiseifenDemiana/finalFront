@@ -188,12 +188,18 @@ function ManageServiced() {
   }
 
   const filtered = allServiced.filter((s) => {
-    if (!s.serviced_name) return false;
+  if (!s.serviced_name) return false;
 
-    const cleanName = normalizeArabicUsername(s.serviced_name).toLowerCase();
+  const cleanName = normalizeArabicUsername(s.serviced_name)
+    .toLowerCase()
+    .trim();
 
-    return cleanName.startsWith(cleanQuery);
-  });
+  const firstName = cleanName.split(" ")[0]; // الاسم الأول فقط
+
+  return firstName.startsWith(cleanQuery);
+
+});
+
 
   // 🔥 مهم جدًا
   setSearchResults(filtered);
