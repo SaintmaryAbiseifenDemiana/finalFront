@@ -9,7 +9,7 @@ export const vfs = {
 export const fonts = {
   Cairo: {
     normal: "Cairo.ttf", // لازم يطابق المفتاح في 
-    cairo-vfs.js bold: "Cairo.ttf", 
+    bold: "Cairo.ttf", 
     italics: "Cairo.ttf", 
     bolditalics: "Cairo.ttf",
   },
