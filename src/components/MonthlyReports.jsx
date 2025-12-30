@@ -7,7 +7,7 @@ import "../styles.css";
 import { API_BASE } from "../config";
 
 pdfMake.vfs = {
-  ...pdfFonts.vfs,
+  ...pdfFonts.pdfMake.vfs,
   ...cairoVfs,
 };
 
@@ -18,12 +18,7 @@ pdfMake.fonts = {
     italics: "Cairo-Regular.ttf",
     bolditalics: "Cairo-Regular.ttf",
   },
-  Roboto: {
-    normal: "Roboto-Regular.ttf",
-    bold: "Roboto-Medium.ttf",
-    italics: "Roboto-Italic.ttf",
-    bolditalics: "Roboto-Italic.ttf",
-  },
+
 };
 
 function MonthlyReports() {
