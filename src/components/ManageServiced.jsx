@@ -177,23 +177,28 @@ function ManageServiced() {
   }
 
   // ✅ البحث
-  function filterServiced(query) {
+ function filterServiced(query) {
+  const cleanQuery = normalizeArabicUsername(query).toLowerCase();
   setSearchQuery(query);
 
-  if (!query.trim()) {
-    setSearchResults(allServiced);
+  // لو المستخدم مسح البحث
+  if (!cleanQuery) {
+    setSearchResults([]);
     return;
   }
 
-  const normalizedQuery = normalizeArabicUsername(query);
-
   const filtered = allServiced.filter((s) => {
-    const normalizedName = normalizeArabicUsername(s.serviced_name);
-    return normalizedName.startsWith(normalizedQuery);
+    if (!s.serviced_name) return false;
+
+    const cleanName = normalizeArabicUsername(s.serviced_name).toLowerCase();
+
+    return cleanName.startsWith(cleanQuery);
   });
 
+  // 🔥 مهم جدًا
   setSearchResults(filtered);
 }
+
 
 
   // ✅ حذف جماعي
@@ -323,30 +328,39 @@ function ManageServiced() {
                   </thead>
 
                   <tbody>
-                    {searchResults.map((r) => (
-                      <tr key={r.serviced_id}>
-                        <td>
-                          <input
-                            type="checkbox"
-                            checked={selectedServicedIds.includes(r.serviced_id)}
-                            onChange={() => toggleSelectServiced(r.serviced_id)}
-                          />
-                        </td>
-                        <td>{r.serviced_name}</td>
-                        <td>{r.family_name}</td>
-                        <td>{r.class_name}</td>
-                        <td>{r.servant_name || "—"}</td>
-                        <td>
-                          <button
-                            className="btn btn-warning"
-                            onClick={() => startTransfer(r.serviced_id)}
-                          >
-                            نقل
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
+  {searchResults.length === 0 ? (
+    <tr>
+      <td colSpan="6" style={{ textAlign: "center", padding: "15px" }}>
+        لا توجد نتائج
+      </td>
+    </tr>
+  ) : (
+    searchResults.map((r) => (
+      <tr key={r.serviced_id}>
+        <td>
+          <input
+            type="checkbox"
+            checked={selectedServicedIds.includes(r.serviced_id)}
+            onChange={() => toggleSelectServiced(r.serviced_id)}
+          />
+        </td>
+        <td>{r.serviced_name}</td>
+        <td>{r.family_name}</td>
+        <td>{r.class_name}</td>
+        <td>{r.servant_name || "—"}</td>
+        <td>
+          <button
+            className="btn btn-warning"
+            onClick={() => startTransfer(r.serviced_id)}
+          >
+            نقل
+          </button>
+        </td>
+      </tr>
+    ))
+  )}
+</tbody>
+
                 </table>
               </div>
 
