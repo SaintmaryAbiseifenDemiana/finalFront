@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import * as XLSX from "xlsx";
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
+import  "pdfmake/build/vfs_fonts";
 import { cairoVfs } from "../fonts/cairo-vfs";
 import "../styles.css";
 import { API_BASE } from "../config";
 
 pdfMake.vfs = {
-  ...pdfFonts.pdfMake.vfs,
+  ...pdfMake.vfs,
   ...cairoVfs,
 };
 
