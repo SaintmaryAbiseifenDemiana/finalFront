@@ -6,7 +6,7 @@ import { cairoVfs } from "../fonts/cairo-vfs";
 import "../styles.css";
 import { API_BASE } from "../config";
 
-pdfMake.vfs = { ...pdfFonts.vfs, ...cairoVfs, };
+// ✅ أول حاجة اربطي الـ vfs pdfMake.vfs = { ...pdfFonts.pdfMake.vfs, // استخدمي pdfFonts.pdfMake.vfs مش pdfFonts.vfs ...cairoVfs, };
 pdfMake.fonts = {
   Cairo: {
     normal: "Cairo-Regular.ttf",
