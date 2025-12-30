@@ -118,6 +118,7 @@ function MonthlyReports() {
       pageMargins: [30, 30, 30, 30],
     };
     console.log(Object.keys(pdfMake.vfs));
+      console.log("Cairo value length:", pdfMake.vfs["Cairo-Regular.ttf"]?.length);
 
 
     pdfMake.createPdf(docDefinition).download(fileName);
