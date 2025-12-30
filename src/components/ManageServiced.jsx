@@ -177,8 +177,12 @@ function ManageServiced() {
   }
 
   // ✅ البحث
- function filterServiced(query) {
-  const cleanQuery = normalizeArabicUsername(query).toLowerCase();
+// ✅ البحث
+function filterServiced(query) {
+  const cleanQuery = normalizeArabicUsername(query)
+    .toLowerCase()
+    .trim(); // نظف اسم البحث
+
   setSearchQuery(query);
 
   // لو المستخدم مسح البحث
@@ -188,22 +192,26 @@ function ManageServiced() {
   }
 
   const filtered = allServiced.filter((s) => {
-  if (!s.serviced_name) return false;
+    if (!s.serviced_name) return false;
 
-  const cleanName = normalizeArabicUsername(s.serviced_name)
-    .toLowerCase()
-    .trim();
+    // تنظيف الاسم بالكامل
+    const cleanName = normalizeArabicUsername(s.serviced_name)
+      .toLowerCase()
+      .trim();
 
-  const firstName = cleanName.split(" ")[0]; // الاسم الأول فقط
+    // تقسيم الاسم لأجزاء والتأكد من وجود كلمة أولى
+    const nameParts = cleanName.split(/\s+/);
+    if (nameParts.length === 0) return false;
 
-  return firstName.startsWith(cleanQuery);
+    const firstName = nameParts[0]; // الاسم الأول فقط
 
-});
+    // مقارنة دقيقة مع الاسم الأول المدخل
+    return firstName.startsWith(cleanQuery);
+  });
 
-
-  // 🔥 مهم جدًا
   setSearchResults(filtered);
 }
+
 
 
 
