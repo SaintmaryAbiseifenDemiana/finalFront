@@ -1,26 +1,13 @@
 import React, { useEffect } from "react";
 import * as XLSX from "xlsx";
 import pdfMake from "pdfmake/build/pdfmake";
-import  "pdfmake/build/vfs_fonts";
-import { cairoVfs } from "../fonts/cairo-vfs";
+import { vfs, fonts } from "../fonts/fonts"; // المسار حسب مكان الملف
 import "../styles.css";
 import { API_BASE } from "../config";
 
-pdfMake.vfs = {
-  ...pdfMake.vfs,
-  ...cairoVfs,
-};
-
-pdfMake.fonts = {
-  Cairo: {
-    normal: "Cairo-Regular.ttf",
-    bold: "Cairo-Regular.ttf",
-    italics: "Cairo-Regular.ttf",
-    bolditalics: "Cairo-Regular.ttf",
-  },
-
-};
-
+// اربط vfs الخاص بنا pdfMake.vfs = vfs; 
+// اربط تعريف الخطوط الخاص بنا 
+pdfMake.fonts = fonts;
 function MonthlyReports() {
 
   // ✅ المتغير اللي بيقلب الاتجاه
@@ -117,8 +104,9 @@ function MonthlyReports() {
 
       pageMargins: [30, 30, 30, 30],
     };
-    console.log(Object.keys(pdfMake.vfs));
-      console.log("Cairo value length:", pdfMake.vfs["Cairo-Regular.ttf"]?.length);
+    console.log("vfs keys:", Object.keys(pdfMake.vfs));            // لازم تشوفي ["Cairo-Regular.ttf"]
+    console.log("fonts:", pdfMake.fonts);                          // لازم فيه Cairo
+    console.log("Cairo length:", pdfMake.vfs["Cairo-Regular.ttf"]?.length); // رقم كبير
 
 
     pdfMake.createPdf(docDefinition).download(fileName);
