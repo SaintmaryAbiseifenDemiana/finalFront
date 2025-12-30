@@ -61,7 +61,7 @@ function ManageServiced() {
 
       if (data.success) {
         setAllServiced(data.serviced);
-        setSearchResults(data.serviced);
+        
       }
     } catch (err) {
       console.error("خطأ في تحميل كل المخدومين:", err);
