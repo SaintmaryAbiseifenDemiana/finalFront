@@ -8,9 +8,9 @@ export const vfs = {
 // تعريف الخطوط: نعرّف Cairo فقط
 export const fonts = {
   Cairo: {
-    normal: "Cairo-Regular.ttf",
-    bold: "Cairo-Regular.ttf",
-    italics: "Cairo-Regular.ttf",
-    bolditalics: "Cairo-Regular.ttf",
+    normal: "Cairo.ttf", // لازم يطابق المفتاح في 
+    cairo-vfs.js bold: "Cairo.ttf", 
+    italics: "Cairo.ttf", 
+    bolditalics: "Cairo.ttf",
   },
 };

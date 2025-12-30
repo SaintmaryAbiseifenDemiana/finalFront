@@ -5,7 +5,8 @@ import { vfs, fonts } from "../fonts/fonts"; // المسار حسب مكان ا�
 import "../styles.css";
 import { API_BASE } from "../config";
 
-// اربط vfs الخاص بنا pdfMake.vfs = vfs; 
+// اربط vfs الخاص بنا 
+pdfMake.vfs = vfs; 
 // اربط تعريف الخطوط الخاص بنا 
 pdfMake.fonts = fonts;
 function MonthlyReports() {
