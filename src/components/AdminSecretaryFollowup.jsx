@@ -46,7 +46,10 @@ function AdminSecretaryFollowup() {
 
       {families.map((family, idx) => (
         <div key={idx} className="family-table">
-          <h3>{family.family_name}</h3>
+          <h3 style={{ color: "white", backgroundColor: "#333", padding: "8px", borderRadius: "4px" }}>
+            {family.family_name}
+          </h3>
+
           <table>
             <thead>
               <tr>
