@@ -44,31 +44,32 @@ function AdminSecretaryFollowup() {
         </select>
       </div>
 
-      {families.map((family, idx) => (
-        <div key={idx} className="family-table">
-          <h3 style={{ color: "white", backgroundColor: "#333", padding: "8px", borderRadius: "4px" }}>
-            {family.family_name}
-          </h3>
+      {families
+        .filter(family => family.family_name !== "غير مسؤول عن أسرة")
+        .map((family, idx) => (
+            <div key={idx} className="family-table">
+              <h3 style={{ color: "white", backgroundColor: "#333", padding: "8px", borderRadius: "4px" }}>
+               {family.family_name}
+              </h3>
+              <table>
+                 <thead>
+                  <tr>
+                     <th>التاريخ</th>
+                     <th>تم التسجيل</th>
+                  </tr>
+                 </thead>
+              <tbody>
+                {family.records.map((rec, i) => (
+            <tr key={i}>
+              <td>{rec.date ? rec.date.split("T")[0] : "-"}</td>
+              <td>{rec.submitted ? "✔️" : "❌"}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+))}
 
-          <table>
-            <thead>
-              <tr>
-                <th>التاريخ</th>
-                <th>تم التسجيل</th>
-              </tr>
-            </thead>
-            <tbody>
-             {family.records.map((rec, i) => (
-               <tr key={i}>
-                 <td>{rec.date ? rec.date.split("T")[0] : "-"}</td>
-                 <td>{rec.submitted ? "✔️" : "❌"}</td>
-               </tr>
-              ))}
-            </tbody>
-
-          </table>
-        </div>
-      ))}
     </div>
   );
 }
