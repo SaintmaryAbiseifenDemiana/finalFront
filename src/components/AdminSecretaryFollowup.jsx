@@ -38,6 +38,64 @@ function AdminSecretaryFollowup() {
     loadSummary();
   }, [month]);
 
+  // استخراج كل الأيام
+  const allDates = new Set();
+  families.forEach(family => {
+    family.records.forEach(rec => {
+      if (rec.date) {
+        allDates.add(new Date(rec.date).getDate());
+      }
+    });
+  });
+  const days = Array.from(allDates).sort((a, b) => a - b);
+
+  // تقسيم الأسر لمجموعتين
+  const group1 = families
+    .filter(f => f.family_name !== "غير مسؤول عن اسره")
+    .slice(0, 5); // حضانة لحد 5,6
+  const group2 = families
+    .filter(f => f.family_name !== "غير مسؤول عن اسره")
+    .slice(5); // باقي الأسر
+
+  // دالة ترسم جدول لمجموعة أسر
+  const renderTable = (group) => (
+    <table style={{ marginBottom: "20px", borderCollapse: "collapse", width: "100%" }}>
+      <thead>
+        <tr>
+          <th style={{ border: "1px solid #ccc", padding: "4px" }}>اليوم</th>
+          {group.map((family, idx) => (
+            <th
+              key={idx}
+              style={{
+                writingMode: "vertical-rl",
+                textAlign: "center",
+                border: "1px solid #ccc",
+                padding: "4px"
+              }}
+            >
+              {shortNames[family.family_name] || family.family_name}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {days.map(day => (
+          <tr key={day}>
+            <td style={{ border: "1px solid #ccc", padding: "4px" }}>يوم {day}</td>
+            {group.map((family, idx) => {
+              const rec = family.records.find(r => r.date && new Date(r.date).getDate() === day);
+              return (
+                <td key={idx} style={{ textAlign: "center", border: "1px solid #ccc", padding: "4px" }}>
+                  {rec ? (rec.submitted ? "✔️" : "❌") : "-"}
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+
   return (
     <div className="admin-container">
       <h2 style={{ color: "white", backgroundColor: "#333", padding: "8px", borderRadius: "4px" }}>
@@ -63,48 +121,8 @@ function AdminSecretaryFollowup() {
         </select>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>اليوم</th>
-            {families
-              .filter(family => family.family_name !== "غير مسؤول عن اسره")
-              .map((family, idx) => (
-                <th key={idx} style={{ writingMode: "vertical-rl", textAlign: "center" }}>
-                  {shortNames[family.family_name] || family.family_name}
-                </th>
-              ))}
-          </tr>
-        </thead>
-        <tbody>
-          {(() => {
-            const allDates = new Set();
-            families.forEach(family => {
-              family.records.forEach(rec => {
-                if (rec.date) {
-                  allDates.add(new Date(rec.date).getDate());
-                }
-              });
-            });
-
-            return Array.from(allDates).sort((a, b) => a - b).map(day => (
-              <tr key={day}>
-                <td>يوم {day}</td>
-                {families
-                  .filter(family => family.family_name !== "غير مسؤول عن اسره")
-                  .map((family, idx) => {
-                    const rec = family.records.find(r => r.date && new Date(r.date).getDate() === day);
-                    return (
-                      <td key={idx} style={{ textAlign: "center" }}>
-                        {rec ? (rec.submitted ? "✔️" : "❌") : "-"}
-                      </td>
-                    );
-                  })}
-              </tr>
-            ));
-          })()}
-        </tbody>
-      </table>
+      {renderTable(group1)}
+      {renderTable(group2)}
     </div>
   );
 }
