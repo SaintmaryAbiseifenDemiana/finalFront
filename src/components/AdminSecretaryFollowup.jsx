@@ -100,6 +100,10 @@ function AdminSecretaryFollowup() {
     <div className="admin-container">
       <h2 style={{ color: "white", backgroundColor: "#333", padding: "8px", borderRadius: "4px" }}>
         متابعة السكرتارية
+
+      <a href="/AdminDashboard" className="btn btn-secondary mb-3">
+        العودة للوحة الإدارة
+      </a>
       </h2>
 
       <div className="form-group">
