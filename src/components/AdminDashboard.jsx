@@ -57,6 +57,10 @@ function AdminDashboard() {
             <div>📈</div>
             <span>نسبة المخدومين</span>
           </a>
+  
+          <a href="/AdminSecretaryFollowup" className="app-icon">
+           <div>📝</div>
+           <span>متابعة السكرتارية</span> </a>
         </div>
 
         

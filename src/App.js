@@ -16,6 +16,7 @@ import ManageServiced from "./components/ManageServiced";
 import MonthlyServiced from "./components/MonthlyServiced";
 import NavigationControl from "./components/NavigationControl";
 import FollowClassesAbsence from "./components/FollowClassesAbsence";
+import AdminSecretaryFollowup from "./components/AdminSecretaryFollowup";
 import "./styles.css";
 
 function App() {
@@ -60,6 +61,8 @@ function App() {
         <Route path="/ManageServiced" element={<ManageServiced />} />
         {/* متابعة الفصول*/}
         <Route path="/FollowClassesAbsence" element={<FollowClassesAbsence />} />
+        {/* متابعة السكرتارية*/}
+        <Route path="/AdminSecretaryFollowup" element={<AdminSecretaryFollowup />} />
       </Routes>
     </Router>
   );
