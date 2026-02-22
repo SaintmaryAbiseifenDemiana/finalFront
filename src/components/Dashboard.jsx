@@ -64,16 +64,26 @@ function Dashboard() {
   }
 
   function getFridaysForMonth(month) {
-    const year = ["10", "11", "12"].includes(month) ? 2025 : 2026;
-    const fridays = [];
-    const start = new Date(`${year}-${month}-01`);
+  const year = ["10", "11", "12"].includes(month) ? 2025 : 2026;
+  const fridays = [];
 
-    for (let d = new Date(start); d.getMonth() === start.getMonth(); d.setDate(d.getDate() + 1)) {
-      if (d.getDay() === 5) fridays.push(d.toISOString().split("T")[0]);
-    }
+  // نبدأ من أول يوم في الشهر
+  let d = new Date(year, parseInt(month) - 1, 1);
 
-    return fridays;
+  // نتحرك لحد أول جمعة في الشهر
+  while (d.getDay() !== 5) {
+    d.setDate(d.getDate() + 1);
   }
+
+  // نضيف كل الجمعات في الشهر
+  while (d.getMonth() === parseInt(month) - 1) {
+    fridays.push(d.toISOString().split("T")[0]);
+    d.setDate(d.getDate() + 7);
+  }
+
+  return fridays;
+}
+
 
   function handleMonthChange() {
     const month = document.getElementById("monthSelect").value;
