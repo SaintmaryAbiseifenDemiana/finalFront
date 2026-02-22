@@ -23,7 +23,9 @@ function AdminSecretaryFollowup() {
 
   return (
     <div className="admin-container">
-      <h2 style={{ color: "white", backgroundColor: "#333", padding: "8px", borderRadius: "4px" }}>متابعة السكرتارية</h2>
+      <h2 style={{ color: "white", backgroundColor: "#333", padding: "8px", borderRadius: "4px" }}>
+        متابعة السكرتارية
+      </h2>
 
       <div className="form-group">
         <label>اختر الشهر:</label>
@@ -44,32 +46,44 @@ function AdminSecretaryFollowup() {
         </select>
       </div>
 
-      {families
-        .filter(family => family.family_name !== "غير مسؤول عن اسره")
-        .map((family, idx) => (
-            <div key={idx} className="family-table">
-              <h3 style={{ color: "white", backgroundColor: "#323", padding: "8px", borderRadius: "4px" }}>
-               {family.family_name}
-              </h3>
-              <table>
-                 <thead>
-                  <tr>
-                     <th>التاريخ</th>
-                     <th>تم التسجيل</th>
-                  </tr>
-                 </thead>
-              <tbody>
-                {family.records.map((rec, i) => (
-            <tr key={i}>
-              <td>{rec.date ? rec.date.split("T")[0] : "-"}</td>
-              <td>{rec.submitted ? "✔️" : "❌"}</td>
-            </tr>
-          ))}
+      <table>
+        <thead>
+          <tr>
+            <th>اليوم</th>
+            {families
+              .filter(family => family.family_name !== "غير مسؤول عن اسره")
+              .map((family, idx) => (
+                <th key={idx}>{family.family_name}</th>
+              ))}
+          </tr>
+        </thead>
+        <tbody>
+          {(() => {
+            const allDates = new Set();
+            families.forEach(family => {
+              family.records.forEach(rec => {
+                if (rec.date) {
+                  allDates.add(new Date(rec.date).getDate());
+                }
+              });
+            });
+
+            return Array.from(allDates).sort((a, b) => a - b).map(day => (
+              <tr key={day}>
+                <td>يوم {day}</td>
+                {families
+                  .filter(family => family.family_name !== "غير مسؤول عن اسره")
+                  .map((family, idx) => {
+                    const rec = family.records.find(r => r.date && new Date(r.date).getDate() === day);
+                    return (
+                      <td key={idx}>{rec ? (rec.submitted ? "✔️" : "❌") : "-"}</td>
+                    );
+                  })}
+              </tr>
+            ));
+          })()}
         </tbody>
       </table>
-    </div>
-))}
-
     </div>
   );
 }
