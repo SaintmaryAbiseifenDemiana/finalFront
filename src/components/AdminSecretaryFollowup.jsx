@@ -23,7 +23,7 @@ function AdminSecretaryFollowup() {
 
   return (
     <div className="admin-container">
-      <h2>متابعة السكرتارية</h2>
+      <h2 style={{ color: "white", backgroundColor: "#333", padding: "8px", borderRadius: "4px" }}>متابعة السكرتارية</h2>
 
       <div className="form-group">
         <label>اختر الشهر:</label>
@@ -45,10 +45,10 @@ function AdminSecretaryFollowup() {
       </div>
 
       {families
-        .filter(family => family.family_name !== "غير مسؤول عن أسرة")
+        .filter(family => family.family_name !== "غير مسؤول عن اسره")
         .map((family, idx) => (
             <div key={idx} className="family-table">
-              <h3 style={{ color: "white", backgroundColor: "#333", padding: "8px", borderRadius: "4px" }}>
+              <h3 style={{ color: "white", backgroundColor: "#323", padding: "8px", borderRadius: "4px" }}>
                {family.family_name}
               </h3>
               <table>
