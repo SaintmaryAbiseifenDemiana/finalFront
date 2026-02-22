@@ -55,13 +55,14 @@ function AdminSecretaryFollowup() {
               </tr>
             </thead>
             <tbody>
-              {family.records.map((rec, i) => (
-                <tr key={i}>
-                  <td>{rec.date.split("T")[0]}</td>
-                  <td>{rec.submitted ? "✔️" : "❌"}</td>
-                </tr>
+             {family.records.map((rec, i) => (
+               <tr key={i}>
+                 <td>{rec.date ? rec.date.split("T")[0] : "-"}</td>
+                 <td>{rec.submitted ? "✔️" : "❌"}</td>
+               </tr>
               ))}
             </tbody>
+
           </table>
         </div>
       ))}
