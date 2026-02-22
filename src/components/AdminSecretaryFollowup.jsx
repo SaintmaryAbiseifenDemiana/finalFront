@@ -5,6 +5,23 @@ function AdminSecretaryFollowup() {
   const [month, setMonth] = useState("");
   const [families, setFamilies] = useState([]);
 
+  // خريطة أسماء الأسر المختصرة
+  const shortNames = {
+    "حضانه (الملاك ميخائيل والشهيد كرياكوس)": "حضانة",
+    "كي جي (الانبا اندرواس)": "kg",
+    "اولي وتانيه ( ابونا يسطس)": "1 , 2",
+    "تالته ورابعه (ابي سيفين وتماف ايريني )": "3 , 4",
+    "خمسه وسادته (مارجرجس والقديسه رفقه )": "5 , 6",
+    "اولي وتانيه اعدادي (العدرا والقديس اوغسطينوس)": "اعدادي",
+    "تالته اعدادي ( الانبا مكسيموس والشهيده مارينا)": "3 اعدادي",
+    "اولي وتانيه ثانوي (القديسه دميانه والانبا شنوده )": "ثانوي",
+    "تالته ثانوي ( الانبا انطونيوس والقديسه برباره )": "3 ثانوي",
+    "تمهيدي اعداد خدام (الارشيدياكون حبيب جرجس)": "تلمذة",
+    "اعداد خدام (البابا اثناسيوس والبابا كيرلس عمود الدين)": "اعداد",
+    "الام دولاجي": "الام دولاجي",
+    "اجتماع الانبا موسي للخدام": "اجتماع الخدام"
+  };
+
   useEffect(() => {
     if (!month) return;
 
@@ -53,7 +70,9 @@ function AdminSecretaryFollowup() {
             {families
               .filter(family => family.family_name !== "غير مسؤول عن اسره")
               .map((family, idx) => (
-                <th key={idx}>{family.family_name}</th>
+                <th key={idx} style={{ writingMode: "vertical-rl", textAlign: "center" }}>
+                  {shortNames[family.family_name] || family.family_name}
+                </th>
               ))}
           </tr>
         </thead>
@@ -76,7 +95,9 @@ function AdminSecretaryFollowup() {
                   .map((family, idx) => {
                     const rec = family.records.find(r => r.date && new Date(r.date).getDate() === day);
                     return (
-                      <td key={idx}>{rec ? (rec.submitted ? "✔️" : "❌") : "-"}</td>
+                      <td key={idx} style={{ textAlign: "center" }}>
+                        {rec ? (rec.submitted ? "✔️" : "❌") : "-"}
+                      </td>
                     );
                   })}
               </tr>
