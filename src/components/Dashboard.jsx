@@ -62,44 +62,45 @@ function Dashboard() {
       alert("فشل تحميل الفصول.");
     }
   }
-
-  function getFridaysForMonth(month) {
+function getFridaysForMonth(month) {
   const year = ["10", "11", "12"].includes(month) ? 2025 : 2026;
   const fridays = [];
 
-  // نبدأ من أول يوم في الشهر
-  let d = new Date(year, parseInt(month) - 1, 1);
+  // نبدأ من أول يوم في الشهر باستخدام UTC
+  let d = new Date(Date.UTC(year, parseInt(month) - 1, 1));
 
-  // نتحرك لحد أول جمعة في الشهر
-  while (d.getDay() !== 5) {
-    d.setDate(d.getDate() + 1);
+  // نتحرك لحد أول جمعة
+  while (d.getUTCDay() !== 5) {
+    d.setUTCDate(d.getUTCDate() + 1);
   }
 
   // نضيف كل الجمعات في الشهر
-  while (d.getMonth() === parseInt(month) - 1) {
+  while (d.getUTCMonth() === parseInt(month) - 1) {
+    // نخليها ترجع التاريخ كامل بالشكل YYYY-MM-DD
     fridays.push(d.toISOString().split("T")[0]);
-    d.setDate(d.getDate() + 7);
+    d.setUTCDate(d.getUTCDate() + 7);
   }
 
   return fridays;
 }
 
+function handleMonthChange() {
+  const month = document.getElementById("monthSelect").value;
+  const fridaySelect = document.getElementById("fridaySelect");
 
-  function handleMonthChange() {
-    const month = document.getElementById("monthSelect").value;
-    const fridaySelect = document.getElementById("fridaySelect");
+  fridaySelect.innerHTML = '<option value="">اختر الجمعة...</option>';
 
-    fridaySelect.innerHTML = '<option value="">اختر الجمعة...</option>';
+  if (!month) return;
 
-    if (!month) return;
+  getFridaysForMonth(month).forEach((dateStr) => {
+    // نعرض التاريخ كامل زي 2026-02-06
+    fridaySelect.add(new Option(dateStr, dateStr));
+  });
 
-    getFridaysForMonth(month).forEach((dateStr) => {
-      fridaySelect.add(new Option(dateStr, dateStr));
-    });
+  fridaySelect.disabled = false;
+  checkLoadButtonStatus();
+}
 
-    fridaySelect.disabled = false;
-    checkLoadButtonStatus();
-  }
 
   function checkLoadButtonStatus() {
     const className = document.getElementById("classSelect").value;
