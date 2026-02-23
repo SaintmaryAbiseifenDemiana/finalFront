@@ -12,16 +12,26 @@ function FollowClassesAbsence() {
   const familyId = user.family_id;
 
   function getFridaysForMonth(month) {
-    const year = ["10", "11", "12"].includes(month) ? 2025 : 2026;
-    const fridays = [];
-    const start = new Date(`${year}-${month}-01`);
+  const year = ["10", "11", "12"].includes(month) ? 2025 : 2026;
+  const fridays = [];
 
-    for (let d = new Date(start); d.getMonth() === start.getMonth(); d.setDate(d.getDate() + 1)) {
-      if (d.getDay() === 5) fridays.push(d.toISOString().split("T")[0]);
-    }
+  // نبدأ من أول يوم في الشهر باستخدام UTC
+  let d = new Date(Date.UTC(year, parseInt(month) - 1, 1));
 
-    return fridays;
+  // نتحرك لحد أول جمعة
+  while (d.getUTCDay() !== 5) {
+    d.setUTCDate(d.getUTCDate() + 1);
   }
+
+  // نضيف كل الجمعات في الشهر
+  while (d.getUTCMonth() === parseInt(month) - 1) {
+    fridays.push(d.toISOString().split("T")[0]); // التاريخ كامل YYYY-MM-DD
+    d.setUTCDate(d.getUTCDate() + 7);
+  }
+
+  return fridays;
+}
+
 
   function handleMonthChange(value) {
     setMonth(value);
