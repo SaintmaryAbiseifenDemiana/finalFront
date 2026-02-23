@@ -35,8 +35,8 @@ function MonthlyReports() {
   }, []);
 
   function fixArabic(text) {
-  return text.replace(/\s+/g, " ").trim();
-}
+    return text.split(" ").reverse().join(" ").replace(/ +/g, " ");
+  }
 
   function filterUsers() {
     const input = document.getElementById("userSearch").value.toLowerCase();
@@ -61,17 +61,13 @@ function MonthlyReports() {
       .reverse();
 
     const rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) =>
-  [...tr.cells].map((td, idx) => {
-    const rawText = td.textContent.trim();
-    return {
-      text: idx === 1 ? rawText : fixArabic(rawText), // العمود رقم 1 هو اسم الخادم
-      rtl: true,
-      direction: "rtl",
-      alignment: "right",
-    };
-  }).reverse()
-);
-
+      [...tr.cells].map((td) => ({
+        text: fixArabic(td.textContent.trim()),
+        rtl: true,
+        direction: "rtl",
+        alignment: "right",
+      })).reverse()
+    );
 
     const docDefinition = {
       content: [
