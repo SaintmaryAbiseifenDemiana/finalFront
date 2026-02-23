@@ -34,9 +34,7 @@ function MonthlyReports() {
     if (searchInput) searchInput.addEventListener("input", filterUsers);
   }, []);
 
-  function fixArabic(text) {
-    return text.split(" ").reverse().join(" ").replace(/ +/g, " ");
-  }
+  
 
   function filterUsers() {
     const input = document.getElementById("userSearch").value.toLowerCase();
@@ -53,18 +51,14 @@ function MonthlyReports() {
   function exportTableToPdf(title, fileName) {
     const headers = [...document.querySelectorAll(".report-table thead th")]
       .map((th) => ({
-        text: fixArabic(th.textContent.trim()),
-        rtl: true,
-        direction: "rtl",
+        text: td.textContent.trim(),
         alignment: "right",
       }))
       .reverse();
 
     const rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) =>
       [...tr.cells].map((td) => ({
-        text: fixArabic(td.textContent.trim()),
-        rtl: true,
-        direction: "rtl",
+        text: td.textContent.trim(),
         alignment: "right",
       })).reverse()
     );
@@ -72,11 +66,9 @@ function MonthlyReports() {
     const docDefinition = {
       content: [
         {
-          text: fixArabic(title),
+          text: title,
           style: "header",
-          alignment: "right",
-          rtl: true,
-          direction: "rtl",
+          alignment: "right"
         },
         {
           table: {
@@ -90,8 +82,7 @@ function MonthlyReports() {
       defaultStyle: {
         font: "Cairo",
         fontSize: 11,
-        alignment: "right",
-        direction: "rtl",
+        alignment: "right"
 }, 
 
       styles: {
