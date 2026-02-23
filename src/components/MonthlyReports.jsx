@@ -40,7 +40,10 @@ function MonthlyReports() {
   function fixArabicSpacing(text) {
   if (!text) return text;
 
-  // نحول كل المسافات لمسافة غير قابلة للكسر
+  // لو أرقام فقط سيبه زي ما هو
+  if (/^[0-9.]+$/.test(text)) return text;
+
+  // لو عربي أو خليط
   return text.replace(/ /g, "\u00A0");
 }
   function filterUsers() {
@@ -66,13 +69,18 @@ function MonthlyReports() {
       .reverse();
 
     const rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) =>
-      [...tr.cells].map((td) => ({
-        text: fixArabicSpacing(td.textContent.trim()),
-        rtl: true,
-        direction: "rtl",
-        alignment: "right",
-      })).reverse()
-    );
+  [...tr.cells].map((td, index) => {
+
+    const value = td.textContent.trim();
+    const isNumber = /^[0-9.]+$/.test(value);
+
+    return {
+      text: isNumber ? value : fixArabicSpacing(value),
+      alignment: isNumber ? "center" : "right",
+      direction: isNumber ? "ltr" : "rtl"
+    };
+  })
+);
 
     const docDefinition = {
       content: [
