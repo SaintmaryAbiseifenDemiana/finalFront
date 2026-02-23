@@ -69,13 +69,20 @@ function MonthlyReports() {
       .reverse();
 
     const rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) =>
-      [...tr.cells].map((td) => ({
-        text: fixArabicSpacing(td.textContent.trim()),
-        rtl: true,
-        direction: "rtl",
-        alignment: "right",
-      })).reverse()
-    );
+  [...tr.cells]
+    .map((td, index) => {
+
+      const value = td.textContent.trim();
+      const isNumber = /^[0-9.]+$/.test(value);
+
+      return {
+        text: isNumber ? value : fixArabicSpacing(value),
+        alignment: isNumber ? "center" : "right",
+        direction: isNumber ? "ltr" : "rtl"
+      };
+    })
+    .reverse() // ⭐ اهم سطر
+);
 
     const docDefinition = {
       content: [
