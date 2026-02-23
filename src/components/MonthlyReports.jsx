@@ -52,14 +52,14 @@ function MonthlyReports() {
     const headers = [...document.querySelectorAll(".report-table thead th")]
       .map((th) => ({
         text: td.textContent.trim(),
-        alignment: "right",
+        alignment: "right"
       }))
       .reverse();
 
     const rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) =>
       [...tr.cells].map((td) => ({
         text: td.textContent.trim(),
-        alignment: "right",
+        alignment: "right"
       })).reverse()
     );
 
