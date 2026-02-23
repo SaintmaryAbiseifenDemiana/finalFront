@@ -62,35 +62,40 @@ function MonthlyReports() {
     const headers = [...document.querySelectorAll(".report-table thead th")]
       .map((th) => ({
         text: fixArabic(th.textContent.trim()),
+        rtl: true,
+        direction: "rtl",
         alignment: "right",
       }))
       .reverse();
 
     const rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) =>
   [...tr.cells]
-    .map((td, idx) => {
+    .map((td, index) => {
 
       const value = td.textContent.trim();
       const isNumber = /^[0-9.]+$/.test(value);
 
       return {
-        text: idx === 1 ? value : fixArabicSpacing(value), // اسم الخادم يطبع عادي 
+        text: isNumber ? value : fixArabicSpacing(value),
         alignment: isNumber ? "center" : "right",
+        direction: isNumber ? "ltr" : "rtl"
       };
     })
-    
+    .reverse() // ⭐ اهم سطر
 );
     const columnWidths = [25, "*", "*", "*", "*", "*", "*"]; 
 // 25px لعمود م
 
-
+// وبعد reverse الأعمدة لازم نعكسهم زيه
+columnWidths.reverse();
     const docDefinition = {
       content: [
         {
           text: fixArabic(title),
           style: "header",
           alignment: "right",
-          
+          rtl: true,
+          direction: "rtl",
         },
         {
           table: {
@@ -104,7 +109,7 @@ function MonthlyReports() {
       defaultStyle: {
         font: "Cairo",
         fontSize: 11,
-        
+        alignment: "right",
         direction: "rtl",
 }, 
 
@@ -126,7 +131,6 @@ function MonthlyReports() {
 
     pdfMake.createPdf(docDefinition).download(fileName);
   }
-
   async function loadFamilies() {
     try {
       const response = await fetch(`${API_BASE}/api/families`);
