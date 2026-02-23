@@ -51,67 +51,60 @@ function MonthlyReports() {
   }
 
   function exportTableToPdf(title, fileName) {
-    const headers = [...document.querySelectorAll(".report-table thead th")]
-      .map((th) => ({
-        text: fixArabic(th.textContent.trim()),
+  const headers = [...document.querySelectorAll(".report-table thead th")]
+    .map((th) => ({
+      text: fixArabic(th.textContent.trim()),
+      rtl: true,
+      alignment: "right",
+    }));
+
+  const rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) =>
+    [...tr.cells].map((td, idx) => {
+      const rawText = td.textContent.trim();
+      return {
+        text: idx === 1 ? rawText : fixArabic(rawText), // ✅ اسم الخادم يطبع عادي
         rtl: true,
-        direction: "rtl",
         alignment: "right",
-      }))
-      .reverse();
+      };
+    })
+  );
 
-    const rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) =>
-      [...tr.cells].map((td) => ({
-        text: fixArabic(td.textContent.trim()),
+  const docDefinition = {
+    content: [
+      {
+        text: fixArabic(title),
+        style: "header",
+        alignment: "right",
         rtl: true,
-        direction: "rtl",
-        alignment: "right",
-      })).reverse()
-    );
-
-    const docDefinition = {
-      content: [
-        {
-          text: fixArabic(title),
-          style: "header",
-          alignment: "right",
-          rtl: true,
-          direction: "rtl",
+      },
+      {
+        table: {
+          headerRows: 1,
+          widths: Array(headers.length).fill("*"),
+          body: [headers, ...rows],
         },
-        {
-          table: {
-            headerRows: 1,
-            widths: Array(headers.length).fill("*"),
-            body: [headers, ...rows],
-          },
-          layout: "lightHorizontalLines",
-        },
-      ],
-      defaultStyle: {
-        font: "Cairo",
-        fontSize: 11,
-        alignment: "right",
-        direction: "rtl",
-}, 
-
-      styles: {
-        header: {
+        layout: "lightHorizontalLines",
+      },
+    ],
+    defaultStyle: {
+      font: "Cairo",
+      fontSize: 11,
+      alignment: "right",
+    },
+    styles: {
+      header: {
         font: "Cairo",
         fontSize: 16,
         bold: true,
         margin: [0, 0, 0, 10],
-  },
-},
+      },
+    },
+    pageMargins: [30, 30, 30, 30],
+    pageDirection: 'rtl', // ✅ يخلي الصفحة كلها RTL
+  };
 
-      pageMargins: [30, 30, 30, 30],
-    };
-    console.log("vfs keys:", Object.keys(pdfMake.vfs));            // لازم تشوفي ["Cairo-Regular.ttf"]
-    console.log("fonts:", pdfMake.fonts);                          // لازم فيه Cairo
-    console.log("Cairo length:", pdfMake.vfs["Cairo-Regular.ttf"]?.length); // رقم كبير
-
-
-    pdfMake.createPdf(docDefinition).download(fileName);
-  }
+  pdfMake.createPdf(docDefinition).download(fileName);
+}
 
   async function loadFamilies() {
     try {
