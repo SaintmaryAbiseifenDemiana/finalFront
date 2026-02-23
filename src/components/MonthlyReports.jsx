@@ -36,8 +36,9 @@ function MonthlyReports() {
 
   
   function fixArabic(text) {
-  return text.split(" ").reverse().join(" ").replace(/ +/g, " ");
+  return text.replace(/\s+/g, " ").trim();
 }
+
   function filterUsers() {
     const input = document.getElementById("userSearch").value.toLowerCase();
     const rows = document.querySelectorAll("#reportTableBody tr");
@@ -50,67 +51,7 @@ function MonthlyReports() {
     });
   }
 
-  function exportTableToPdf(title, fileName) {
-    const headers = [...document.querySelectorAll(".report-table thead th")]
-      .map((th) => ({
-        text: td.textContent.trim(),
-        rtl: true,
-        direction: "rtl",
-        alignment: "right",
-      }))
-      .reverse();
-
-    const rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) =>
-      [...tr.cells].map((td) => ({
-        text: td.textContent.trim(),
-        rtl: true,
-        alignment: "right",
-      })).reverse()
-    );
-
-    const docDefinition = {
-      content: [
-        {
-          text: title,
-          style: "header",
-          alignment: "right",
-          rtl: true,
-          
-        },
-        {
-          table: {
-            headerRows: 1,
-            widths: Array(headers.length).fill("*"),
-            body: [headers, ...rows],
-          },
-          layout: "lightHorizontalLines",
-        },
-      ],
-      defaultStyle: {
-        font: "Cairo",
-        fontSize: 11,
-        alignment: "right",
-        
-}, 
-
-      styles: {
-        header: {
-        font: "Cairo",
-        fontSize: 16,
-        bold: true,
-        margin: [0, 0, 0, 10],
-  },
-},
-
-      pageMargins: [30, 30, 30, 30],
-    };
-    console.log("vfs keys:", Object.keys(pdfMake.vfs));            // لازم تشوفي ["Cairo-Regular.ttf"]
-    console.log("fonts:", pdfMake.fonts);                          // لازم فيه Cairo
-    console.log("Cairo length:", pdfMake.vfs["Cairo-Regular.ttf"]?.length); // رقم كبير
-
-
-    pdfMake.createPdf(docDefinition).download(fileName);
-  }
+  function exportTableToPdf(title, fileName) { const headers = [...document.querySelectorAll(".report-table thead th")] .map((th) => ({ text: fixArabic(th.textContent.trim()), rtl: true, direction: "rtl", alignment: "right", })); const rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) => [...tr.cells].map((td, idx) => { const rawText = td.textContent.trim(); return { text: idx === 1 ? rawText : fixArabic(rawText), // العمود رقم 1 هو اسم الخادم rtl: true, direction: "rtl", alignment: "right", }; }) ); const docDefinition = { content: [ { text: fixArabic(title), style: "header", alignment: "right", rtl: true, direction: "rtl", }, { table: { headerRows: 1, widths: Array(headers.length).fill("*"), body: [headers, ...rows], }, layout: "lightHorizontalLines", }, ], defaultStyle: { font: "Cairo", fontSize: 11, alignment: "right", direction: "rtl", }, styles: { header: { font: "Cairo", fontSize: 16, bold: true, margin: [0, 0, 0, 10], }, }, pageMargins: [30, 30, 30, 30], }; pdfMake.createPdf(docDefinition).download(fileName); }
 
   async function loadFamilies() {
     try {
