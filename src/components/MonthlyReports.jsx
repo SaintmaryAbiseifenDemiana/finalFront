@@ -62,40 +62,35 @@ function MonthlyReports() {
     const headers = [...document.querySelectorAll(".report-table thead th")]
       .map((th) => ({
         text: fixArabic(th.textContent.trim()),
-        rtl: true,
-        direction: "rtl",
         alignment: "right",
       }))
       .reverse();
 
     const rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) =>
   [...tr.cells]
-    .map((td, index) => {
+    .map((td, idx) => {
 
       const value = td.textContent.trim();
       const isNumber = /^[0-9.]+$/.test(value);
 
       return {
-        text: isNumber ? value : fixArabicSpacing(value),
+        text: idx === 1 ? value : fixArabicSpacing(value), // اسم الخادم يطبع عادي 
         alignment: isNumber ? "center" : "right",
-        direction: isNumber ? "ltr" : "rtl"
       };
     })
-    .reverse() // ⭐ اهم سطر
+    
 );
     const columnWidths = [25, "*", "*", "*", "*", "*", "*"]; 
 // 25px لعمود م
 
-// وبعد reverse الأعمدة لازم نعكسهم زيه
-columnWidths.reverse();
+
     const docDefinition = {
       content: [
         {
           text: fixArabic(title),
           style: "header",
           alignment: "right",
-          rtl: true,
-          direction: "rtl",
+          
         },
         {
           table: {
@@ -109,7 +104,7 @@ columnWidths.reverse();
       defaultStyle: {
         font: "Cairo",
         fontSize: 11,
-        alignment: "right",
+        
         direction: "rtl",
 }, 
 
