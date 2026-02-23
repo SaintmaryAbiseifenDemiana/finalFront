@@ -83,7 +83,11 @@ function MonthlyReports() {
     })
     .reverse() // ⭐ اهم سطر
 );
+    const columnWidths = [25, "*", "*", "*", "*", "*", "*"]; 
+// 25px لعمود م
 
+// وبعد reverse الأعمدة لازم نعكسهم زيه
+columnWidths.reverse();
     const docDefinition = {
       content: [
         {
@@ -96,7 +100,7 @@ function MonthlyReports() {
         {
           table: {
             headerRows: 1,
-            widths: Array(headers.length).fill("*"),
+            widths: columnWidths,
             body: [headers, ...rows],
           },
           layout: "lightHorizontalLines",
