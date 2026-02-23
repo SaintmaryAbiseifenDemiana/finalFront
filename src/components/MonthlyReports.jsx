@@ -1,14 +1,22 @@
+بقولك ايه ليه هنا 
+
+ببص لما بيجيي بيطبع 
+بيطبع كداا  دميانةفؤاد مش دميانة فؤاد ... مش بيسيب مسافة 
+
 import React, { useEffect } from "react";
 import * as XLSX from "xlsx";
 import pdfMake from "pdfmake/build/pdfmake";
-import { vfs, fonts } from "../fonts/fonts"; 
+import { vfs, fonts } from "../fonts/fonts"; // المسار حسب مكان الملف
 import "../styles.css";
 import { API_BASE } from "../config";
 
+// اربط vfs الخاص بنا 
 pdfMake.vfs = vfs; 
+// اربط تعريف الخطوط الخاص بنا 
 pdfMake.fonts = fonts;
-
 function MonthlyReports() {
+
+  // ✅ المتغير اللي بيقلب الاتجاه
   let isAsc = false;
 
   useEffect(() => {
@@ -32,7 +40,7 @@ function MonthlyReports() {
   }, []);
 
   function fixArabic(text) {
-    return text.replace(/\s+/g, " ").trim();
+    return text.split(" ").reverse().join(" ").replace(/ +/g, " ");
   }
 
   function filterUsers() {
@@ -54,18 +62,16 @@ function MonthlyReports() {
         rtl: true,
         direction: "rtl",
         alignment: "right",
-      }));
+      }))
+      .reverse();
 
     const rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) =>
-      [...tr.cells].map((td, idx) => {
-        const rawText = td.textContent.trim();
-        return {
-          text: idx === 1 ? rawText : fixArabic(rawText), // اسم الخادم يطبع عادي
-          rtl: true,
-          direction: "rtl",
-          alignment: "right",
-        };
-      })
+      [...tr.cells].map((td) => ({
+        text: fixArabic(td.textContent.trim()),
+        rtl: true,
+        direction: "rtl",
+        alignment: "right",
+      })).reverse()
     );
 
     const docDefinition = {
@@ -91,17 +97,23 @@ function MonthlyReports() {
         fontSize: 11,
         alignment: "right",
         direction: "rtl",
-      }, 
+}, 
+
       styles: {
         header: {
-          font: "Cairo",
-          fontSize: 16,
-          bold: true,
-          margin: [0, 0, 0, 10],
-        },
-      },
+        font: "Cairo",
+        fontSize: 16,
+        bold: true,
+        margin: [0, 0, 0, 10],
+  },
+},
+
       pageMargins: [30, 30, 30, 30],
     };
+    console.log("vfs keys:", Object.keys(pdfMake.vfs));            // لازم تشوفي ["Cairo-Regular.ttf"]
+    console.log("fonts:", pdfMake.fonts);                          // لازم فيه Cairo
+    console.log("Cairo length:", pdfMake.vfs["Cairo-Regular.ttf"]?.length); // رقم كبير
+
 
     pdfMake.createPdf(docDefinition).download(fileName);
   }
@@ -164,6 +176,7 @@ function MonthlyReports() {
           row.insertCell().textContent = record.visits_pct;
         });
 
+        // ✅ ربط السورت بعد بناء الجدول
         const header = document.getElementById("visitsHeader");
         if (header) header.onclick = sortByVisits;
 
@@ -231,6 +244,7 @@ function MonthlyReports() {
     }
   }
 
+  // ✅ دالة السورت مع toggle
   function sortByVisits() {
     const tableBody = document.getElementById("reportTableBody");
     const rows = Array.from(tableBody.querySelectorAll("tr"));
