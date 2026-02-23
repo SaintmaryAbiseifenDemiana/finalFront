@@ -37,7 +37,12 @@ function MonthlyReports() {
   function fixArabic(text) {
     return text.split(" ").reverse().join(" ").replace(/ +/g, " ");
   }
+  function fixArabicSpacing(text) {
+  if (!text) return text;
 
+  // نحول كل المسافات لمسافة غير قابلة للكسر
+  return text.replace(/ /g, "\u00A0");
+}
   function filterUsers() {
     const input = document.getElementById("userSearch").value.toLowerCase();
     const rows = document.querySelectorAll("#reportTableBody tr");
@@ -62,7 +67,7 @@ function MonthlyReports() {
 
     const rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) =>
       [...tr.cells].map((td) => ({
-        text: fixArabic(td.textContent.trim()),
+        text: fixArabicSpacing(td.textContent.trim()),
         rtl: true,
         direction: "rtl",
         alignment: "right",
