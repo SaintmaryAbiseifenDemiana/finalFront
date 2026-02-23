@@ -35,7 +35,9 @@ function MonthlyReports() {
   }, []);
 
   
-
+  function fixArabic(text) {
+  return text.split(" ").reverse().join(" ").replace(/ +/g, " ");
+}
   function filterUsers() {
     const input = document.getElementById("userSearch").value.toLowerCase();
     const rows = document.querySelectorAll("#reportTableBody tr");
@@ -62,7 +64,6 @@ function MonthlyReports() {
       [...tr.cells].map((td) => ({
         text: td.textContent.trim(),
         rtl: true,
-        direction: "rtl",
         alignment: "right",
       })).reverse()
     );
@@ -74,7 +75,7 @@ function MonthlyReports() {
           style: "header",
           alignment: "right",
           rtl: true,
-          direction: "rtl",
+          
         },
         {
           table: {
