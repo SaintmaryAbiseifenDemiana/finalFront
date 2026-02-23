@@ -1,8 +1,3 @@
-بقولك ايه ليه هنا 
-
-ببص لما بيجيي بيطبع 
-بيطبع كداا  دميانةفؤاد مش دميانة فؤاد ... مش بيسيب مسافة 
-
 import React, { useEffect } from "react";
 import * as XLSX from "xlsx";
 import pdfMake from "pdfmake/build/pdfmake";
