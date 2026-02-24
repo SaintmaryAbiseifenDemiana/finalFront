@@ -85,12 +85,16 @@ function MonthlyReports() {
     );
 
 
-  // نفس ترتيب الأعمدة تماماً
+  // نفس ترتيب الأعمدة بالظبط
   const columnWidths = [25, "*", "*", "*", "*", "*", "*"];
 
 
   const docDefinition = {
+
+    // ⭐ يخلي الصفحة نفسها عربي وتبدأ من اليمين
     pageDirection: "rtl",
+
+    pageMargins: [10, 25, 10, 25],
 
     content: [
       {
@@ -98,7 +102,9 @@ function MonthlyReports() {
         style: "header",
         alignment: "right"
       },
+
       {
+        alignment: "right", // يخلي الجدول ماسك يمين الصفحة
         table: {
           headerRows: 1,
           widths: columnWidths,
@@ -110,7 +116,8 @@ function MonthlyReports() {
 
     defaultStyle: {
       font: "Cairo",
-      fontSize: 11
+      fontSize: 11,
+      alignment: "right"
     },
 
     styles: {
@@ -120,9 +127,7 @@ function MonthlyReports() {
         bold: true,
         margin: [0, 0, 0, 10],
       }
-    },
-
-    pageMargins: [20, 30, 20, 30] // صغرنا الهوامش عشان الجدول يظهر كامل
+    }
   };
 
   pdfMake.createPdf(docDefinition).download(fileName);
