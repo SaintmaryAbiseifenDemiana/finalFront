@@ -61,60 +61,42 @@ function MonthlyReports() {
   function exportTableToPdf(title, fileName) {
 
   // ===== HEADERS =====
-  const ths = [...document.querySelectorAll(".report-table thead th")];
-
-  // م + اسم الخادم ثابتين
-  const firstTwoHeaders = ths.slice(0, 2);
-
-  // باقي الأعمدة تتقلب فقط
-  const restHeaders = ths.slice(2).reverse();
-
-  const headers = [...firstTwoHeaders, ...restHeaders].map(th => ({
-    text: fixArabic(th.textContent.trim()),
-    rtl: true,
-    direction: "rtl",
-    alignment: "right",
-  }));
+  const headers = [...document.querySelectorAll(".report-table thead th")]
+    .map(th => ({
+      text: fixArabic(th.textContent.trim()),
+      alignment: "center",
+      direction: "rtl"
+    }));
 
 
   // ===== ROWS =====
-  const rows = [...document.querySelectorAll(".report-table tbody tr")].map(tr => {
+  const rows = [...document.querySelectorAll(".report-table tbody tr")]
+    .map(tr =>
+      [...tr.cells].map(td => {
+        const value = td.textContent.trim();
+        const isNumber = /^[0-9.]+$/.test(value);
 
-    const tds = [...tr.cells];
-
-    // م + اسم ثابتين
-    const firstTwo = tds.slice(0, 2);
-
-    // باقي الأعمدة تتقلب
-    const rest = tds.slice(2).reverse();
-
-    const finalCells = [...firstTwo, ...rest];
-
-    return finalCells.map(td => {
-      const value = td.textContent.trim();
-      const isNumber = /^[0-9.]+$/.test(value);
-
-      return {
-        text: isNumber ? value : fixArabicSpacing(value),
-        alignment: isNumber ? "center" : "right",
-        direction: isNumber ? "ltr" : "rtl"
-      };
-    });
-  });
+        return {
+          text: isNumber ? value : fixArabicSpacing(value),
+          alignment: isNumber ? "center" : "right",
+          direction: isNumber ? "ltr" : "rtl"
+        };
+      })
+    );
 
 
-  // ===== WIDTHS (بدون أي reverse) =====
+  // نفس ترتيب الأعمدة تماماً
   const columnWidths = [25, "*", "*", "*", "*", "*", "*"];
 
 
   const docDefinition = {
+    pageDirection: "rtl",
+
     content: [
       {
         text: fixArabic(title),
         style: "header",
-        alignment: "right",
-        rtl: true,
-        direction: "rtl",
+        alignment: "right"
       },
       {
         table: {
@@ -122,14 +104,13 @@ function MonthlyReports() {
           widths: columnWidths,
           body: [headers, ...rows],
         },
-        layout: "lightHorizontalLines",
-      },
+        layout: "lightHorizontalLines"
+      }
     ],
+
     defaultStyle: {
       font: "Cairo",
-      fontSize: 11,
-      alignment: "right",
-      direction: "rtl",
+      fontSize: 11
     },
 
     styles: {
@@ -138,10 +119,10 @@ function MonthlyReports() {
         fontSize: 16,
         bold: true,
         margin: [0, 0, 0, 10],
-      },
+      }
     },
 
-    pageMargins: [30, 30, 30, 30],
+    pageMargins: [20, 30, 20, 30] // صغرنا الهوامش عشان الجدول يظهر كامل
   };
 
   pdfMake.createPdf(docDefinition).download(fileName);
