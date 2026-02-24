@@ -135,7 +135,16 @@ function MonthlyReports() {
     }
   };
 
-  pdfMake.createPdf(docDefinition).download(fileName);
+// نجيب اسم الأسرة من الـ select
+const familySelect = document.getElementById("family_select");
+const familyName = familySelect ? familySelect.options[familySelect.selectedIndex].text : "كل_الأسر";
+
+// نكوّن اسم الملف
+const dynamicFileName = `${familyName.replace(/\s+/g, "_")}_report.pdf`;
+
+// ننزل الملف بالاسم الجديد
+pdfMake.createPdf(docDefinition).download(dynamicFileName);
+
 }
   async function loadFamilies() {
     try {
