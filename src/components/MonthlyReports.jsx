@@ -102,11 +102,17 @@ let rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) => 
 
   return cells;
 });
-    const columnWidths = [25, "*", "*", "*", "*", "*", "*"]; 
-// 25px لعمود م
+// نفس عدد الأعمدة
+let columnWidths = [25, "*", "*", "*", "*", "*", "*"];
 
-// وبعد reverse الأعمدة لازم نعكسهم زيه
-columnWidths.reverse();
+// شيل عرض عمود الترقيم
+const numberWidth = columnWidths.shift();
+
+// اقلب الباقي
+columnWidths = columnWidths.reverse();
+
+// رجعه يمين (جنب اسم الخادم)
+columnWidths.push(numberWidth);
     const docDefinition = {
       content: [
         {
