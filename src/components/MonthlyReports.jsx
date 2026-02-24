@@ -277,80 +277,78 @@ columnWidths.reverse();
     tableBody.innerHTML = "";
     sorted.forEach(row => tableBody.appendChild(row));
   }
+return (
+  <div className="container">
+    <h1>النسبة الشهرية للخدام</h1>
+    <a href="/AdminDashboard" className="btn btn-secondary">العودة للوحة الإدارة</a>
+    <hr />
 
-  return (
-    <div className="container">
-      <h1>النسبة الشهرية للخدام</h1>
-      <a href="/AdminDashboard" className="btn btn-secondary">العودة للوحة الإدارة</a>
-      <hr />
+    <div className="report-controls">
+      <label>اختر الشهر:</label>
+      <select id="month_select">
+        <option value="">-- اختار الشهر --</option>
+        <option value="10">أكتوبر</option>
+        <option value="11">نوفمبر</option>
+        <option value="12">ديسمبر</option>
+        <option value="1">يناير</option>
+        <option value="2">فبراير</option>
+        <option value="3">مارس</option>
+        <option value="4">أبريل</option>
+        <option value="5">مايو</option>
+        <option value="6">يونيو</option>
+        <option value="7">يوليو</option>
+        <option value="8">أغسطس</option>
+        <option value="9">سبتمبر</option>
+      </select>
 
-      <div className="report-controls">
-        <label>اختر الشهر:</label>
-        <select id="month_select">
-          <option value="">-- اختار الشهر --</option>
-          <option value="10">أكتوبر</option>
-          <option value="11">نوفمبر</option>
-          <option value="12">ديسمبر</option>
-          <option value="1">يناير</option>
-          <option value="2">فبراير</option>
-          <option value="3">مارس</option>
-          <option value="4">أبريل</option>
-          <option value="5">مايو</option>
-          <option value="6">يونيو</option>
-          <option value="7">يوليو</option>
-          <option value="8">أغسطس</option>
-          <option value="9">سبتمبر</option>
-        </select>
-
-        <label>اختر الأسرة:</label>
-        <select id="family_select">
-          <option value="">-- كل الأسر --</option>
-        </select>
-
-        <button id="loadReportBtn">عرض التقرير</button>
-
-        <label>اختر الربع السنوي:</label>
-        <select id="quarter_select">
-          <option value="">-- اختار الربع --</option>
-          <option value="TEMP">النسبة المؤقتة (أكتوبر 2025 – فبراير 2026)</option>
-          <option value="Q1">الربع الأول (أكتوبر–ديسمبر 2025)</option>
-          <option value="Q2">الربع الثاني (يناير–مارس 2026)</option>
-          <option value="Q3">الربع الثالث (أبريل–يونيو 2026)</option>
-          <option value="Q4">الربع الرابع (يوليو–سبتمبر 2026)</option>
-        </select>
-
-        <button id="calcQuarterBtn">عرض النسبة السنوية</button>
-      </div>
-
-      <div className="search-box">
-        <label>🔍 بحث عن خادم:</label>
-        <input type="text" id="userSearch" placeholder="اكتب اسم خادم..." />
-      </div>
-
-      <div className="table-responsive">
-        <table className="report-table">
-          <thead>
-            <tr>
-              <th>م</th>
-              <th>اسم الخادم</th>
-              <th>حضر الاجتماع</th>
-              <th>حضر الدرس</th>
-              <th>اتناول</th>
-              <th>اعترف</th>
-              <th id="visitsHeader">افتقاد <span id="visitsArrow"></span></th>
-
-            </tr>
-          </thead>
-          <tbody id="reportTableBody"></tbody>
-        </table>
-      </div>
-
-      <p id="resultMessage" style={{ marginTop: "15px", fontWeight: "bold" }}></p>
-
-      <button id="exportMonthlyExcel">📊 طباعه (Excel)</button>
-      <button id="exportMonthlyPDF">📄 طباعه (PDF)</button>
+      <label>اختر الأسرة:</label>
+      <select id="family_select">
+        <option value="">-- كل الأسر --</option>
+      </select>
     </div>
-  );
+
+    {/* ✅ أيقونات بدل الأزرار */}
+    <div className="admin-apps">
+      <a href="#" id="loadReportBtn" className="app-icon">
+        <div>📅</div>
+        <span>النسبة الشهرية</span>
+      </a>
+
+      <a href="#" id="calcQuarterBtn" className="app-icon">
+        <div>📈</div>
+        <span>النسبة السنوية</span>
+      </a>
+    </div>
+
+    <div className="search-box">
+      <label>🔍 بحث عن خادم:</label>
+      <input type="text" id="userSearch" placeholder="اكتب اسم خادم..." />
+    </div>
+
+    <div className="table-responsive">
+      <table className="report-table">
+        <thead>
+          <tr>
+            <th>م</th>
+            <th>اسم الخادم</th>
+            <th>حضر الاجتماع</th>
+            <th>حضر الدرس</th>
+            <th>اتناول</th>
+            <th>اعترف</th>
+            <th id="visitsHeader">افتقاد <span id="visitsArrow"></span></th>
+          </tr>
+        </thead>
+        <tbody id="reportTableBody"></tbody>
+      </table>
+    </div>
+
+    <p id="resultMessage" style={{ marginTop: "15px", fontWeight: "bold" }}></p>
+
+    <button id="exportMonthlyExcel">📊 طباعه (Excel)</button>
+    <button id="exportMonthlyPDF">📄 طباعه (PDF)</button>
+  </div>
+);
+
 }
 
 export default MonthlyReports;
