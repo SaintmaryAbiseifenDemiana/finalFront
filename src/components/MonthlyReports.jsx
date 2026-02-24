@@ -59,103 +59,93 @@ function MonthlyReports() {
   }
 
   function exportTableToPdf(title, fileName) {
-    // ===== headers =====
-let headers = [...document.querySelectorAll(".report-table thead th")]
-  .map((th) => ({
+
+  // ===== HEADERS =====
+  const ths = [...document.querySelectorAll(".report-table thead th")];
+
+  // م + اسم الخادم ثابتين
+  const firstTwoHeaders = ths.slice(0, 2);
+
+  // باقي الأعمدة تتقلب فقط
+  const restHeaders = ths.slice(2).reverse();
+
+  const headers = [...firstTwoHeaders, ...restHeaders].map(th => ({
     text: fixArabic(th.textContent.trim()),
     rtl: true,
     direction: "rtl",
     alignment: "right",
   }));
 
-// شيل عمود م
-const numberHeader = headers.shift();
 
-// اقلب الباقي
-headers = headers.reverse();
+  // ===== ROWS =====
+  const rows = [...document.querySelectorAll(".report-table tbody tr")].map(tr => {
 
-// رجع م اول عمود
-headers.unshift(numberHeader);
+    const tds = [...tr.cells];
 
+    // م + اسم ثابتين
+    const firstTwo = tds.slice(0, 2);
 
-// ===== rows =====
-let rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) => {
-  let cells = [...tr.cells].map((td) => {
-    const value = td.textContent.trim();
-    const isNumber = /^[0-9.]+$/.test(value);
+    // باقي الأعمدة تتقلب
+    const rest = tds.slice(2).reverse();
 
-    return {
-      text: isNumber ? value : fixArabicSpacing(value),
-      alignment: isNumber ? "center" : "right",
-      direction: isNumber ? "ltr" : "rtl",
-    };
+    const finalCells = [...firstTwo, ...rest];
+
+    return finalCells.map(td => {
+      const value = td.textContent.trim();
+      const isNumber = /^[0-9.]+$/.test(value);
+
+      return {
+        text: isNumber ? value : fixArabicSpacing(value),
+        alignment: isNumber ? "center" : "right",
+        direction: isNumber ? "ltr" : "rtl"
+      };
+    });
   });
 
-  // شيل رقم الصف
-  const numberCell = cells.shift();
 
-  // اقلب الباقي
-  cells = cells.reverse();
+  // ===== WIDTHS (بدون أي reverse) =====
+  const columnWidths = [25, "*", "*", "*", "*", "*", "*"];
 
-  // رجعه تاني اول عمود
-  cells.unshift(numberCell);
 
-  return cells;
-});
-// نفس عدد الأعمدة
-let columnWidths = [25, "*", "*", "*", "*", "*", "*"];
-
-// شيل عرض عمود الترقيم
-const numberWidth = columnWidths.shift();
-
-// اقلب الباقي
-columnWidths = columnWidths.reverse();
-
-// رجعه يمين (جنب اسم الخادم)
-columnWidths.push(numberWidth);
-    const docDefinition = {
-      content: [
-        {
-          text: fixArabic(title),
-          style: "header",
-          alignment: "right",
-          rtl: true,
-          direction: "rtl",
-        },
-        {
-          table: {
-            headerRows: 1,
-            widths: columnWidths,
-            body: [headers, ...rows],
-          },
-          layout: "lightHorizontalLines",
-        },
-      ],
-      defaultStyle: {
-        font: "Cairo",
-        fontSize: 11,
+  const docDefinition = {
+    content: [
+      {
+        text: fixArabic(title),
+        style: "header",
         alignment: "right",
+        rtl: true,
         direction: "rtl",
-}, 
+      },
+      {
+        table: {
+          headerRows: 1,
+          widths: columnWidths,
+          body: [headers, ...rows],
+        },
+        layout: "lightHorizontalLines",
+      },
+    ],
+    defaultStyle: {
+      font: "Cairo",
+      fontSize: 11,
+      alignment: "right",
+      direction: "rtl",
+    },
 
-      styles: {
-        header: {
+    styles: {
+      header: {
         font: "Cairo",
         fontSize: 16,
         bold: true,
         margin: [0, 0, 0, 10],
-  },
-},
+      },
+    },
 
-      pageMargins: [30, 30, 30, 30],
-    };
-    console.log("vfs keys:", Object.keys(pdfMake.vfs));            // لازم تشوفي ["Cairo-Regular.ttf"]
-    console.log("fonts:", pdfMake.fonts);                          // لازم فيه Cairo
-    console.log("Cairo length:", pdfMake.vfs["Cairo-Regular.ttf"]?.length); // رقم كبير
+    pageMargins: [30, 30, 30, 30],
+  };
 
-
-    pdfMake.createPdf(docDefinition).download(fileName);
-  }
+  pdfMake.createPdf(docDefinition).download(fileName);
+}
   async function loadFamilies() {
     try {
       const response = await fetch(`${API_BASE}/api/families`);
