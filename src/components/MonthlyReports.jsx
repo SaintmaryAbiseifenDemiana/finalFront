@@ -61,16 +61,15 @@ function MonthlyReports() {
   function exportTableToPdf(title, fileName) {
 
   // ===== HEADERS =====
-  const headers = [...document.querySelectorAll(".report-table thead th")]
+  let headers = [...document.querySelectorAll(".report-table thead th")]
     .map(th => ({
       text: fixArabic(th.textContent.trim()),
       alignment: "center",
-      direction: "rtl"
     }));
 
 
   // ===== ROWS =====
-  const rows = [...document.querySelectorAll(".report-table tbody tr")]
+  let rows = [...document.querySelectorAll(".report-table tbody tr")]
     .map(tr =>
       [...tr.cells].map(td => {
         const value = td.textContent.trim();
@@ -79,21 +78,24 @@ function MonthlyReports() {
         return {
           text: isNumber ? value : fixArabicSpacing(value),
           alignment: isNumber ? "center" : "right",
-          direction: isNumber ? "ltr" : "rtl"
-        };
+      };
       })
     );
 
 
-  // نفس ترتيب الأعمدة بالظبط
-  const columnWidths = [25, "*", "*", "*", "*", "*", "*"];
+  // ⭐⭐ الحل الحقيقي للـ RTL ⭐⭐
+  // نقلب الأعمدة فعلياً
+  headers = headers.reverse();
+  rows = rows.map(r => r.reverse());
+
+
+  // نفس عدد الأعمدة بس بالعكس
+  const columnWidths = [25, "*", "*", "*", "*", "*", "*"].reverse();
 
 
   const docDefinition = {
 
-    // ⭐ يخلي الصفحة نفسها عربي وتبدأ من اليمين
-    pageDirection: "rtl",
-
+    // نخلي الصفحة طبيعية
     pageMargins: [10, 25, 10, 25],
 
     content: [
@@ -104,13 +106,16 @@ function MonthlyReports() {
       },
 
       {
-        alignment: "right", // يخلي الجدول ماسك يمين الصفحة
+        alignment: "right",
         table: {
           headerRows: 1,
           widths: columnWidths,
           body: [headers, ...rows],
         },
-        layout: "lightHorizontalLines"
+        layout: {
+          paddingRight: () => 6,
+          paddingLeft: () => 6
+        }
       }
     ],
 
