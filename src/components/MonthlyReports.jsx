@@ -59,30 +59,49 @@ function MonthlyReports() {
   }
 
   function exportTableToPdf(title, fileName) {
-    const headers = [...document.querySelectorAll(".report-table thead th")]
-      .map((th) => ({
-        text: fixArabic(th.textContent.trim()),
-        rtl: true,
-        direction: "rtl",
-        alignment: "right",
-      }))
-      .reverse();
+    // ===== headers =====
+let headers = [...document.querySelectorAll(".report-table thead th")]
+  .map((th) => ({
+    text: fixArabic(th.textContent.trim()),
+    rtl: true,
+    direction: "rtl",
+    alignment: "right",
+  }));
 
-    const rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) =>
-  [...tr.cells]
-    .map((td, index) => {
+// شيل عمود م
+const numberHeader = headers.shift();
 
-      const value = td.textContent.trim();
-      const isNumber = /^[0-9.]+$/.test(value);
+// اقلب الباقي
+headers = headers.reverse();
 
-      return {
-        text: isNumber ? value : fixArabicSpacing(value),
-        alignment: isNumber ? "center" : "right",
-        direction: isNumber ? "ltr" : "rtl"
-      };
-    })
-    .reverse() // ⭐ اهم سطر
-);
+// رجع م اول عمود
+headers.unshift(numberHeader);
+
+
+// ===== rows =====
+let rows = [...document.querySelectorAll(".report-table tbody tr")].map((tr) => {
+  let cells = [...tr.cells].map((td) => {
+    const value = td.textContent.trim();
+    const isNumber = /^[0-9.]+$/.test(value);
+
+    return {
+      text: isNumber ? value : fixArabicSpacing(value),
+      alignment: isNumber ? "center" : "right",
+      direction: isNumber ? "ltr" : "rtl",
+    };
+  });
+
+  // شيل رقم الصف
+  const numberCell = cells.shift();
+
+  // اقلب الباقي
+  cells = cells.reverse();
+
+  // رجعه تاني اول عمود
+  cells.unshift(numberCell);
+
+  return cells;
+});
     const columnWidths = [25, "*", "*", "*", "*", "*", "*"]; 
 // 25px لعمود م
 
