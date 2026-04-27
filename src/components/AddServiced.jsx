@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
+import "../styles.css";
+import { API_BASE } from "../config";
 
 function AddServiced() {
   const [servicedName, setServicedName] = useState("");
