@@ -3,85 +3,103 @@ import "../styles.css";
 import { API_BASE } from "../config";
 
 function AddServiced() {
-  const [servicedName, setServicedName] = useState("");
-  const [servants, setServants] = useState([]);
-  const [selectedServant, setSelectedServant] = useState("");
-  const [message, setMessage] = useState("");
-
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const familyId = user.family_id;   // ✅ أسرة الأمين
-  const classId = user.class_id;     // ✅ الفصل الخاص بالأمين
-
-  // ✅ تحميل قائمة الخدام من الـ API
   useEffect(() => {
-    fetch("/api/servants")
-      .then(res => {
-        if (!res.ok) throw new Error("Network response was not ok");
-        return res.json();
-      })
-      .then(data => {
-        console.log("✅ Servants data:", data);
-        // backend بيرجع { success: true, servants: [...] }
-        setServants(data.servants || []);
-      })
-      .catch(err => console.error("Error loading servants:", err));
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const familyId = user.family_id;
+    const classId = user.class_id;
+
+    const form = document.getElementById("addServicedForm");
+    const servantSelect = document.getElementById("servant_select");
+    const message = document.getElementById("result-message");
+
+    // ✅ تحميل قائمة الخدام
+    async function loadServants() {
+      try {
+        const res = await fetch(`${API_BASE}/api/servants`);
+        const data = await res.json();
+
+        servantSelect.innerHTML = '<option value="">-- اختر الخادم --</option>';
+
+        if (data.success && Array.isArray(data.servants)) {
+          data.servants.forEach((s) => {
+            const option = document.createElement("option");
+            option.value = s.user_id;
+            option.textContent = s.username; // ✅ backend بيرجع username
+            servantSelect.appendChild(option);
+          });
+        } else {
+          message.style.color = "red";
+          message.textContent = "❌ فشل تحميل الخدام.";
+        }
+      } catch (err) {
+        console.error("Error loading servants:", err);
+        message.style.color = "red";
+        message.textContent = "❌ خطأ في الاتصال بالسيرفر.";
+      }
+    }
+
+    // ✅ إضافة مخدوم
+    async function addServiced(e) {
+      e.preventDefault();
+
+      const servicedName = document.getElementById("serviced_name").value;
+      const servantId = servantSelect.value;
+
+      if (!servicedName || !servantId) {
+        message.style.color = "red";
+        message.textContent = "❌ لازم تدخل اسم المخدوم وتختار الخادم.";
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/api/serviced/ameen`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            serviced_name: servicedName,
+            family_id: familyId,
+            class_id: classId,
+            servant_user_id: servantId,
+            user, // ✅ لازم نبعت بيانات الأمين علشان الباك إند يتحقق
+          }),
+        });
+
+        const data = await res.json();
+        message.style.color = data.success ? "green" : "red";
+        message.textContent = data.message;
+      } catch (err) {
+        console.error("Error adding serviced:", err);
+        message.style.color = "red";
+        message.textContent = "❌ خطأ في الاتصال بالسيرفر.";
+      }
+    }
+
+    // ✅ تحميل الخدام عند فتح الصفحة
+    loadServants();
+
+    // ✅ ربط الفورم
+    form.addEventListener("submit", addServiced);
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const body = {
-      serviced_name: servicedName,
-      family_id: familyId,
-      class_id: classId,
-      servant_user_id: selectedServant,
-      user // ✅ لازم نبعت بيانات الأمين علشان الـ backend يتحقق
-    };
-
-    const res = await fetch("/api/serviced/ameen", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    });
-
-    const data = await res.json();
-    setMessage(data.message);
-  };
-
   return (
-    <div className="form-container">
-      <h2>➕ إضافة مخدوم</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="container">
+      <h1>➕ إضافة مخدوم</h1>
+      <a href="/AmeenDashboard" className="btn btn-secondary">العودة للوحة الأمين</a>
+      <hr />
+
+      <form id="addServicedForm">
         <label>اسم المخدوم:</label>
-        <input
-          type="text"
-          value={servicedName}
-          onChange={(e) => setServicedName(e.target.value)}
-          required
-        />
+        <input type="text" id="serviced_name" required />
 
         <label>اختر الخادم:</label>
-        <select
-          value={selectedServant}
-          onChange={(e) => setSelectedServant(e.target.value)}
-          required
-        >
+        <select id="servant_select" required>
           <option value="">-- اختر الخادم --</option>
-          {servants.map((s) => (
-            <option key={s.user_id} value={s.user_id}>
-              {s.username} {/* ✅ backend بيرجع username مش full_name */}
-            </option>
-          ))}
         </select>
 
-        <button type="submit">إضافة</button>
+        <button type="submit" style={{ marginTop: "20px" }}>إضافة</button>
       </form>
 
-      {message && (
-        <p style={{ marginTop: "15px", color: "#fff" }}>
-          {message}
-        </p>
-      )}
+      <p id="result-message" style={{ marginTop: "15px", fontWeight: "bold" }}></p>
 
       <p style={{ marginTop: "20px", fontSize: "14px", color: "#ffcc00" }}>
         ⚠️ ملحوظة: إضافة مخدوم للبرنامج لا تعني أنه أُضيف للقوائم الرسمية،
