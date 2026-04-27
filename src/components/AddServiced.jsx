@@ -19,7 +19,8 @@ function AddServiced() {
       })
       .then(data => {
         console.log("✅ Servants data:", data);
-        setServants(data.servants || []); // نقرأ المفتاح الصحيح
+        // backend بيرجع { success: true, servants: [...] }
+        setServants(data.servants || []);
       })
       .catch(err => console.error("Error loading servants:", err));
   }, []);
@@ -66,7 +67,7 @@ function AddServiced() {
           <option value="">-- اختر الخادم --</option>
           {servants.map((s) => (
             <option key={s.user_id} value={s.user_id}>
-              {s.username} {/* ✅ backend بيرجع username */}
+              {s.username} {/* ✅ backend بيرجع username مش full_name */}
             </option>
           ))}
         </select>
