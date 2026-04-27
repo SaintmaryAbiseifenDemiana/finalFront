@@ -5,13 +5,14 @@ import { API_BASE } from "../config";
 function AddServiced() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const familyId = user.family_id;
-  const classId = user.class_id; // ⚠️ لو مش موجود في localStorage هيبقى undefined
 
   useEffect(() => {
     const form = document.getElementById("addServicedForm");
     const servantSelect = document.getElementById("servant_select");
+    const classSelect = document.getElementById("class_select");
     const message = document.getElementById("result-message");
 
+    // ✅ تحميل قائمة الخدام
     async function loadServants() {
       try {
         const res = await fetch(`${API_BASE}/api/servants/by-family/${familyId}`);
@@ -26,26 +27,48 @@ function AddServiced() {
             option.textContent = s.username;
             servantSelect.appendChild(option);
           });
-        } else {
-          message.style.color = "red";
-          message.textContent = "❌ فشل تحميل الخدام.";
         }
       } catch (err) {
         console.error("Error loading servants:", err);
         message.style.color = "red";
-        message.textContent = "❌ خطأ في الاتصال بالسيرفر.";
+        message.textContent = "❌ خطأ في تحميل الخدام.";
       }
     }
 
+    // ✅ تحميل قائمة الفصول
+    async function loadClasses() {
+      try {
+        const res = await fetch(`${API_BASE}/api/classes?family_id=${familyId}`);
+        const data = await res.json();
+
+        classSelect.innerHTML = '<option value="">-- اختر الفصل --</option>';
+
+        if (data.success && Array.isArray(data.classes)) {
+          data.classes.forEach((c) => {
+            const option = document.createElement("option");
+            option.value = c.class_id;
+            option.textContent = c.class_name;
+            classSelect.appendChild(option);
+          });
+        }
+      } catch (err) {
+        console.error("Error loading classes:", err);
+        message.style.color = "red";
+        message.textContent = "❌ خطأ في تحميل الفصول.";
+      }
+    }
+
+    // ✅ إضافة مخدوم
     async function addServiced(e) {
       e.preventDefault();
 
       const servicedName = document.getElementById("serviced_name").value;
       const servantId = servantSelect.value;
+      const classId = classSelect.value;
 
-      if (!servicedName || !servantId || !familyId || !classId) {
+      if (!servicedName || !servantId || !classId) {
         message.style.color = "red";
-        message.textContent = "❌ كل البيانات مطلوبة (اسم، أسرة، فصل، خادم).";
+        message.textContent = "❌ كل البيانات مطلوبة (اسم، خادم، فصل).";
         return;
       }
 
@@ -77,8 +100,9 @@ function AddServiced() {
     }
 
     loadServants();
+    loadClasses();
     form.addEventListener("submit", addServiced);
-  }, [familyId, classId, user]);
+  }, [familyId, user]);
 
   return (
     <div className="container">
@@ -93,6 +117,11 @@ function AddServiced() {
         <label>اختر الخادم:</label>
         <select id="servant_select" required>
           <option value="">-- اختر الخادم --</option>
+        </select>
+
+        <label>اختر الفصل:</label>
+        <select id="class_select" required>
+          <option value="">-- اختر الفصل --</option>
         </select>
 
         <button type="submit" style={{ marginTop: "20px" }}>إضافة</button>
