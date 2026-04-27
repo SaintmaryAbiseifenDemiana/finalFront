@@ -61,7 +61,11 @@ function AddServiced() {
             family_id: familyId,
             class_id: classId,
             servant_user_id: servantId,
-            user, // ✅ دلوقتي متعرف صح فوق
+            user: {
+              role: user.role,          // ✅ الدور لازم يتبعت
+              family_id: user.family_id, // ✅ الأسرة لازم تتبعت
+              user_id: user.user_id      // مش ضروري لكن مفيد
+            }
           }),
         });
 
