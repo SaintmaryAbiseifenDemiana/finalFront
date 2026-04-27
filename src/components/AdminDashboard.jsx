@@ -62,10 +62,7 @@ function AdminDashboard() {
            <div>📝</div>
            <span>متابعة السكرتارية</span> </a>
           
-          <a href="/AddServiced" className="app-icon">
-           <div>➕</div>
-           <span>إضافة مخدوم</span>
-            </a>
+        
         </div>
 
         
