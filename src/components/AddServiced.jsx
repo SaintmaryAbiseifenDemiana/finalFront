@@ -12,7 +12,7 @@ function AddServiced() {
 
   // ✅ تحميل قائمة الخدام من الـ API
   useEffect(() => {
-    fetch("/api/servants")
+    fetch("/api/users/servants")
       .then(res => res.json())
       .then(data => setServants(data))
       .catch(err => console.error("Error loading servants:", err));
