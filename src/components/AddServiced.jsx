@@ -19,7 +19,7 @@ function AddServiced() {
       })
       .then(data => {
         console.log("✅ Servants data:", data);
-        setServants(data.servants || []); // نقرأ المفتاح الصحيح من الـ JSON
+        setServants(data.servants || []); // نقرأ المفتاح الصحيح
       })
       .catch(err => console.error("Error loading servants:", err));
   }, []);
@@ -29,10 +29,10 @@ function AddServiced() {
 
     const body = {
       serviced_name: servicedName,
-      family_id: familyId,        // ✅ الأمين لا يقدر يغيرها
-      class_id: classId,          // ✅ الفصل مربوط تلقائيًا
+      family_id: familyId,
+      class_id: classId,
       servant_user_id: selectedServant,
-      user                       // ✅ لازم نبعت بيانات الأمين علشان الـ backend يتحقق
+      user // ✅ لازم نبعت بيانات الأمين علشان الـ backend يتحقق
     };
 
     const res = await fetch("/api/serviced/ameen", {
@@ -66,7 +66,7 @@ function AddServiced() {
           <option value="">-- اختر الخادم --</option>
           {servants.map((s) => (
             <option key={s.user_id} value={s.user_id}>
-              {s.username} {/* ✅ backend بيرجع username مش full_name */}
+              {s.username} {/* ✅ backend بيرجع username */}
             </option>
           ))}
         </select>
