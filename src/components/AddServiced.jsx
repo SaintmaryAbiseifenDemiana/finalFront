@@ -3,7 +3,7 @@ import "../styles.css";
 import { API_BASE } from "../config";
 
 function AddServiced() {
-  // ✅ عرفنا user فوق علشان يبقى متاح في كل الفانكشنز
+  // ✅ جلب بيانات الأمين من localStorage
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const familyId = user.family_id;
   const classId = user.class_id;
@@ -64,7 +64,7 @@ function AddServiced() {
             user: {
               role: user.role,          // ✅ الدور لازم يتبعت
               family_id: user.family_id, // ✅ الأسرة لازم تتبعت
-              user_id: user.user_id      // مش ضروري لكن مفيد
+              user_id: user.user_id      // مفيد للتحقق
             }
           }),
         });
