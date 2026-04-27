@@ -3,17 +3,15 @@ import "../styles.css";
 import { API_BASE } from "../config";
 
 function AddServiced() {
-  // ✅ جلب بيانات الأمين من localStorage
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const familyId = user.family_id;
-  const classId = user.class_id;
+  const classId = user.class_id; // ⚠️ لو مش موجود في localStorage هيبقى undefined
 
   useEffect(() => {
     const form = document.getElementById("addServicedForm");
     const servantSelect = document.getElementById("servant_select");
     const message = document.getElementById("result-message");
 
-    // ✅ تحميل قائمة الخدام (خدام الأسرة فقط)
     async function loadServants() {
       try {
         const res = await fetch(`${API_BASE}/api/servants/by-family/${familyId}`);
@@ -25,7 +23,7 @@ function AddServiced() {
           data.servants.forEach((s) => {
             const option = document.createElement("option");
             option.value = s.user_id;
-            option.textContent = s.username; // ✅ backend بيرجع username
+            option.textContent = s.username;
             servantSelect.appendChild(option);
           });
         } else {
@@ -39,16 +37,15 @@ function AddServiced() {
       }
     }
 
-    // ✅ إضافة مخدوم
     async function addServiced(e) {
       e.preventDefault();
 
       const servicedName = document.getElementById("serviced_name").value;
       const servantId = servantSelect.value;
 
-      if (!servicedName || !servantId) {
+      if (!servicedName || !servantId || !familyId || !classId) {
         message.style.color = "red";
-        message.textContent = "❌ لازم تدخل اسم المخدوم وتختار الخادم.";
+        message.textContent = "❌ كل البيانات مطلوبة (اسم، أسرة، فصل، خادم).";
         return;
       }
 
@@ -62,9 +59,9 @@ function AddServiced() {
             class_id: classId,
             servant_user_id: servantId,
             user: {
-              role: user.role,          // ✅ الدور لازم يتبعت
-              family_id: user.family_id, // ✅ الأسرة لازم تتبعت
-              user_id: user.user_id      // مفيد للتحقق
+              role: user.role,
+              family_id: user.family_id,
+              user_id: user.user_id
             }
           }),
         });
@@ -79,10 +76,7 @@ function AddServiced() {
       }
     }
 
-    // ✅ تحميل الخدام عند فتح الصفحة
     loadServants();
-
-    // ✅ ربط الفورم
     form.addEventListener("submit", addServiced);
   }, [familyId, classId, user]);
 
