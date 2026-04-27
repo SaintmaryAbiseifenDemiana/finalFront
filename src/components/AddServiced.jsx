@@ -3,41 +3,41 @@ import "../styles.css";
 import { API_BASE } from "../config";
 
 function AddServiced() {
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    const familyId = user.family_id;
-    const classId = user.class_id;
+  // ✅ عرفنا user فوق علشان يبقى متاح في كل الفانكشنز
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const familyId = user.family_id;
+  const classId = user.class_id;
 
+  useEffect(() => {
     const form = document.getElementById("addServicedForm");
     const servantSelect = document.getElementById("servant_select");
     const message = document.getElementById("result-message");
 
-   // ✅ تحميل قائمة الخدام
-async function loadServants() {
-  try {
-    const res = await fetch(`${API_BASE}/api/servants/by-family/${familyId}`);
-    const data = await res.json();
+    // ✅ تحميل قائمة الخدام (خدام الأسرة فقط)
+    async function loadServants() {
+      try {
+        const res = await fetch(`${API_BASE}/api/servants/by-family/${familyId}`);
+        const data = await res.json();
 
-    servantSelect.innerHTML = '<option value="">-- اختر الخادم --</option>';
+        servantSelect.innerHTML = '<option value="">-- اختر الخادم --</option>';
 
-    if (data.success && Array.isArray(data.servants)) {
-      data.servants.forEach((s) => {
-        const option = document.createElement("option");
-        option.value = s.user_id;
-        option.textContent = s.username; // ✅ backend بيرجع username
-        servantSelect.appendChild(option);
-      });
-    } else {
-      message.style.color = "red";
-      message.textContent = "❌ فشل تحميل الخدام.";
+        if (data.success && Array.isArray(data.servants)) {
+          data.servants.forEach((s) => {
+            const option = document.createElement("option");
+            option.value = s.user_id;
+            option.textContent = s.username; // ✅ backend بيرجع username
+            servantSelect.appendChild(option);
+          });
+        } else {
+          message.style.color = "red";
+          message.textContent = "❌ فشل تحميل الخدام.";
+        }
+      } catch (err) {
+        console.error("Error loading servants:", err);
+        message.style.color = "red";
+        message.textContent = "❌ خطأ في الاتصال بالسيرفر.";
+      }
     }
-  } catch (err) {
-    console.error("Error loading servants:", err);
-    message.style.color = "red";
-    message.textContent = "❌ خطأ في الاتصال بالسيرفر.";
-  }
-}
-
 
     // ✅ إضافة مخدوم
     async function addServiced(e) {
@@ -61,7 +61,7 @@ async function loadServants() {
             family_id: familyId,
             class_id: classId,
             servant_user_id: servantId,
-            user, // ✅ لازم نبعت بيانات الأمين علشان الباك إند يتحقق
+            user, // ✅ دلوقتي متعرف صح فوق
           }),
         });
 
@@ -80,7 +80,7 @@ async function loadServants() {
 
     // ✅ ربط الفورم
     form.addEventListener("submit", addServiced);
-  }, []);
+  }, [familyId, classId, user]);
 
   return (
     <div className="container">
