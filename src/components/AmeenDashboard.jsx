@@ -77,7 +77,18 @@ function AmeenDashboard() {
     <span>متابعة غياب الفصول</span>
   </a>
 )}
-
+{/* ✅ إضافة مخدوم */}
+  {role === "ameensekra" ? (
+    <a href={`/AddServiced?family_id=${familyId}`} className="app-icon">
+      <div>➕</div>
+      <span>إضافة مخدوم</span>
+    </a>
+  ) : (
+    <a href="/AddServiced" className="app-icon">
+      <div>➕</div>
+      <span>إضافة مخدوم</span>
+    </a>
+  )}
       </div>
 
       <button onClick={handleLogout} className="logout-btn">
