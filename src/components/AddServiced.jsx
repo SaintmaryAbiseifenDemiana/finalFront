@@ -12,31 +12,32 @@ function AddServiced() {
     const servantSelect = document.getElementById("servant_select");
     const message = document.getElementById("result-message");
 
-    // ✅ تحميل قائمة الخدام
-    async function loadServants() {
-      try {
-        const res = await fetch(`${API_BASE}/api/servants`);
-        const data = await res.json();
+   // ✅ تحميل قائمة الخدام
+async function loadServants() {
+  try {
+    const res = await fetch(`${API_BASE}/api/servants/by-family/${familyId}`);
+    const data = await res.json();
 
-        servantSelect.innerHTML = '<option value="">-- اختر الخادم --</option>';
+    servantSelect.innerHTML = '<option value="">-- اختر الخادم --</option>';
 
-        if (data.success && Array.isArray(data.servants)) {
-          data.servants.forEach((s) => {
-            const option = document.createElement("option");
-            option.value = s.user_id;
-            option.textContent = s.username; // ✅ backend بيرجع username
-            servantSelect.appendChild(option);
-          });
-        } else {
-          message.style.color = "red";
-          message.textContent = "❌ فشل تحميل الخدام.";
-        }
-      } catch (err) {
-        console.error("Error loading servants:", err);
-        message.style.color = "red";
-        message.textContent = "❌ خطأ في الاتصال بالسيرفر.";
-      }
+    if (data.success && Array.isArray(data.servants)) {
+      data.servants.forEach((s) => {
+        const option = document.createElement("option");
+        option.value = s.user_id;
+        option.textContent = s.username; // ✅ backend بيرجع username
+        servantSelect.appendChild(option);
+      });
+    } else {
+      message.style.color = "red";
+      message.textContent = "❌ فشل تحميل الخدام.";
     }
+  } catch (err) {
+    console.error("Error loading servants:", err);
+    message.style.color = "red";
+    message.textContent = "❌ خطأ في الاتصال بالسيرفر.";
+  }
+}
+
 
     // ✅ إضافة مخدوم
     async function addServiced(e) {
