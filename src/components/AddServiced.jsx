@@ -11,12 +11,13 @@ function AddServiced() {
   const classId = user.class_id;     // ✅ الفصل الخاص بالأمين
 
   // ✅ تحميل قائمة الخدام من الـ API
-  useEffect(() => {
-    fetch("/api/users/servants")
-      .then(res => res.json())
-      .then(data => setServants(data))
-      .catch(err => console.error("Error loading servants:", err));
-  }, []);
+ useEffect(() => {
+  fetch("/api/servants")   // ✅ ده بيرجع كل الخدام من servants.js
+    .then(res => res.json())
+    .then(data => setServants(data.servants)) // لاحظي إن الـ JSON بيرجع { servants: [...] }
+    .catch(err => console.error("Error loading servants:", err));
+}, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
