@@ -11,13 +11,18 @@ function AddServiced() {
   const classId = user.class_id;     // ✅ الفصل الخاص بالأمين
 
   // ✅ تحميل قائمة الخدام من الـ API
- useEffect(() => {
-  fetch("/api/servants")   // ✅ ده بيرجع كل الخدام من servants.js
-    .then(res => res.json())
-    .then(data => setServants(data.servants)) // لاحظي إن الـ JSON بيرجع { servants: [...] }
-    .catch(err => console.error("Error loading servants:", err));
-}, []);
-
+  useEffect(() => {
+    fetch("/api/servants")
+      .then(res => {
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
+      })
+      .then(data => {
+        console.log("✅ Servants data:", data);
+        setServants(data.servants || []); // نقرأ المفتاح الصحيح من الـ JSON
+      })
+      .catch(err => console.error("Error loading servants:", err));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +31,8 @@ function AddServiced() {
       serviced_name: servicedName,
       family_id: familyId,        // ✅ الأمين لا يقدر يغيرها
       class_id: classId,          // ✅ الفصل مربوط تلقائيًا
-      servant_user_id: selectedServant
+      servant_user_id: selectedServant,
+      user                       // ✅ لازم نبعت بيانات الأمين علشان الـ backend يتحقق
     };
 
     const res = await fetch("/api/serviced/ameen", {
@@ -60,7 +66,7 @@ function AddServiced() {
           <option value="">-- اختر الخادم --</option>
           {servants.map((s) => (
             <option key={s.user_id} value={s.user_id}>
-              {s.full_name}
+              {s.username} {/* ✅ backend بيرجع username مش full_name */}
             </option>
           ))}
         </select>
