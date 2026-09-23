@@ -80,9 +80,8 @@ function AmeenDashboard() {
 {/* ✅ النسبة الشهرية */}
 <a
   href="/AmeenMonthlyReports"
-  className="app-icon"
->
-  <div>📊</a>
+  className>النسبة الشهرية</span>
+</a>
 
 {/* ✅ إضافة مخدوم */}
   {role === "ameensekra" ? (
