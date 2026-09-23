@@ -82,7 +82,7 @@ function AmeenDashboard() {
   href="/AmeenMonthlyReports"
   className="app-icon"
 >
-  <div>📊</div>
+  <div>📊</a>
 
 {/* ✅ إضافة مخدوم */}
   {role === "ameensekra" ? (
