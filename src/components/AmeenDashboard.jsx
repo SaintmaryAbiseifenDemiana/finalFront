@@ -77,12 +77,13 @@ function AmeenDashboard() {
     <span>متابعة غياب الفصول</span>
   </a>
 )}
-{/* ✅ النسبة الشهرية */}
-<a
-  href="/AmeenMonthlyReports"
-  className>النسبة الشهرية</span>
-</a>
 
+
+{/* ✅ النسبة الشهرية */}
+/AmeenMonthlyReports
+  <div>📊</div>
+  <span>النسبة الشهرية</span>
+</a>
 {/* ✅ إضافة مخدوم */}
   {role === "ameensekra" ? (
     <a href={`/AddServiced?family_id=${familyId}`} className="app-icon">
