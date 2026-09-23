@@ -79,8 +79,7 @@ function AmeenDashboard() {
 )}
 
 
-{/* ✅ النسبة الشهرية */}
-/AmeenMonthlyReports
+<a href="/AmeenMonthlyReports" className="app-icon">
   <div>📊</div>
   <span>النسبة الشهرية</span>
 </a>
