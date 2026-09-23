@@ -18,7 +18,7 @@ import NavigationControl from "./components/NavigationControl";
 import FollowClassesAbsence from "./components/FollowClassesAbsence";
 import AdminSecretaryFollowup from "./components/AdminSecretaryFollowup";
 import AddServiced from "./components/AddServiced";
-import AddServiced from "./components/AmeenMonthlyReports";
+import AmeenMonthlyReports from "./components/AmeenMonthlyReports";
 import "./styles.css";
 
 function App() {
