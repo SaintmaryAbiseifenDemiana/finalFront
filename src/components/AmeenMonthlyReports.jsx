@@ -286,7 +286,7 @@ function exportTableToPdf(title, fileName) {
   return (
     <div className="container">
       <h1>النسبة الشهرية للخدام</h1>
-      <a href="/AdminDashboard" className="btn btn-secondary">العودة للوحة الإدارة</a>
+      <a href="/AmeenDashboard" className="btn btn-secondary">العودة للوحة الإدارة</a>
       <hr />
 
       <div className="report-controls">
