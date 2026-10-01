@@ -73,7 +73,7 @@ function MonthlyAttendance() {
       if (!monthValue) return;
 
       const monthIndex = parseInt(monthValue) - 1;
-      let year = ["10", "11", "12"].includes(monthValue) ? 2025 : 2026;
+      let year = ["10", "11", "12"].includes(monthValue) ? 2026 : 2027;
       let date = new Date(year, monthIndex, 1);
 
       while (date.getDay() !== 5) date.setDate(date.getDate() + 1);
