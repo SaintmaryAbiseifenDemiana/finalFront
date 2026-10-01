@@ -62,7 +62,7 @@ function RecordAttendance() {
       if (!monthValue) return;
 
       const monthIndex = parseInt(monthValue, 10) - 1;
-      const year = ["10", "11", "12"].includes(monthValue) ? 2025 : 2026;
+      const year = ["10", "11", "12"].includes(monthValue) ? 2026 : 2027;
 
       let date = new Date(year, monthIndex, 1);
 

@@ -314,7 +314,7 @@ function exportTableToPdf(title, fileName) {
         <label>اختر الربع السنوي:</label>
         <select id="quarter_select">
           <option value="">-- اختار الربع --</option>
-          <option value="TEMP">النسبة المؤقتة (أكتوبر 2025 – فبراير 2026)</option>
+         
           <option value="Q1">الربع الأول (أكتوبر–ديسمبر 2025)</option>
           <option value="Q2">الربع الثاني (يناير–مارس 2026)</option>
           <option value="Q3">الربع الثالث (أبريل–يونيو 2026)</option>
