@@ -12,7 +12,7 @@ function FollowClassesAbsence() {
   const familyId = user.family_id;
 
   function getFridaysForMonth(month) {
-  const year = ["10", "11", "12"].includes(month) ? 2025 : 2026;
+  const year = ["10", "11", "12"].includes(month) ? 2026 : 2027;
   const fridays = [];
 
   // نبدأ من أول يوم في الشهر باستخدام UTC
